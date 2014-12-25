@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class App extends Application implements
         Thread.UncaughtExceptionHandler {
-    public final static String TAG = App.class.getSimpleName();
+    public final static String TAG = App.class.getName();
     static public Properties properties;
     private AssetsPropertyReader assetsPropertyReader;
 
