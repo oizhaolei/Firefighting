@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Firefighting</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">消防维保管理系统</string>
+    <string name="title_activity_actionbar">维保任务一览</string>
     <string name="action_settings">Settings</string>
-    <string name="tab_stream">Stream</string>
-    <string name="tab_messages">Messages</string>
-    <string name="tab_notifications">Notifications</string>
-    <string name="tab_photos">Photos</string>
+    <string name="tab_stream">待处理一览</string>
+    <string name="tab_messages">待审核一览</string>
 
 </resources>
