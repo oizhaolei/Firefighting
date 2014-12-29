@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ruptech.firefighting.fragment;
+package com.ruptech.firefighting.main;
 
 import android.content.Context;
 import android.os.Bundle;

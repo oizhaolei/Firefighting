@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package com.ruptech.firefighting.fragment;
+package com.ruptech.firefighting.main;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.ruptech.firefighting.detail.DetailActivity;
 import com.ruptech.firefighting.dummydata.Cheeses;
 
 import java.util.List;
@@ -31,7 +34,7 @@ import java.util.List;
  * A sample which shows how to use {@link android.support.v4.widget.SwipeRefreshLayout} within a
  * {@link android.support.v4.app.ListFragment} to add the 'swipe-to-refresh' gesture to a
  * {@link android.widget.ListView}. This is provided through the provided re-usable
- * {@link com.ruptech.firefighting.fragment.SwipeRefreshListFragment} class.
+ * {@link SwipeRefreshListFragment} class.
  * <p/>
  * <p>To provide an accessible way to trigger the refresh, this app also provides a refresh
  * action item. This item should be displayed in the Action Bar's overflow item.
@@ -42,14 +45,14 @@ import java.util.List;
  * {@link android.support.v4.widget.SwipeRefreshLayout} through the options menu. This is meant to
  * showcase the use of color rather than being something that should be integrated into apps.
  */
-public class UncheckFragment extends SwipeRefreshListFragment {
+public class TodoFragment extends SwipeRefreshListFragment {
 
-    private static final String LOG_TAG = UncheckFragment.class.getSimpleName();
+    private static final String LOG_TAG = TodoFragment.class.getSimpleName();
 
     private static final int LIST_ITEM_COUNT = 20;
 
-    public static UncheckFragment newInstance() {
-        UncheckFragment fragment = new UncheckFragment();
+    public static TodoFragment newInstance() {
+        TodoFragment fragment = new TodoFragment();
         return fragment;
     }
 
@@ -98,6 +101,15 @@ public class UncheckFragment extends SwipeRefreshListFragment {
         // END_INCLUDE (setup_refreshlistener)
     }
     // END_INCLUDE (setup_views)
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        String item = (String) getListAdapter().getItem(position);
+        // In single-pane mode, simply start the detail activity
+        // for the selected item ID.
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.ARG_ITEM_ID, id);
+        detailIntent.putExtra(DetailActivity.ARG_ITEM_STR, item);
+        startActivity(detailIntent);
+    }
 
 
     // BEGIN_INCLUDE (initiate_refresh)

@@ -14,12 +14,14 @@
 * limitations under the License.
 */
 
-package com.ruptech.firefighting;
+package com.ruptech.firefighting.main;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+
+import com.ruptech.firefighting.R;
 
 /**
  * A simple launcher activity containing a summary sample description, sample log and a custom
@@ -32,9 +34,6 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = "MainActivity";
 
-    // Whether the Log Fragment is currently shown
-    private boolean mLogShown;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            SlidingTabsFragment fragment = new SlidingTabsFragment();
+            MainTabsFragment fragment = new MainTabsFragment();
             transaction.replace(R.id.activity_main_content_fragment, fragment);
             transaction.commit();
         }
@@ -53,6 +52,4 @@ public class MainActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
 }

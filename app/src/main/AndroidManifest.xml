@@ -17,24 +17,24 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_actionbar"
-            android:windowSoftInputMode="adjustResize|stateVisible">
-        <intent-filter>
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/title_activity_actionbar" />
         <activity
-            android:name=".ItemDetailActivity"
+            android:name=".detail.DetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity">
+            android:parentActivityName=".main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ruptech.firefighting.ItemListActivity" />
+                android:value=".main.MainActivity" />
         </activity>
     </application>
 

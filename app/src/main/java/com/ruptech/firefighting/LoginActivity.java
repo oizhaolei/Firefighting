@@ -16,6 +16,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ruptech.firefighting.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,14 +89,24 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 //attemptLogin();
+                Intent detailIntent = new Intent(LoginActivity.this, DetailActivity.class);
+                detailIntent.putExtra(DetailActivity.ARG_ITEM_STR, "LoginActivity");
+                startActivity(detailIntent);
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
 
             }
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
 
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ruptech.firefighting;
+package com.ruptech.firefighting.detail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,9 +24,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.ruptech.firefighting.fragment.TodoFragment;
-import com.ruptech.firefighting.fragment.UncheckFragment;
+import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.main.MainTabsFragment;
 import com.ruptech.firefighting.view.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -36,9 +37,10 @@ import java.util.List;
  * to display a custom {@link android.support.v4.view.ViewPager} title strip which gives continuous feedback to the user
  * when scrolling.
  */
-public class SlidingTabsFragment extends Fragment {
+public class DetailTabsFragment extends Fragment {
 
-    static final String LOG_TAG = "SlidingTabsColorsFragment";
+
+    static final String LOG_TAG = DetailTabsFragment.class.getName();
     /**
      * A custom {@link android.support.v4.view.ViewPager} title strip which looks much like Tabs present in Android v4.0 and
      * above, but is designed to give continuous feedback to the user when scrolling.
@@ -49,7 +51,7 @@ public class SlidingTabsFragment extends Fragment {
      */
     private ViewPager mViewPager;
     /**
-     * List of {@link SlidingTabsFragment.PagerItem} which represent this sample's tabs.
+     * List of {@link MainTabsFragment.PagerItem} which represent this sample's tabs.
      */
     private List<PagerItem> mTabs = new ArrayList<PagerItem>();
 
@@ -57,28 +59,34 @@ public class SlidingTabsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // BEGIN_INCLUDE (populate_tabs)
         /**
          * Populate our tab list with tabs. Each item contains a title, indicator color and divider
-         * color, which are used by {@link SlidingTabLayout}.
+         * color, which are used by {@link com.ruptech.firefighting.view.SlidingTabLayout}.
          */
         mTabs.add(new PagerItem(
-                getString(R.string.tab_stream)
+                getString(R.string.tab_title_detail_task)
         ) {
-            Fragment createFragment() {
-                return TodoFragment.newInstance(
+            public Fragment createFragment() {
+                return TaskFragment.newInstance(
                 );
             }
         });
 
         mTabs.add(new PagerItem(
-                getString(R.string.tab_messages) // Title
+                getString(R.string.tab_title_detail_worklog) // Title
         ) {
-            Fragment createFragment() {
-                return UncheckFragment.newInstance();
+            public Fragment createFragment() {
+                return WorklogFragment.newInstance();
             }
         });
 
+        mTabs.add(new PagerItem(
+                getString(R.string.tab_title_detail_item) // Title
+        ) {
+            public Fragment createFragment() {
+                return ItemFragment.newInstance();
+            }
+        });
         // END_INCLUDE (populate_tabs)
     }
 
@@ -97,7 +105,7 @@ public class SlidingTabsFragment extends Fragment {
      * Here we can pick out the {@link android.view.View}s we need to configure from the content view.
      * <p/>
      * We set the {@link android.support.v4.view.ViewPager}'s adapter to be an instance of
-     * {@link com.ruptech.firefighting.SlidingTabsFragment.MainFragmentPagerAdapter}. The {@link SlidingTabLayout} is then given the
+     * {@link MainTabsFragment.MainFragmentPagerAdapter}. The {@link SlidingTabLayout} is then given the
      * {@link android.support.v4.view.ViewPager} so that it can populate itself.
      *
      * @param view View created in {@link #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}
@@ -107,7 +115,7 @@ public class SlidingTabsFragment extends Fragment {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new MainFragmentPagerAdapter(getChildFragmentManager()));
+        mViewPager.setAdapter(new DetailFragmentPagerAdapter(getChildFragmentManager()));
         // END_INCLUDE (setup_viewpager)
 
         // BEGIN_INCLUDE (setup_slidingtablayout)
@@ -147,16 +155,16 @@ public class SlidingTabsFragment extends Fragment {
     }
     // END_INCLUDE (fragment_onviewcreated)
 
-    class MainFragmentPagerAdapter extends FragmentPagerAdapter {
+    class DetailFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        MainFragmentPagerAdapter(FragmentManager fm) {
+        DetailFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         /**
          * Return the {@link android.support.v4.app.Fragment} to be displayed at {@code position}.
          * <p/>
-         * Here we return the value returned from {@link SlidingTabsFragment.PagerItem#createFragment()}.
+         * Here we return the value returned from {@link MainTabsFragment.PagerItem#createFragment()}.
          */
         @Override
         public Fragment getItem(int i) {
@@ -165,6 +173,7 @@ public class SlidingTabsFragment extends Fragment {
 
         @Override
         public int getCount() {
+            Toast.makeText(getActivity(), "" + mTabs.size(), Toast.LENGTH_SHORT).show();
             return mTabs.size();
         }
 
@@ -174,7 +183,7 @@ public class SlidingTabsFragment extends Fragment {
          * Return the title of the item at {@code position}. This is important as what this method
          * returns is what is displayed in the {@link SlidingTabLayout}.
          * <p/>
-         * Here we return the value returned from {@link SlidingTabsFragment.PagerItem#getTitle()}.
+         * Here we return the value returned from {@link DetailTabsFragment.PagerItem#getTitle()}.
          */
         @Override
         public CharSequence getPageTitle(int position) {

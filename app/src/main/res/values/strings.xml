@@ -2,11 +2,15 @@
 <resources>
 
     <string name="app_name">Firefighting</string>
+    <string name="title_activity_login">Login</string>
     <string name="title_activity_actionbar">Tasks</string>
+    <string name="action_save">Save</string>
     <string name="action_settings">Settings</string>
-    <string name="tab_stream">Todo</string>
-    <string name="tab_messages">Unchecked</string>
-    <string name="title_item_list">Items</string>
+    <string name="tab_title_todo">Todo</string>
+    <string name="tab_title_unchecked">Unchecked</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="tab_title_detail_task">Task</string>
+    <string name="tab_title_detail_worklog">Worklog</string>
+    <string name="tab_title_detail_item">item</string>
 
 </resources>
