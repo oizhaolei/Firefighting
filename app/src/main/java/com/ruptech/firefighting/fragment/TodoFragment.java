@@ -16,13 +16,17 @@
 
 package com.ruptech.firefighting.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.ruptech.firefighting.ItemDetailActivity;
+import com.ruptech.firefighting.ItemDetailFragment;
 import com.ruptech.firefighting.dummydata.Cheeses;
 
 import java.util.List;
@@ -98,6 +102,15 @@ public class TodoFragment extends SwipeRefreshListFragment {
         // END_INCLUDE (setup_refreshlistener)
     }
     // END_INCLUDE (setup_views)
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        String item = (String) getListAdapter().getItem(position);
+        // In single-pane mode, simply start the detail activity
+        // for the selected item ID.
+        Intent detailIntent = new Intent(getActivity(), ItemDetailActivity.class);
+        detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
+        detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_STR, item);
+        startActivity(detailIntent);
+    }
 
 
     // BEGIN_INCLUDE (initiate_refresh)

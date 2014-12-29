@@ -42,8 +42,8 @@ public class MainActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            SlidingTabsColorsFragment fragment = new SlidingTabsColorsFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
+            SlidingTabsFragment fragment = new SlidingTabsFragment();
+            transaction.replace(R.id.activity_main_content_fragment, fragment);
             transaction.commit();
         }
     }

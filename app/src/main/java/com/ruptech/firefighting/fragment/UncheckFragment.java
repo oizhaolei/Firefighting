@@ -42,14 +42,14 @@ import java.util.List;
  * {@link android.support.v4.widget.SwipeRefreshLayout} through the options menu. This is meant to
  * showcase the use of color rather than being something that should be integrated into apps.
  */
-public class ToCheckFragment extends SwipeRefreshListFragment {
+public class UncheckFragment extends SwipeRefreshListFragment {
 
-    private static final String LOG_TAG = ToCheckFragment.class.getSimpleName();
+    private static final String LOG_TAG = UncheckFragment.class.getSimpleName();
 
     private static final int LIST_ITEM_COUNT = 20;
 
-    public static ToCheckFragment newInstance() {
-        ToCheckFragment fragment = new ToCheckFragment();
+    public static UncheckFragment newInstance() {
+        UncheckFragment fragment = new UncheckFragment();
         return fragment;
     }
 

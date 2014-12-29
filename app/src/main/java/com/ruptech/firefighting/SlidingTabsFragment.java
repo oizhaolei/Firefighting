@@ -25,8 +25,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ruptech.firefighting.fragment.ToCheckFragment;
 import com.ruptech.firefighting.fragment.TodoFragment;
+import com.ruptech.firefighting.fragment.UncheckFragment;
 import com.ruptech.firefighting.view.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.List;
  * to display a custom {@link android.support.v4.view.ViewPager} title strip which gives continuous feedback to the user
  * when scrolling.
  */
-public class SlidingTabsColorsFragment extends Fragment {
+public class SlidingTabsFragment extends Fragment {
 
     static final String LOG_TAG = "SlidingTabsColorsFragment";
     /**
@@ -49,7 +49,7 @@ public class SlidingTabsColorsFragment extends Fragment {
      */
     private ViewPager mViewPager;
     /**
-     * List of {@link com.ruptech.firefighting.SlidingTabsColorsFragment.PagerItem} which represent this sample's tabs.
+     * List of {@link SlidingTabsFragment.PagerItem} which represent this sample's tabs.
      */
     private List<PagerItem> mTabs = new ArrayList<PagerItem>();
 
@@ -75,7 +75,7 @@ public class SlidingTabsColorsFragment extends Fragment {
                 getString(R.string.tab_messages) // Title
         ) {
             Fragment createFragment() {
-                return ToCheckFragment.newInstance();
+                return UncheckFragment.newInstance();
             }
         });
 
@@ -97,7 +97,7 @@ public class SlidingTabsColorsFragment extends Fragment {
      * Here we can pick out the {@link android.view.View}s we need to configure from the content view.
      * <p/>
      * We set the {@link android.support.v4.view.ViewPager}'s adapter to be an instance of
-     * {@link SampleFragmentPagerAdapter}. The {@link SlidingTabLayout} is then given the
+     * {@link com.ruptech.firefighting.SlidingTabsFragment.MainFragmentPagerAdapter}. The {@link SlidingTabLayout} is then given the
      * {@link android.support.v4.view.ViewPager} so that it can populate itself.
      *
      * @param view View created in {@link #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}
@@ -107,7 +107,7 @@ public class SlidingTabsColorsFragment extends Fragment {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new SampleFragmentPagerAdapter(getChildFragmentManager()));
+        mViewPager.setAdapter(new MainFragmentPagerAdapter(getChildFragmentManager()));
         // END_INCLUDE (setup_viewpager)
 
         // BEGIN_INCLUDE (setup_slidingtablayout)
@@ -147,16 +147,16 @@ public class SlidingTabsColorsFragment extends Fragment {
     }
     // END_INCLUDE (fragment_onviewcreated)
 
-    class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+    class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        SampleFragmentPagerAdapter(FragmentManager fm) {
+        MainFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         /**
          * Return the {@link android.support.v4.app.Fragment} to be displayed at {@code position}.
          * <p/>
-         * Here we return the value returned from {@link com.ruptech.firefighting.SlidingTabsColorsFragment.PagerItem#createFragment()}.
+         * Here we return the value returned from {@link SlidingTabsFragment.PagerItem#createFragment()}.
          */
         @Override
         public Fragment getItem(int i) {
@@ -174,7 +174,7 @@ public class SlidingTabsColorsFragment extends Fragment {
          * Return the title of the item at {@code position}. This is important as what this method
          * returns is what is displayed in the {@link SlidingTabLayout}.
          * <p/>
-         * Here we return the value returned from {@link com.ruptech.firefighting.SlidingTabsColorsFragment.PagerItem#getTitle()}.
+         * Here we return the value returned from {@link SlidingTabsFragment.PagerItem#getTitle()}.
          */
         @Override
         public CharSequence getPageTitle(int position) {

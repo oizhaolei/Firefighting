@@ -19,7 +19,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_actionbar"
             android:windowSoftInputMode="adjustResize|stateVisible">
-            <intent-filter>
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,6 +28,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_actionbar" />
+        <activity
+            android:name=".ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ItemListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ruptech.firefighting.ItemListActivity" />
+        </activity>
     </application>
 
 </manifest>
