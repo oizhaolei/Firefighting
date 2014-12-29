@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ruptech.firefighting.main;
+package com.ruptech.firefighting.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,7 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ruptech.firefighting.R;
-import com.ruptech.firefighting.view.SlidingTabLayout;
+import com.ruptech.firefighting.main.TodoFragment;
+import com.ruptech.firefighting.main.UncheckFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,10 @@ public class MainTabsFragment extends Fragment {
 
     static final String LOG_TAG = MainTabsFragment.class.getName();
     /**
+     * List of {@link MainTabsFragment.PagerItem} which represent this sample's tabs.
+     */
+    protected List<PagerItem> mTabs;
+    /**
      * A custom {@link android.support.v4.view.ViewPager} title strip which looks much like Tabs present in Android v4.0 and
      * above, but is designed to give continuous feedback to the user when scrolling.
      */
@@ -47,14 +52,17 @@ public class MainTabsFragment extends Fragment {
      * A {@link android.support.v4.view.ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
     private ViewPager mViewPager;
-    /**
-     * List of {@link MainTabsFragment.PagerItem} which represent this sample's tabs.
-     */
-    private List<PagerItem> mTabs = new ArrayList<PagerItem>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupTabs();
+
+
+    }
+
+    protected void setupTabs() {
+        mTabs = new ArrayList<PagerItem>();
 
         // BEGIN_INCLUDE (populate_tabs)
         /**
@@ -64,7 +72,7 @@ public class MainTabsFragment extends Fragment {
         mTabs.add(new PagerItem(
                 getString(R.string.tab_title_todo)
         ) {
-            Fragment createFragment() {
+            public Fragment createFragment() {
                 return TodoFragment.newInstance(
                 );
             }
@@ -73,7 +81,7 @@ public class MainTabsFragment extends Fragment {
         mTabs.add(new PagerItem(
                 getString(R.string.tab_title_unchecked) // Title
         ) {
-            Fragment createFragment() {
+            public Fragment createFragment() {
                 return UncheckFragment.newInstance();
             }
         });
@@ -124,23 +132,23 @@ public class MainTabsFragment extends Fragment {
      * This class represents a tab to be displayed by {@link android.support.v4.view.ViewPager} and it's associated
      * {@link SlidingTabLayout}.
      */
-    abstract class PagerItem {
+    public abstract class PagerItem {
         private final CharSequence mTitle;
 
-        PagerItem(CharSequence title) {
+        public PagerItem(CharSequence title) {
             mTitle = title;
         }
 
         /**
          * @return A new {@link android.support.v4.app.Fragment} to be displayed by a {@link android.support.v4.view.ViewPager}
          */
-        abstract Fragment createFragment();
+        public abstract Fragment createFragment();
 
         /**
          * @return the title which represents this tab. In this sample this is used directly by
          * {@link android.support.v4.view.PagerAdapter#getPageTitle(int)}
          */
-        CharSequence getTitle() {
+        public CharSequence getTitle() {
             return mTitle;
         }
     }

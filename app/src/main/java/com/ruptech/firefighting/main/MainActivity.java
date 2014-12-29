@@ -22,6 +22,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.view.MainTabsFragment;
 
 /**
  * A simple launcher activity containing a summary sample description, sample log and a custom

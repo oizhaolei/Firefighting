@@ -31,7 +31,7 @@ import java.util.List;
  * A sample which shows how to use {@link android.support.v4.widget.SwipeRefreshLayout} within a
  * {@link android.support.v4.app.ListFragment} to add the 'swipe-to-refresh' gesture to a
  * {@link android.widget.ListView}. This is provided through the provided re-usable
- * {@link com.ruptech.firefighting.main.SwipeRefreshListFragment} class.
+ * {@link SwipeRefreshListFragment} class.
  * <p/>
  * <p>To provide an accessible way to trigger the refresh, this app also provides a refresh
  * action item. This item should be displayed in the Action Bar's overflow item.

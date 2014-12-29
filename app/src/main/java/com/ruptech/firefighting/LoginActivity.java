@@ -27,7 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ruptech.firefighting.detail.DetailActivity;
+import com.ruptech.firefighting.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,12 +89,9 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 //attemptLogin();
-                Intent detailIntent = new Intent(LoginActivity.this, DetailActivity.class);
-                detailIntent.putExtra(DetailActivity.ARG_ITEM_STR, "LoginActivity");
-                startActivity(detailIntent);
 
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
 
             }
         });
