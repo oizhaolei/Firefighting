@@ -15,14 +15,13 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +33,14 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<Cursor> {
+    private static final String TAG = LoginActivity.class.getName();
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -84,18 +85,14 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //attemptLogin();
+    }
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+    @OnClick(R.id.email_sign_in_button)
+    public void doSign() {
+        //attemptLogin();
 
-            }
-        });
-
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -232,7 +229,9 @@ public class LoginActivity extends ActionBarActivity implements LoaderCallbacks<
         List<String> emails = new ArrayList<String>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+            String address = cursor.getString(ProfileQuery.ADDRESS);
+            Log.v(TAG, address);
+            emails.add(address);
             cursor.moveToNext();
         }
 

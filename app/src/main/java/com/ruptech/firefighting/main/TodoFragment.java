@@ -20,9 +20,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.ruptech.firefighting.detail.DetailActivity;
@@ -47,18 +47,18 @@ import java.util.List;
  */
 public class TodoFragment extends SwipeRefreshListFragment {
 
-    private static final String LOG_TAG = TodoFragment.class.getSimpleName();
+    public static final String TAG = TodoFragment.class.getSimpleName();
 
     private static final int LIST_ITEM_COUNT = 20;
 
     public static TodoFragment newInstance() {
-        TodoFragment fragment = new TodoFragment();
-        return fragment;
+        return new TodoFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate");
 
         // Notify the system to allow an options menu for this fragment.
         setHasOptionsMenu(true);
@@ -73,7 +73,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
          * Create an ArrayAdapter to contain the data for the ListView. Each item in the ListView
          * uses the system-defined simple_list_item_1 layout that contains one TextView.
          */
-        ListAdapter adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
@@ -100,6 +100,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
         });
         // END_INCLUDE (setup_refreshlistener)
     }
+
     // END_INCLUDE (setup_views)
     public void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) getListAdapter().getItem(position);

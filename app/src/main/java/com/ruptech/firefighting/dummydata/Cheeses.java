@@ -157,14 +157,6 @@ public class Cheeses {
             "Zamorano", "Zanetti Grana Padano", "Zanetti Parmigiano Reggiano"
     };
 
-    public static ArrayList<String> asList() {
-        ArrayList<String> items = new ArrayList<String>();
-        for (int i = 0, z = CHEESES.length; i < z; i++) {
-            items.add(CHEESES[i]);
-        }
-        return items;
-    }
-
     /**
      * Return a list of random cheeses.
      *
