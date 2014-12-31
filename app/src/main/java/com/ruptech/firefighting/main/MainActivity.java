@@ -16,12 +16,15 @@
 
 package com.ruptech.firefighting.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.SettingsActivity;
 import com.ruptech.firefighting.view.MainTabsFragment;
 
 /**
@@ -34,11 +37,22 @@ import com.ruptech.firefighting.view.MainTabsFragment;
 public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = "MainActivity";
+    public static MainActivity instance = null;
+
+    public static void close() {
+
+        if (instance != null) {
+            instance.finish();
+            instance = null;
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        instance = this;
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -52,5 +66,21 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                gotoSettingActivity();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void gotoSettingActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }

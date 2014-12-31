@@ -186,7 +186,6 @@ public class LoginActivity extends ActionBarActivity {
         }
     }
 
-
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.

@@ -2,7 +2,12 @@ package com.ruptech.firefighting.model;
 
 import org.json.JSONObject;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 2394068598151253815L;
+
     private long id;
     private String 编号;
     private String 用户名;

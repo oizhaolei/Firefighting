@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.ruptech.firefighting.http.HttpServer;
+import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.model.User;
 import com.ruptech.firefighting.utils.AssetsPropertyReader;
 import com.ruptech.firefighting.utils.PrefUtils;
@@ -59,6 +60,12 @@ public class App extends Application implements
             return;
         PrefUtils.writeUser(user);
         App.user = user;
+    }
+
+    public static void logout() {
+        Log.v(TAG, "logout.");
+        MainActivity.close();
+        App.saveUser(null);
     }
 
     @Override

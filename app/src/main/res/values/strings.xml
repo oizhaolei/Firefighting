@@ -12,5 +12,7 @@
     <string name="tab_title_detail_task">Task</string>
     <string name="tab_title_detail_worklog">Worklog</string>
     <string name="tab_title_detail_item">item</string>
+    <string name="logout">logout</string>
+    <string name="logout_summary">logout this account</string>
 
 </resources>

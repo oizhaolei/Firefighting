@@ -34,8 +34,7 @@ public class PrefUtils {
     }
 
     private static String getUserStr() {
-        String str = getmPref().getString(PREF_USERINFO, "");
-        return str;
+        return getmPref().getString(PREF_USERINFO, "");
     }
 
     public static User readUser() {

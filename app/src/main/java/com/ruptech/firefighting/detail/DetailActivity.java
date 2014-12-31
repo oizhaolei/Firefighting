@@ -36,4 +36,5 @@ public class DetailActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
         return true;
     }
+
 }
