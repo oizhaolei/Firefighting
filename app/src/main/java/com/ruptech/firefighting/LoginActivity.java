@@ -9,13 +9,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.model.User;
@@ -56,7 +56,7 @@ public class LoginActivity extends ActionBarActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
 
-        Toast.makeText(this, App.properties.getProperty("server.url"), Toast.LENGTH_SHORT).show();
+        Log.v(TAG, App.properties.getProperty("server.url"));
 
         if (App.readUser() != null) {
             gotoMainActivity();

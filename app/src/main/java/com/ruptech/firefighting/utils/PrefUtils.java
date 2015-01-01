@@ -17,12 +17,12 @@ import java.io.ObjectOutputStream;
 
 public class PrefUtils {
 
-    final public static String PREF_USERINFO = "USER_INFO";
+    final public static String PREF_USER = "USER_INFO";
     private static final String TAG = PrefUtils.class.getSimpleName();
     private static SharedPreferences mPref;
 
 
-    private static SharedPreferences getmPref() {
+    private static SharedPreferences getPref() {
         if (mPref == null) {
             mPref = PreferenceManager.getDefaultSharedPreferences(App.mContext);
         }
@@ -30,11 +30,11 @@ public class PrefUtils {
     }
 
     public static void removePrefUser() {
-        getmPref().edit().remove(PREF_USERINFO).commit();
+        getPref().edit().remove(PREF_USER).commit();
     }
 
     private static String getUserStr() {
-        return getmPref().getString(PREF_USERINFO, "");
+        return getPref().getString(PREF_USER, "");
     }
 
     public static User readUser() {
@@ -80,7 +80,7 @@ public class PrefUtils {
                 b64.close();
                 out.close();
                 String str = new String(out.toByteArray());
-                getmPref().edit().putString(PREF_USERINFO, str).commit();
+                getPref().edit().putString(PREF_USER, str).commit();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
 

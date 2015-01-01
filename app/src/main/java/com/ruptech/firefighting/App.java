@@ -25,7 +25,6 @@ public class App extends Application implements
     public static Context mContext;
     private static HttpServer httpServer;
     private static User user;
-    private AssetsPropertyReader assetsPropertyReader;
 
     public static int getAppVersionCode() {
         int verCode = 0;
@@ -56,8 +55,6 @@ public class App extends Application implements
     }
 
     public static void saveUser(User user) {
-        if (user == null)
-            return;
         PrefUtils.writeUser(user);
         App.user = user;
     }
@@ -83,7 +80,7 @@ public class App extends Application implements
 
         mContext = this.getApplicationContext();
 
-        assetsPropertyReader = new AssetsPropertyReader(this);
+        AssetsPropertyReader assetsPropertyReader = new AssetsPropertyReader(this);
         properties = assetsPropertyReader.getProperties("env.properties");
 
     }
