@@ -1,18 +1,3 @@
-/*
- * Copyright 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.ruptech.firefighting.detail;
 
@@ -27,23 +12,28 @@ import com.ruptech.firefighting.R;
 
 import java.util.Map;
 
-/**
- * A sample which shows how to use {@link android.support.v4.widget.SwipeRefreshLayout} within a
- * {@link android.support.v4.app.ListFragment} to add the 'swipe-to-refresh' gesture to a
- * {@link android.widget.ListView}. This is provided through the provided re-usable
- * {@link com.ruptech.firefighting.main.SwipeRefreshListFragment} class.
- * <p/>
- * <p>To provide an accessible way to trigger the refresh, this app also provides a refresh
- * action item. This item should be displayed in the Action Bar's overflow item.
- * <p/>
- * <p>In this sample app, the refresh updates the ListView with a random set of new items.
- * <p/>
- * <p>This sample also provides the functionality to change the colors displayed in the
- * {@link android.support.v4.widget.SwipeRefreshLayout} through the options menu. This is meant to
- * showcase the use of color rather than being something that should be integrated into apps.
- */
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+
 public class TaskFragment extends Fragment {
 
+    @InjectView(R.id.fragment_detail_task_name)
+    TextView nameTextView;
+    @InjectView(R.id.fragment_detail_task_company)
+    TextView companyTextView;
+    @InjectView(R.id.fragment_detail_task_manager)
+    TextView managerTextView;
+    @InjectView(R.id.fragment_detail_task_manager_tel)
+    TextView managerTelTextView;
+    @InjectView(R.id.fragment_detail_task_sender)
+    TextView senderTextView;
+    @InjectView(R.id.fragment_detail_task_send_date)
+    TextView sendDateTextView;
+    @InjectView(R.id.fragment_detail_task_status)
+    TextView statusTextView;
+
+    private Map<String, Object> task;
 
     public static TaskFragment newInstance(Map<String, Object> task) {
         TaskFragment fragment = new TaskFragment();
@@ -56,11 +46,23 @@ public class TaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_detail_task, container, false);
+        ButterKnife.inject(this, rootView);
 
-        // Show the dummy content as text in a TextView.
-        ((TextView) rootView.findViewById(R.id.item_detail)).setText("TaskFragment");
+        task = (Map<String, Object>) getArguments().get(DetailActivity.ARG_ITEM);
+        setupComponent();
 
         return rootView;
+    }
+
+    private void setupComponent() {
+        nameTextView.setText(task.get("标题").toString());
+        companyTextView.setText(task.get("单位ID").toString());
+        managerTextView.setText(task.get("单位联系人").toString());
+        managerTelTextView.setText(task.get("单位联系人电话").toString());
+        senderTextView.setText(task.get("派单人姓名").toString());
+        sendDateTextView.setText(task.get("派单时间").toString());
+        statusTextView.setText(task.get("任务状态").toString());
+
     }
 }
