@@ -57,8 +57,6 @@ public class MainTabsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupTabs();
-
-
     }
 
     protected void setupTabs() {

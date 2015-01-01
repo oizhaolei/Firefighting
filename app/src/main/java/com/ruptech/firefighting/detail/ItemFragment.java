@@ -25,6 +25,9 @@ import android.widget.TextView;
 
 import com.ruptech.firefighting.R;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * A sample which shows how to use {@link android.support.v4.widget.SwipeRefreshLayout} within a
  * {@link android.support.v4.app.ListFragment} to add the 'swipe-to-refresh' gesture to a
@@ -42,8 +45,11 @@ import com.ruptech.firefighting.R;
  */
 public class ItemFragment extends Fragment {
 
-    public static ItemFragment newInstance() {
+    public static ItemFragment newInstance(List<Map<String, Object>> task) {
         ItemFragment fragment = new ItemFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(DetailActivity.ARG_ITEM, (java.io.Serializable) task);
+        fragment.setArguments(args);
         return fragment;
     }
 

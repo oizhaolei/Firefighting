@@ -27,4 +27,13 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Assert.assertEquals(24, tasks.size());
         Assert.assertEquals(24, tasks.size());
     }
+
+    public void testGetTask() throws Exception {
+
+        Map<String, Object> task = App.getHttpServer().getTask("");
+        Assert.assertTrue(task.containsKey("task"));
+        Assert.assertTrue(task.containsKey("worklogs"));
+        Assert.assertTrue(task.containsKey("items"));
+        Assert.assertTrue(task.containsKey("wokers"));
+    }
 }

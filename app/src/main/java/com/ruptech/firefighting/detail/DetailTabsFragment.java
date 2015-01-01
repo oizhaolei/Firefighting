@@ -22,6 +22,8 @@ import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.view.MainTabsFragment;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * to display a custom {@link android.support.v4.view.ViewPager} title strip which gives continuous feedback to the user
@@ -33,6 +35,8 @@ public class DetailTabsFragment extends MainTabsFragment {
     static final String LOG_TAG = DetailTabsFragment.class.getName();
 
     protected void setupTabs() {
+        final Map<String, Object> task = (Map<String, Object>) getArguments().getSerializable(DetailActivity.ARG_ITEM);
+
         mTabs = new ArrayList<PagerItem>();
         /**
          * Populate our tab list with tabs. Each item contains a title, indicator color and divider
@@ -42,8 +46,8 @@ public class DetailTabsFragment extends MainTabsFragment {
                 getString(R.string.tab_title_detail_task)
         ) {
             public Fragment createFragment() {
-                return TaskFragment.newInstance(
-                );
+                Map<String, Object> basicTask = (Map<String, Object>) task.get("task");
+                return TaskFragment.newInstance(basicTask);
             }
         });
 
@@ -51,7 +55,8 @@ public class DetailTabsFragment extends MainTabsFragment {
                 getString(R.string.tab_title_detail_worklog) // Title
         ) {
             public Fragment createFragment() {
-                return WorklogFragment.newInstance();
+                List<Map<String, Object>> worklogs = (List<Map<String, Object>>) task.get("worklogs");
+                return WorklogFragment.newInstance(worklogs);
             }
         });
 
@@ -59,7 +64,8 @@ public class DetailTabsFragment extends MainTabsFragment {
                 getString(R.string.tab_title_detail_item) // Title
         ) {
             public Fragment createFragment() {
-                return ItemFragment.newInstance();
+                List<Map<String, Object>> items = (List<Map<String, Object>>) task.get("items");
+                return ItemFragment.newInstance(items);
             }
         });
         // END_INCLUDE (populate_tabs)

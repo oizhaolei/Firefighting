@@ -54,12 +54,11 @@ public class TodoFragment extends SwipeRefreshListFragment {
 
     // END_INCLUDE (setup_views)
     public void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
+        Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
         // In single-pane mode, simply start the detail activity
         // for the selected item ID.
         Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-        detailIntent.putExtra(DetailActivity.ARG_ITEM_ID, id);
-        detailIntent.putExtra(DetailActivity.ARG_ITEM_STR, item);
+        detailIntent.putExtra(DetailActivity.ARG_ITEM_ID, (String) item.get("编号"));
         startActivity(detailIntent);
     }
     // END_INCLUDE (initiate_refresh)
@@ -75,7 +74,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
         /**
          * Execute the background task, which uses {@link android.os.AsyncTask} to load the data.
          */
-        new TodoTaskBackgroundTask().execute();
+        new TodoTasksBackgroundTask().execute();
     }
 
     /**
@@ -95,7 +94,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
     /**
      * Dummy {@link android.os.AsyncTask} which simulates a long running task to fetch new cheeses.
      */
-    private class TodoTaskBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
+    private class TodoTasksBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
