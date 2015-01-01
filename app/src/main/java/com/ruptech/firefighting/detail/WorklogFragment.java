@@ -2,7 +2,9 @@ package com.ruptech.firefighting.detail;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
 
 import com.ruptech.firefighting.R;
@@ -29,7 +31,12 @@ public class WorklogFragment extends ListFragment {
         worklogs = (List<Map<String, Object>>) getArguments().get(DetailActivity.ARG_ITEM);
     }
 
-    // BEGIN_INCLUDE (setup_views)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_detail_worklogs, null);
+        return view;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
