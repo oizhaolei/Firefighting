@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Firefighting</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_actionbar">Tasks</string>
@@ -14,4 +15,6 @@
     <string name="logout">logout</string>
     <string name="logout_summary">logout this account</string>
     <string name="item_item_edit">修改</string>
+    <string name="title_activity_worklog">WorklogActivity</string>
+
 </resources>
