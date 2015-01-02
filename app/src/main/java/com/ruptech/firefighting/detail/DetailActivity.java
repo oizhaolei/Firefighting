@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
 
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
@@ -37,12 +36,6 @@ public class DetailActivity extends ActionBarActivity {
 
     private void initiateRefresh() {
         new TaskBackgroundTask().execute();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        return true;
     }
 
     private void onRefreshComplete(Map<String, Object> task) {

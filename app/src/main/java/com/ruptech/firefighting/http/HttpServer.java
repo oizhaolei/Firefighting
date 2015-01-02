@@ -13,7 +13,8 @@ import java.util.Map;
 
 public class HttpServer extends HttpConnection {
     private static final String API_TASK = "Task.aspx";
-    private static final String API_TODO_TASK_LIST = "TaskList_todo.aspx";
+    private static final String API_TODO_TASK_LIST = "TaskList.aspx?type=todo";
+    private static final String API_UNCHECK_TASK_LIST = "TaskList.aspx?type=uncheck";
     private final String TAG = HttpServer.class.getSimpleName();
     private String API_LOGIN = "user_login.php";
 
@@ -66,6 +67,33 @@ public class HttpServer extends HttpConnection {
         }
     }
 
+    public List<Map<String, Object>> getUncheckTaskList() throws Exception {
+
+        Response res = _get(API_UNCHECK_TASK_LIST, null);
+        JSONObject result = res.asJSONObject();
+
+        if (result.getBoolean("success")) {
+            JSONObject data = result.getJSONObject("data");
+            List<Map<String, Object>> tasks = new ArrayList<Map<String, Object>>();
+
+            JSONArray maintainsJson = data.getJSONArray("maintain");
+            for (int i = 0; i < maintainsJson.length(); i++) {
+                JSONObject jo = maintainsJson.getJSONObject(i);
+                tasks.add(jsonToMap(jo));
+            }
+
+            JSONArray check = data.getJSONArray("check");
+            for (int i = 0; i < check.length(); i++) {
+                JSONObject jo = check.getJSONObject(i);
+                tasks.add(jsonToMap(jo));
+            }
+
+            return tasks;
+        } else {
+            throw new RuntimeException(result.getString("message"));
+        }
+    }
+
     public Map<String, Object> getTask(String id) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         params.put("id", id);
@@ -88,7 +116,7 @@ public class HttpServer extends HttpConnection {
         if (API_LOGIN.equals(ifPage)) {
             String body = "{ \"success\": true, \"message\": \"\", \"data\": { \"编号\": \"1\", \"用户名\": \"admin\", \"密码\": \"111111\", \"中心编号\": \"35020301\", \"真实姓名\": \"admin\", \"性别\": \"男\", \"移动电话\": \"34\", \"固定电话\": \"34\", \"邮箱\": \"3434\", \"角色编号\": \"1\", \"人员类型\": \"1\", \"人员状态\": \"1\", \"IsDel\": \"False\" } }";
             response = new Response(body);
-        } else if (API_TODO_TASK_LIST.equals(ifPage)) {
+        } else if (API_TODO_TASK_LIST.equals(ifPage) || API_UNCHECK_TASK_LIST.equals(ifPage)) {
             String body = "{\n" +
                     "    \"success\": true,\n" +
                     "    \"message\": \"\",\n" +

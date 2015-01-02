@@ -97,7 +97,7 @@ public class UncheckFragment extends SwipeRefreshListFragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getTodoTaskList();
+                return App.getHttpServer().getUncheckTaskList();
             } catch (Exception e) {
                 return null;
             }
