@@ -43,6 +43,9 @@
         <activity
             android:name=".worklog.WorklogActivity"
             android:label="@string/title_activity_worklog"></activity>
+        <activity
+            android:name=".item.ItemActivity"
+            android:label="@string/title_activity_item"></activity>
     </application>
 
 </manifest>

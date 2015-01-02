@@ -1,14 +1,18 @@
 package com.ruptech.firefighting.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.item.ItemActivity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -46,5 +50,14 @@ public class ItemFragment extends ListFragment {
                 new int[]{R.id.item_item_no, R.id.item_item_company, R.id.item_item_name, R.id.item_item_status,
                         R.id.item_item_source, R.id.item_item_report_date, R.id.item_item_end_date});
         setListAdapter(adapter);
+    }
+
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
+        // In single-pane mode, simply start the detail activity
+        // for the selected item ID.
+        Intent intent = new Intent(getActivity(), ItemActivity.class);
+        intent.putExtra(ItemActivity.ARG_ITEM, (Serializable) item);
+        startActivity(intent);
     }
 }
