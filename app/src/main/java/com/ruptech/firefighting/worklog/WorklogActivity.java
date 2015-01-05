@@ -37,8 +37,12 @@ public class WorklogActivity extends ActionBarActivity {
         mMemoTextView.setText((String) worklog.get("维修工作描述"));
 
         List<Map<String, Object>> workhours = (List<Map<String, Object>>) worklog.get("workhours");
-        SimpleAdapter adapter = new SimpleAdapter(this, workhours, R.layout.item_workhour, new String[]{"维修人员姓名", "工时"}, new int[]{R.id.item_workhour_worker,
-                R.id.item_workhour_spend});
+        SimpleAdapter adapter = new SimpleAdapter(this, workhours, R.layout.item_workhour,
+                new String[]{"维修人员姓名", "工时", "开始时间", "结束时间"},
+                new int[]{R.id.item_workhour_worker,
+                        R.id.item_workhour_spend,
+                        R.id.item_workhour_start,
+                        R.id.item_workhour_end});
         mWorkhourListView.setAdapter(adapter);
     }
 
