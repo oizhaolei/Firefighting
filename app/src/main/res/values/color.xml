@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="state_normal_color">#333333</color>
+    <color name="state_pressed_color">#88888888</color>
+
+</resources>

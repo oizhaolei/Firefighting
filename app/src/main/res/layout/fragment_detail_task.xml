@@ -21,23 +21,39 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/fragment_detail_task_manager"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="vertical">
+        android:background="@drawable/layout_selector"
+        android:clickable="true">
 
-        <TextView
-            android:id="@+id/fragment_detail_task_manager_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/fragment_detail_task_manager_edit"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/fragment_detail_task_manager_tel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/fragment_detail_task_manager_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/fragment_detail_task_manager_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/fragment_detail_task_manager_edit"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_next_item" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -55,15 +71,32 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/layout_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="36dp">
 
-        <TextView
-            android:id="@+id/fragment_detail_task_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/fragment_detail_task_status_edit"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/fragment_detail_task_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/fragment_detail_task_status_edit"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_next_item" />
+    </RelativeLayout>
 </LinearLayout>
