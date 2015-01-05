@@ -1,29 +1,93 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10"
     tools:context="com.ruptech.firefighting.worklog.WorklogActivity">
 
-    <TextView
-        android:id="@+id/activity_worklog_name"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_weight="1" />
+    <LinearLayout
+        android:id="@+id/activity_worklog_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/activity_worklog_name_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_work_title" />
+
+            <TextView
+                android:id="@+id/activity_worklog_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/activity_worklog_name_next" />
 
 
-    <TextView
-        android:id="@+id/activity_worklog_memo"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_weight="4" />
+            <ImageView
+                android:id="@+id/activity_worklog_name_next"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_next_item" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/activity_worklog_memo_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_work_memo" />
+
+            <TextView
+                android:id="@+id/activity_worklog_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/activity_worklog_memo_next" />
+
+
+            <ImageView
+                android:id="@+id/activity_worklog_memo_next"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_next_item" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/activity_worklog_workhours"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="5"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_worklog_top"
+        android:layout_marginTop="20dp"
         android:drawSelectorOnTop="false" />
 
-</LinearLayout>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_new"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_pressed"
+        fab:fab_colorRipple="@color/ripple" />
+
+</RelativeLayout>

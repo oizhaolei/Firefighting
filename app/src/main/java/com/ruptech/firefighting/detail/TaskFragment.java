@@ -1,4 +1,3 @@
-
 package com.ruptech.firefighting.detail;
 
 import android.os.Bundle;
@@ -47,9 +46,19 @@ public class TaskFragment extends Fragment {
         return fragment;
     }
 
-    @OnClick(R.id.fragment_detail_task_manager)
+    @OnClick(R.id.fragment_detail_task_manager_name_layout)
+    public void changeManagerName() {
+        Toast.makeText(getActivity(), "fragment_detail_task_manager_name_layout", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.fragment_detail_task_manager_tel_layout)
     public void changeManagerTel() {
-        Toast.makeText(getActivity(), "changeManagerTel", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "fragment_detail_task_manager_tel_layout", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.fragment_detail_task_status_layout)
+    public void changeTaskStatus() {
+        Toast.makeText(getActivity(), "fragment_detail_task_status_layout", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -66,12 +75,12 @@ public class TaskFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail_task, container, false);
         ButterKnife.inject(this, rootView);
 
-        setupComponent();
+        displayData();
 
         return rootView;
     }
 
-    private void setupComponent() {
+    private void displayData() {
         nameTextView.setText(task.get("标题").toString());
         companyTextView.setText(task.get("单位ID").toString());
         managerTextView.setText(task.get("单位联系人").toString());

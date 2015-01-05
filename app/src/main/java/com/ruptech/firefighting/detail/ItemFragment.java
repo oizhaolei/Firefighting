@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
+import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.item.ItemActivity;
 
@@ -18,8 +18,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 public class ItemFragment extends ListFragment {
 
+    @InjectView(R.id.fab)
+    FloatingActionButton fab;
     private List<Map<String, Object>> items;
 
     public static ItemFragment newInstance(List<Map<String, Object>> items) {
@@ -28,6 +34,11 @@ public class ItemFragment extends ListFragment {
         args.putSerializable(DetailActivity.ARG_ITEM, (java.io.Serializable) items);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @OnClick(R.id.fab)
+    public void doAdd() {
+        Toast.makeText(getActivity(), "Add Item", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -41,14 +52,8 @@ public class ItemFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_items, null);
+        ButterKnife.inject(this, view);
         return view;
-
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_detail_item, menu);
 
     }
 
@@ -61,6 +66,8 @@ public class ItemFragment extends ListFragment {
                 new int[]{R.id.item_item_no, R.id.item_item_company, R.id.item_item_name, R.id.item_item_status,
                         R.id.item_item_source, R.id.item_item_report_date, R.id.item_item_end_date});
         setListAdapter(adapter);
+
+        fab.attachToListView(getListView());
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {

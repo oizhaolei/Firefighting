@@ -19,6 +19,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +29,12 @@
         </activity>
         <activity
             android:name=".main.MainActivity"
-            android:label="@string/title_activity_actionbar" />
+            android:label="@string/title_activity_actionbar"
+            android:launchMode="singleTop" />
         <activity
             android:name=".detail.DetailActivity"
             android:label="@string/title_item_detail"
+            android:launchMode="singleTop"
             android:parentActivityName=".main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -39,13 +42,18 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:launchMode="singleTop" />
         <activity
             android:name=".worklog.WorklogActivity"
-            android:label="@string/title_activity_worklog"></activity>
+            android:label="@string/tab_title_detail_worklog"
+            android:launchMode="singleTop"
+            android:parentActivityName=".detail.DetailActivity" />
         <activity
             android:name=".item.ItemActivity"
-            android:label="@string/title_activity_item"></activity>
+            android:label="@string/tab_title_detail_item"
+            android:launchMode="singleTop"
+            android:parentActivityName=".detail.DetailActivity" />
     </application>
 
 </manifest>
