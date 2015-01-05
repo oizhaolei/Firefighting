@@ -43,5 +43,9 @@
     <string name="field_item_error">故障</string>
     <string name="field_item_resolve">维修措施</string>
     <string name="pref_header_data_sync">Account</string>
+    <string name="field_task_send_date">派单时间</string>
+    <string name="field_task_sender">派单人</string>
+    <string name="field_task_company">单位名称</string>
+    <string name="field_task_name">维修任务</string>
 
 </resources>

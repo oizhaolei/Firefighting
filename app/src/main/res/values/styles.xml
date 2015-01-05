@@ -2,13 +2,22 @@
 <resources>
 
     <style name="field_layout">
-        <item name="android:background">@drawable/layout_selector</item>
+        <item name="android:background">@color/state_normal_color</item>
         <item name="android:clickable">true</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:minHeight">45dp</item>
+        <item name="android:layout_margin">2dp</item>
     </style>
 
     <style name="editable_field_layout" parent="field_layout">
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">@drawable/layout_selector</item>
+    </style>
+
+    <style name="field_title">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="field_value">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
 </resources>

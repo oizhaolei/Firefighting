@@ -8,21 +8,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_no_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_no" />
 
         <TextView
             android:id="@+id/activity_item_no"
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_no_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_no_next"
@@ -35,22 +36,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_company_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_company" />
 
         <TextView
             android:id="@+id/activity_item_company"
+            style="@style/field_value"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_company_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_company_next"
@@ -63,22 +64,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_name_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_name" />
 
         <TextView
             android:id="@+id/activity_item_name"
-
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_name_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_name_next"
@@ -91,22 +92,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_status_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_status" />
 
         <TextView
             android:id="@+id/activity_item_status"
+            style="@style/field_value"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_status_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_status_next"
@@ -119,22 +120,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_source_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_source" />
 
         <TextView
             android:id="@+id/activity_item_source"
-
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_source_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_source_next"
@@ -147,22 +148,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_report_date_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_report_date" />
 
         <TextView
             android:id="@+id/activity_item_report_date"
-
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_report_date_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_report_date_next"
@@ -175,22 +176,22 @@
 
     <RelativeLayout
         android:id="@+id/activity_item_end_date_layout"
-        style="@style/editable_field_layout"
+        style="@style/field_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_end_date" />
 
         <TextView
             android:id="@+id/activity_item_end_date"
-
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_end_date_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_end_date_next"
@@ -208,17 +209,17 @@
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_system" />
 
         <TextView
             android:id="@+id/activity_item_system"
-
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_system_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_system_next"
@@ -235,17 +236,17 @@
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_device" />
 
         <TextView
             android:id="@+id/activity_item_device"
+            style="@style/field_value"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_device_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_device_next"
@@ -262,17 +263,17 @@
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/field_item_error" />
 
         <TextView
             android:id="@+id/activity_item_error"
+            style="@style/field_value"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_error_next" />
-
 
         <ImageView
             android:id="@+id/activity_item_error_next"
@@ -290,21 +291,21 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activity_item_resolve_next"
             android:orientation="vertical">
 
             <TextView
+                style="@style/field_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field_item_resolve" />
 
             <TextView
                 android:id="@+id/activity_item_resolve"
+                style="@style/field_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
-
         </LinearLayout>
 
         <ImageView
@@ -315,6 +316,4 @@
             android:src="@drawable/ic_action_next_item" />
 
     </RelativeLayout>
-
-
 </LinearLayout>
