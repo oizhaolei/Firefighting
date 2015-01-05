@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="field_layout">
+        <item name="android:background">@drawable/layout_selector</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">45dp</item>
+    </style>
+
+    <style name="editable_field_layout" parent="field_layout">
+        <item name="android:layout_margin">2dp</item>
+    </style>
+</resources>

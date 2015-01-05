@@ -23,12 +23,9 @@
 
     <RelativeLayout
         android:id="@+id/fragment_detail_task_manager_name_layout"
+        style="@style/editable_field_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_selector"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:minHeight="45dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,11 +49,9 @@
 
     <RelativeLayout
         android:id="@+id/fragment_detail_task_manager_tel_layout"
+        style="@style/editable_field_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_selector"
-        android:clickable="true"
-        android:minHeight="45dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,12 +93,9 @@
 
     <RelativeLayout
         android:id="@+id/fragment_detail_task_status_layout"
+        style="@style/editable_field_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_selector"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:minHeight="45dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"

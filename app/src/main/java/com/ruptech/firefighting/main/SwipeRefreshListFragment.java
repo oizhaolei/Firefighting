@@ -141,9 +141,8 @@ public class SwipeRefreshListFragment extends ListFragment {
             final ListView listView = getListView();
             if (listView.getVisibility() == View.VISIBLE) {
                 return canListViewScrollUp(listView);
-            } else {
-                return false;
             }
+            return false;
         }
 
     }

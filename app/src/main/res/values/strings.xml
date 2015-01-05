@@ -2,11 +2,22 @@
 <resources>
 
     <string name="app_name">Firefighting</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+
+    <string name="error_invalid_username">This username is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
     <string name="title_activity_login">登录</string>
     <string name="title_activity_actionbar">维保任务一览</string>
     <string name="action_apply">提交审核</string>
     <string name="action_settings">设置</string>
-    <string name="action_add">添加</string>
     <string name="tab_title_todo">待处理一览</string>
     <string name="tab_title_unchecked">待审核一览</string>
     <string name="title_item_detail">维保任务明细</string>
@@ -15,7 +26,6 @@
     <string name="tab_title_detail_item">部件状态</string>
     <string name="logout">退出</string>
     <string name="logout_summary">退出账户</string>
-    <string name="item_item_edit">修改</string>
     <string name="field_task_status">任务状态</string>
     <string name="field_task_manager_name">联系人</string>
     <string name="field_task_manager_tel">联系电话</string>
@@ -32,5 +42,6 @@
     <string name="field_item_device">设备</string>
     <string name="field_item_error">故障</string>
     <string name="field_item_resolve">维修措施</string>
+    <string name="pref_header_data_sync">Account</string>
 
 </resources>

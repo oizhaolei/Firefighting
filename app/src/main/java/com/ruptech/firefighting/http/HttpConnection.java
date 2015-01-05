@@ -29,7 +29,7 @@ public abstract class HttpConnection {
     private static String encodeParameters(Map<String, String> params)
             throws RuntimeException {
         StringBuffer buf = new StringBuffer();
-        String[] keyArray = params.keySet().toArray(new String[0]);
+        String[] keyArray = params.keySet().toArray(new String[params.size()]);
         Arrays.sort(keyArray);
         int j = 0;
         for (String key : keyArray) {
@@ -125,8 +125,7 @@ public abstract class HttpConnection {
         }
         if (App.readUser() != null) {
             String source = APP_SOURCE + App.getAppVersionCode();
-
-            params = getParams(params, source);
+            params.put("source", source);
         }
         String url = ifPage;
         if (!url.startsWith("http")) {
@@ -134,25 +133,6 @@ public abstract class HttpConnection {
         }
         url += "?" + encodeParameters(params);
         return url;
-    }
-
-    public Map<String, String> getParams(Map<String, String> params,
-                                         String source) {
-        params.put("source", source);
-        StringBuilder sb = new StringBuilder();
-
-        // 对参数名进行字典排序
-        String[] keyArray = params.keySet().toArray(new String[0]);
-        Arrays.sort(keyArray);
-
-        for (String key : keyArray) {
-            String value = params.get(key);
-            if (!isEmpty(value)) {
-                sb.append(key).append(value);
-            }
-        }
-
-        return params;
     }
 
     /**
