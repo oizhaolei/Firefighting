@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="readonly_background_color">#f0f0f0</color>
-    <color name="field_title_color">#0f0f0f</color>
+    <color name="field_title_color">#000000</color>
     <color name="editor_normal_color">#e0e0e0</color>
     <color name="editor_pressed_color">#888888</color>
     <color name="primary">#3f51b5</color>
