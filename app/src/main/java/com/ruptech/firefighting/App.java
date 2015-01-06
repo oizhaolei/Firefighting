@@ -18,8 +18,7 @@ import java.util.Properties;
 /**
  * A login screen that offers login via email/password.
  */
-public class App extends Application implements
-        Thread.UncaughtExceptionHandler {
+public class App extends Application {
     public final static String TAG = App.class.getName();
     static public Properties properties;
     public static Context mContext;
@@ -65,12 +64,6 @@ public class App extends Application implements
         App.saveUser(null);
     }
 
-    @Override
-    public void uncaughtException(Thread thread, Throwable throwable) {
-        if (BuildConfig.DEBUG)
-            Log.e(TAG, thread.getName(), throwable);
-
-    }
 
     @Override
     public void onCreate() {

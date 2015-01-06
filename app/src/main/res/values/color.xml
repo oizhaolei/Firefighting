@@ -5,6 +5,7 @@
     <color name="editor_normal_color">#e0e0e0</color>
     <color name="editor_pressed_color">#888888</color>
     <color name="primary">#3f51b5</color>
-    <color name="primary_pressed">#303f9f</color>
+    <color name="primary_pressed">#ff50699f</color>
     <color name="ripple">#ff80ab</color>
+    <color name="colorPrimary">#3f51b5</color>
 </resources>
