@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ruptech.firefighting.App;
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ChoiceDialog;
 import com.ruptech.firefighting.dialog.EditTextDialog;
@@ -81,7 +81,7 @@ public class TaskFragment extends Fragment {
 
     @OnClick(R.id.fragment_detail_task_status_layout)
     public void changeTaskStatus() {
-        Map choices = App.getTaskStatusMap();
+        Map choices = DataType.getTaskStatusMap();
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
             @Override
             public void onChange(Object oldValue, Object newValue) {
@@ -120,7 +120,7 @@ public class TaskFragment extends Fragment {
         managerTelTextView.setText(task.get("单位联系人电话").toString());
         senderTextView.setText(task.get("派单人姓名").toString());
         sendDateTextView.setText(task.get("派单时间").toString());
-        statusTextView.setText(task.get("任务状态").toString());
+        statusTextView.setText(DataType.getTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
     }
 
 

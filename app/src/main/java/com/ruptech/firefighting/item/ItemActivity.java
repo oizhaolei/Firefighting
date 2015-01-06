@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 
-import com.ruptech.firefighting.App;
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ChoiceDialog;
 import com.ruptech.firefighting.dialog.EditTextDialog;
@@ -44,7 +44,7 @@ public class ItemActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_item_system_layout)
     public void changeItemSystem() {
-        Map choices = App.getItemSystemMap();
+        Map choices = DataType.getItemSystemMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_system),
                 choices, Integer.valueOf(item.get("系统类型ID").toString()),
@@ -62,7 +62,7 @@ public class ItemActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_item_device_layout)
     public void changeItemDevice() {
-        Map choices = App.getItemDeviceMap();
+        Map choices = DataType.getItemDeviceMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_device),
                 choices, Integer.valueOf(item.get("设备单项").toString()),
@@ -80,7 +80,7 @@ public class ItemActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_item_error_layout)
     public void changeItemError() {
-        Map choices = App.getItemErrorMap();
+        Map choices = DataType.getItemErrorMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_error),
                 choices, Integer.valueOf(item.get("故障单项").toString()),
@@ -131,9 +131,9 @@ public class ItemActivity extends ActionBarActivity {
         mSourceTextView.setText((String) item.get("部件报修来源"));
         mReportDateTextView.setText((String) item.get("报修时间"));
         mEndDateTextView.setText((String) item.get("结束时间"));
-        mSystemTextView.setText((String) item.get("系统类型ID"));
-        mDeviceTextView.setText((String) item.get("设备单项"));
-        mErrorTextView.setText((String) item.get("故障单项"));
+        mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf(item.get("系统类型ID").toString())));
+        mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf(item.get("设备单项").toString())));
+        mErrorTextView.setText(DataType.getItemError(Integer.valueOf(item.get("故障单项").toString())));
         mResolveTextView.setText((String) item.get("故障内容"));
     }
 

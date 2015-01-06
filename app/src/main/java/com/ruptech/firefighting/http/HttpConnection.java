@@ -154,5 +154,4 @@ public abstract class HttpConnection {
         return response;
     }
 
-
 }

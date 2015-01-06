@@ -15,6 +15,7 @@ public class HttpServer extends HttpConnection {
     private static final String API_TASK = "Task.aspx";
     private static final String API_TODO_TASK_LIST = "TaskList.aspx?type=todo";
     private static final String API_UNCHECK_TASK_LIST = "TaskList.aspx?type=uncheck";
+    private static final String API_TYPES = "Option.aspx";
     private final String TAG = HttpServer.class.getSimpleName();
     private String API_LOGIN = "user_login.php";
 
@@ -111,10 +112,211 @@ public class HttpServer extends HttpConnection {
         }
     }
 
+
+    public Map<Integer, String> getTypes(String type) throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("type", type);
+
+        Response res = _get(API_TYPES + type, params);
+        JSONObject result = res.asJSONObject();
+
+        if (result.getBoolean("success")) {
+            JSONArray data = result.getJSONArray("data");
+            List<Map<String, Object>> list = toList(data);
+
+            Map<Integer, String> types = new HashMap<Integer, String>(list.size());
+            for (Map<String, Object> map : list) {
+                Integer id = Integer.valueOf(map.get("id").toString());
+                String value = map.get("data").toString();
+
+                types.put(id, value);
+            }
+            return types;
+        } else {
+            throw new RuntimeException(result.getString("message"));
+        }
+    }
+
     protected Response _get(String ifPage, Map<String, String> params) {
         Response response = null;
         if (API_LOGIN.equals(ifPage)) {
             String body = "{ \"success\": true, \"message\": \"\", \"data\": { \"编号\": \"1\", \"用户名\": \"admin\", \"密码\": \"111111\", \"中心编号\": \"35020301\", \"真实姓名\": \"admin\", \"性别\": \"男\", \"移动电话\": \"34\", \"固定电话\": \"34\", \"邮箱\": \"3434\", \"角色编号\": \"1\", \"人员类型\": \"1\", \"人员状态\": \"1\", \"IsDel\": \"False\" } }";
+            response = new Response(body);
+        } else if ((API_TYPES + "system").equals(ifPage)) {
+            String body = "{\n" +
+                    "    \"success\": true,\n" +
+                    "    \"message\": \"\",\n" +
+                    "    \"data\": [\n" +
+                    "        {\n" +
+                    "            \"id\": \"1\",\n" +
+                    "            \"data\": \"火灾自动报警系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"11\",\n" +
+                    "            \"data\": \"室外消火栓系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"12\",\n" +
+                    "            \"data\": \"自动喷水灭火系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"13\",\n" +
+                    "            \"data\": \"气体灭火系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"16\",\n" +
+                    "            \"data\": \"泡沫灭火系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"18\",\n" +
+                    "            \"data\": \"防烟排烟系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"19\",\n" +
+                    "            \"data\": \"防火门及卷帘系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"20\",\n" +
+                    "            \"data\": \"消防电梯\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"21\",\n" +
+                    "            \"data\": \"消防应急广播\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"22\",\n" +
+                    "            \"data\": \"消防应急照明和疏散指示系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"23\",\n" +
+                    "            \"data\": \"消防电源\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"24\",\n" +
+                    "            \"data\": \"消防电话\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"128\",\n" +
+                    "            \"data\": \"消防水源\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"129\",\n" +
+                    "            \"data\": \"灭火器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"130\",\n" +
+                    "            \"data\": \"室内消火栓系统\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"131\",\n" +
+                    "            \"data\": \"前置机信息\"\n" +
+                    "        }\n" +
+                    "    ]\n" +
+                    "}";
+            response = new Response(body);
+        } else if ((API_TYPES + "error").equals(ifPage)) {
+            String body = "{\n" +
+                    "    \"success\": true,\n" +
+                    "    \"message\": \"\",\n" +
+                    "    \"data\": [\n" +
+                    "        {\n" +
+                    "            \"id\": \"0\",\n" +
+                    "            \"data\": \"其他\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"1\",\n" +
+                    "            \"data\": \"屏幕显示乱码\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"2\",\n" +
+                    "            \"data\": \"无法屏蔽\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"3\",\n" +
+                    "            \"data\": \"按钮无反应\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"4\",\n" +
+                    "            \"data\": \"地址未定义\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"5\",\n" +
+                    "            \"data\": \"无法屏蔽\"\n" +
+                    "        }\n" +
+                    "    ]\n" +
+                    "}";
+            response = new Response(body);
+        } else if ((API_TYPES + "device").equals(ifPage)) {
+            String body = "{\n" +
+                    "    \"success\": true,\n" +
+                    "    \"message\": \"\",\n" +
+                    "    \"data\": [\n" +
+                    "        {\n" +
+                    "            \"id\": \"1\",\n" +
+                    "            \"data\": \"火灾报警控制器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"2\",\n" +
+                    "            \"data\": \"未带电话插口手动报警报钮\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"3\",\n" +
+                    "            \"data\": \"手动报警按钮\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"4\",\n" +
+                    "            \"data\": \"报警警铃（讯响器）\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"5\",\n" +
+                    "            \"data\": \"打印机\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"6\",\n" +
+                    "            \"data\": \"插孔电话\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"7\",\n" +
+                    "            \"data\": \"火焰（或感光）探测器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"8\",\n" +
+                    "            \"data\": \"线性感温探测器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"9\",\n" +
+                    "            \"data\": \"离子感温探测器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"10\",\n" +
+                    "            \"data\": \"点型感温探测器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"11\",\n" +
+                    "            \"data\": \"线性光束感烟探测器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"12\",\n" +
+                    "            \"data\": \"点型感烟探测器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"13\",\n" +
+                    "            \"data\": \"消防联动控制设备\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"14\",\n" +
+                    "            \"data\": \"多线盘\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"15\",\n" +
+                    "            \"data\": \"可燃气体控制器\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"id\": \"16\",\n" +
+                    "            \"data\": \"点型可燃气体探测器\"\n" +
+                    "        }\n" +
+                    "    ]\n" +
+                    "}";
             response = new Response(body);
         } else if (API_TODO_TASK_LIST.equals(ifPage) || API_UNCHECK_TASK_LIST.equals(ifPage)) {
             String body = "{\n" +

@@ -93,22 +93,6 @@ public class SwipeRefreshListFragment extends ListFragment {
         mSwipeRefreshLayout.setRefreshing(refreshing);
     }
 
-    /**
-     * Set the color scheme for the {@link android.support.v4.widget.SwipeRefreshLayout}.
-     *
-     * @see android.support.v4.widget.SwipeRefreshLayout#setColorScheme(int, int, int, int)
-     */
-    public void setColorScheme(int colorRes1, int colorRes2, int colorRes3, int colorRes4) {
-        mSwipeRefreshLayout.setColorScheme(colorRes1, colorRes2, colorRes3, colorRes4);
-    }
-
-    /**
-     * @return the fragment's {@link android.support.v4.widget.SwipeRefreshLayout} widget.
-     */
-    public SwipeRefreshLayout getSwipeRefreshLayout() {
-        return mSwipeRefreshLayout;
-    }
-
     // BEGIN_INCLUDE (check_list_can_scroll)
 
     /**

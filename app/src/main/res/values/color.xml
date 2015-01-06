@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="state_normal_color">#333333</color>
-    <color name="state_pressed_color">#88888888</color>
+    <color name="readonly_background_color">#f0f0f0</color>
+    <color name="field_title_color">#0f0f0f</color>
+    <color name="editor_normal_color">#e0e0e0</color>
+    <color name="editor_pressed_color">#888888</color>
     <color name="primary">#3f51b5</color>
     <color name="primary_pressed">#303f9f</color>
     <color name="ripple">#ff80ab</color>

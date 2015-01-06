@@ -36,4 +36,11 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Assert.assertTrue(task.containsKey("items"));
         Assert.assertTrue(task.containsKey("wokers"));
     }
+
+    public void testGetTypes() throws Exception {
+
+        Map<Integer, String> types = App.getHttpServer().getTypes("system");
+        Assert.assertTrue(types.containsKey(1));
+        Assert.assertEquals("未带电话插口手动报警报钮", types.get(2));
+    }
 }

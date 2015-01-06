@@ -14,11 +14,15 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 
 public class PrefUtils {
 
     final public static String PREF_USER = "USER_INFO";
     private static final String TAG = PrefUtils.class.getSimpleName();
+    private static final String PREF_DEVICE = "PREF_DEVICE";
+    private static final String PREF_SYSTEM = "PREF_SYSTEM";
+    private static final String PREF_ERROR = "PREF_ERROR";
     private static SharedPreferences mPref;
 
 
@@ -35,6 +39,34 @@ public class PrefUtils {
 
     public static User readUser() {
         return (User) readObject(PREF_USER);
+    }
+
+    public static Map<Integer, String> readSystemTypes() {
+        return (Map<Integer, String>) readObject(PREF_SYSTEM);
+    }
+
+    public static Map<Integer, String> readErrorTypes() {
+        return (Map<Integer, String>) readObject(PREF_ERROR);
+    }
+
+    public static Map<Integer, String> readDeviceTypes() {
+        return (Map<Integer, String>) readObject(PREF_DEVICE);
+    }
+
+    public static void writeUser(User user) {
+        writeObject(user, PREF_USER);
+    }
+
+    public static void writeSystemTypes(Map<Integer, String> types) {
+        writeObject(types, PREF_SYSTEM);
+    }
+
+    public static void writeErrorTypes(Map<Integer, String> types) {
+        writeObject(types, PREF_ERROR);
+    }
+
+    public static void writeDeviceTypes(Map<Integer, String> types) {
+        writeObject(types, PREF_DEVICE);
     }
 
     private static Object readObject(String prefKey) {
@@ -55,10 +87,6 @@ public class PrefUtils {
             Log.e(TAG, e.getMessage(), e);
             return null;
         }
-    }
-
-    public static void writeUser(User user) {
-        writeObject(user, PREF_USER);
     }
 
     private static void writeObject(Object obj, String prefKey) {

@@ -12,8 +12,6 @@ import com.ruptech.firefighting.model.User;
 import com.ruptech.firefighting.utils.AssetsPropertyReader;
 import com.ruptech.firefighting.utils.PrefUtils;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 
@@ -67,34 +65,6 @@ public class App extends Application implements
         App.saveUser(null);
     }
 
-    public static Map getItemDeviceMap() {
-        Map choices = new HashMap<String, String>();
-        choices.put(5, "暂停");
-        choices.put(6, "启动");
-        return choices;
-    }
-
-    public static Map getItemErrorMap() {
-        Map choices = new HashMap<String, String>();
-        choices.put(5, "暂停");
-        choices.put(6, "启动");
-        return choices;
-    }
-
-    public static Map getItemSystemMap() {
-        Map choices = new HashMap<String, String>();
-        choices.put(5, "暂停");
-        choices.put(6, "启动");
-        return choices;
-    }
-
-    public static Map getTaskStatusMap() {
-        Map choices = new HashMap<String, String>();
-        choices.put(5, "暂停");
-        choices.put(6, "启动");
-        return choices;
-    }
-
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         if (BuildConfig.DEBUG)
@@ -113,6 +83,7 @@ public class App extends Application implements
         AssetsPropertyReader assetsPropertyReader = new AssetsPropertyReader(this);
         properties = assetsPropertyReader.getProperties("env.properties");
 
+        DataType.init();
     }
 
 }
