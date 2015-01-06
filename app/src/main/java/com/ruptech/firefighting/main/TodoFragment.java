@@ -92,7 +92,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
     }
 
     /**
-     * Dummy {@link android.os.AsyncTask} which simulates a long running task to fetch new cheeses.
+     *
      */
     private class TodoTasksBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 

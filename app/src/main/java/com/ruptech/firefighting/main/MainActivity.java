@@ -23,6 +23,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.SettingsActivity;
 import com.ruptech.firefighting.view.MainTabsFragment;
@@ -54,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         instance = this;
 
+        getSupportActionBar().setTitle(getString(R.string.title_activity_actionbar) + " - " + App.readUser().get真实姓名());
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MainTabsFragment fragment = new MainTabsFragment();

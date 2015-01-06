@@ -29,29 +29,28 @@ public class PrefUtils {
         return mPref;
     }
 
-    public static void removePrefUser() {
-        getPref().edit().remove(PREF_USER).commit();
-    }
-
-    private static String getUserStr() {
-        return getPref().getString(PREF_USER, "");
+    public static void removePref(String prefKey) {
+        getPref().edit().remove(prefKey).commit();
     }
 
     public static User readUser() {
-        String str = getUserStr();
+        return (User) readObject(PREF_USER);
+    }
+
+    private static Object readObject(String prefKey) {
+        String str = getPref().getString(prefKey, "");
         byte[] bytes = str.getBytes();
         if (bytes.length == 0) {
             return null;
         }
-        User user;
         try {
             ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
             Base64InputStream base64InputStream = new Base64InputStream(
                     byteArray, Base64.DEFAULT);
             ObjectInputStream in = new ObjectInputStream(base64InputStream);
-            user = (User) in.readObject();
+            Object obj = in.readObject();
             in.close();
-            return user;
+            return obj;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             return null;
@@ -59,8 +58,12 @@ public class PrefUtils {
     }
 
     public static void writeUser(User user) {
-        if (user == null) {
-            removePrefUser();
+        writeObject(user, PREF_USER);
+    }
+
+    private static void writeObject(Object obj, String prefKey) {
+        if (obj == null) {
+            removePref(prefKey);
         } else {
             try {
                 ByteArrayOutputStream out;
@@ -68,7 +71,7 @@ public class PrefUtils {
 
                 ObjectOutputStream objectOutput;
                 objectOutput = new ObjectOutputStream(arrayOutputStream);
-                objectOutput.writeObject(user);
+                objectOutput.writeObject(obj);
                 byte[] data = arrayOutputStream.toByteArray();
                 objectOutput.close();
                 arrayOutputStream.close();
@@ -80,7 +83,7 @@ public class PrefUtils {
                 b64.close();
                 out.close();
                 String str = new String(out.toByteArray());
-                getPref().edit().putString(PREF_USER, str).commit();
+                getPref().edit().putString(prefKey, str).commit();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
 

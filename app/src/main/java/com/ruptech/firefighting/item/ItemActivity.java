@@ -3,9 +3,12 @@ package com.ruptech.firefighting.item;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.dialog.ChoiceDialog;
+import com.ruptech.firefighting.dialog.EditTextDialog;
+import com.ruptech.firefighting.dialog.OnChangeListener;
 
 import java.util.Map;
 
@@ -41,22 +44,72 @@ public class ItemActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_item_system_layout)
     public void changeItemSystem() {
-        Toast.makeText(this, "activity_item_system_layout", Toast.LENGTH_SHORT).show();
+        Map choices = App.getItemSystemMap();
+
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_system),
+                choices, Integer.valueOf(item.get("系统类型ID").toString()),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(Object oldValue, Object newValue) {
+                        // TODO save to server
+                        item.put("系统类型ID", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_item_system));
     }
 
     @OnClick(R.id.activity_item_device_layout)
     public void changeItemDevice() {
-        Toast.makeText(this, "activity_item_device_layout", Toast.LENGTH_SHORT).show();
+        Map choices = App.getItemDeviceMap();
+
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_device),
+                choices, Integer.valueOf(item.get("设备单项").toString()),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(Object oldValue, Object newValue) {
+                        // TODO save to server
+                        item.put("设备单项", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_item_device));
     }
 
     @OnClick(R.id.activity_item_error_layout)
     public void changeItemError() {
-        Toast.makeText(this, "activity_item_error_layout", Toast.LENGTH_SHORT).show();
+        Map choices = App.getItemErrorMap();
+
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_error),
+                choices, Integer.valueOf(item.get("故障单项").toString()),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(Object oldValue, Object newValue) {
+                        // TODO save to server
+                        item.put("故障单项", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_item_error));
     }
 
     @OnClick(R.id.activity_item_resolve_layout)
     public void changeItemResolve() {
-        Toast.makeText(this, "activity_item_resolve_layout", Toast.LENGTH_SHORT).show();
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_resolve),
+                item.get("故障内容").toString(),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(Object oldValue, Object newValue) {
+                        // TODO save to server
+                        item.put("故障内容", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_item_resolve));
     }
 
     @Override

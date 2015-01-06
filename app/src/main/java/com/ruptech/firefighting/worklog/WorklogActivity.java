@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.dialog.EditTextDialog;
+import com.ruptech.firefighting.dialog.OnChangeListener;
 
 import java.util.List;
 import java.util.Map;
@@ -36,12 +38,34 @@ public class WorklogActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_worklog_name_layout)
     public void changeWorklogName() {
-        Toast.makeText(this, "activity_worklog_name_layout", Toast.LENGTH_SHORT).show();
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_work_title),
+                worklog.get("标题").toString(),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(Object oldValue, Object newValue) {
+                        // TODO save to server
+                        worklog.put("标题", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_work_title));
     }
 
     @OnClick(R.id.activity_worklog_memo_layout)
     public void changeWorklogMemo() {
-        Toast.makeText(this, "activity_worklog_memo_layout", Toast.LENGTH_SHORT).show();
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_work_memo),
+                worklog.get("维修工作描述").toString(),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(Object oldValue, Object newValue) {
+                        // TODO save to server
+                        worklog.put("维修工作描述", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_work_memo));
     }
 
     @Override

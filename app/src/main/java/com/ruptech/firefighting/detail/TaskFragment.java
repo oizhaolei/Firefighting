@@ -2,6 +2,7 @@ package com.ruptech.firefighting.detail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,9 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.dialog.ChoiceDialog;
+import com.ruptech.firefighting.dialog.EditTextDialog;
+import com.ruptech.firefighting.dialog.OnChangeListener;
 
 import java.util.Map;
 
@@ -48,17 +52,46 @@ public class TaskFragment extends Fragment {
 
     @OnClick(R.id.fragment_detail_task_manager_name_layout)
     public void changeManagerName() {
-        Toast.makeText(getActivity(), "fragment_detail_task_manager_name_layout", Toast.LENGTH_SHORT).show();
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), task.get("单位联系人").toString(), new OnChangeListener() {
+            @Override
+            public void onChange(Object oldValue, Object newValue) {
+                // TODO save to server
+                task.put("单位联系人", newValue);
+                displayData();
+            }
+        });
+
+        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_name));
     }
 
     @OnClick(R.id.fragment_detail_task_manager_tel_layout)
     public void changeManagerTel() {
-        Toast.makeText(getActivity(), "fragment_detail_task_manager_tel_layout", Toast.LENGTH_SHORT).show();
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), task.get("单位联系人电话").toString(), new OnChangeListener() {
+            @Override
+            public void onChange(Object oldValue, Object newValue) {
+                // TODO save to server
+                task.put("单位联系人电话", newValue);
+                displayData();
+            }
+        });
+        dialog.setInputType(InputType.TYPE_CLASS_PHONE);
+
+        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_tel));
     }
 
     @OnClick(R.id.fragment_detail_task_status_layout)
     public void changeTaskStatus() {
-        Toast.makeText(getActivity(), "fragment_detail_task_status_layout", Toast.LENGTH_SHORT).show();
+        Map choices = App.getTaskStatusMap();
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
+            @Override
+            public void onChange(Object oldValue, Object newValue) {
+                // TODO save to server
+                task.put("任务状态", newValue);
+                displayData();
+            }
+        });
+
+        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_status));
     }
 
     @Override
@@ -88,7 +121,6 @@ public class TaskFragment extends Fragment {
         senderTextView.setText(task.get("派单人姓名").toString());
         sendDateTextView.setText(task.get("派单时间").toString());
         statusTextView.setText(task.get("任务状态").toString());
-
     }
 
 
@@ -103,4 +135,5 @@ public class TaskFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
 }

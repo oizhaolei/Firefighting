@@ -60,7 +60,8 @@ public class WorklogFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), worklogs, R.layout.item_worklog, new String[]{"标题", "维修工作描述"}, new int[]{R.id.item_worklog_name,
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), worklogs, R.layout.item_worklog,
+                new String[]{"标题", "维修工作描述"}, new int[]{R.id.item_worklog_name,
                 R.id.item_worklog_memo});
         setListAdapter(adapter);
 
