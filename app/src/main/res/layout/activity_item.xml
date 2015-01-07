@@ -6,6 +6,12 @@
     android:weightSum="10"
     tools:context="com.ruptech.firefighting.worklog.ItemActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#009688" />
+
     <RelativeLayout
         android:id="@+id/activity_item_no_layout"
         style="@style/field_layout"

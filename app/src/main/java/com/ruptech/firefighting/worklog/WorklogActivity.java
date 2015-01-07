@@ -2,6 +2,7 @@ package com.ruptech.firefighting.worklog;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -73,6 +74,9 @@ public class WorklogActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worklog);
         ButterKnife.inject(this);
+
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         worklog = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEM);

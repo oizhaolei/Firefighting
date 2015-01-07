@@ -1,51 +1,83 @@
-/*
-* Copyright 2013 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
 package com.ruptech.firefighting.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.SettingsActivity;
-import com.ruptech.firefighting.view.MainTabsFragment;
+import com.ruptech.firefighting.view.PagerItem;
+import com.ruptech.firefighting.view.ViewPagerAdapter;
 
-/**
- * A simple launcher activity containing a summary sample description, sample log and a custom
- * {@link android.support.v4.app.Fragment} which can display a view.
- * <p/>
- * For devices with displays with a width of 720dp or greater, the sample log is always visible,
- * on other devices it's visibility is controlled by an item on the Action Bar.
- */
-public class MainActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static final String TAG = "MainActivity";
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import it.neokree.materialtabs.MaterialTab;
+import it.neokree.materialtabs.MaterialTabHost;
+import it.neokree.materialtabs.MaterialTabListener;
+
+public class MainActivity extends ActionBarActivity implements MaterialTabListener {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
     public static MainActivity instance = null;
+    @InjectView(R.id.tabHost)
+    MaterialTabHost tabHost;
+    @InjectView(R.id.pager)
+    ViewPager pager;
 
     public static void close() {
-
         if (instance != null) {
             instance.finish();
             instance = null;
         }
+    }
+
+    protected List<PagerItem> setupTabs() {
+        List<PagerItem> mTabs = new ArrayList<PagerItem>();
+
+        /**
+         * Populate our tab list with tabs. Each item contains a title, indicator color and divider
+         * color, which are used by {@link com.ruptech.firefighting.view.SlidingTabLayout}.
+         */
+        mTabs.add(new PagerItem(
+                getString(R.string.tab_title_todo)
+        ) {
+            public Fragment createFragment() {
+                return TodoFragment.newInstance(
+                );
+            }
+        });
+
+        mTabs.add(new PagerItem(
+                getString(R.string.tab_title_unchecked) // Title
+        ) {
+            public Fragment createFragment() {
+                return UncheckFragment.newInstance();
+            }
+        });
+        return mTabs;
+    }
+
+    @Override
+    public void onTabSelected(MaterialTab tab) {
+        pager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabReselected(MaterialTab tab) {
+
+    }
+
+    @Override
+    public void onTabUnselected(MaterialTab tab) {
 
     }
 
@@ -53,14 +85,31 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
         instance = this;
 
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.title_activity_actionbar) + " - " + App.readUser().get真实姓名());
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            MainTabsFragment fragment = new MainTabsFragment();
-            transaction.replace(R.id.activity_main_content_fragment, fragment);
-            transaction.commit();
+
+
+        // init view pager
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), setupTabs());
+        pager.setAdapter(adapter);
+        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // when user do a swipe the selected tab change
+                tabHost.setSelectedNavigationItem(position);
+
+            }
+        });
+        for (int i = 0; i < adapter.getCount(); i++) {
+            tabHost.addTab(
+                    tabHost.newTab()
+                            .setText(adapter.getPageTitle(i))
+                            .setTabListener(this)
+            );
         }
     }
 

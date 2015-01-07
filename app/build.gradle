@@ -30,5 +30,5 @@ dependencies {
     compile 'com.github.kevinsawicki:http-request:5.6'
     compile "com.android.support:support-v4:21.0.3"
     compile 'com.melnykov:floatingactionbutton:1.1.0'
-
+    compile 'it.neokree:MaterialTabs:0.11'
 }

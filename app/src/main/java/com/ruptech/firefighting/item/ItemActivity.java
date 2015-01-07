@@ -2,6 +2,7 @@ package com.ruptech.firefighting.item;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.ruptech.firefighting.DataType;
@@ -117,6 +118,9 @@ public class ItemActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         ButterKnife.inject(this);
+
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         item = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEM);

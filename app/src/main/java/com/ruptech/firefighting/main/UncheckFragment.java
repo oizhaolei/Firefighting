@@ -13,6 +13,7 @@ import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.detail.DetailActivity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -58,9 +59,9 @@ public class UncheckFragment extends SwipeRefreshListFragment {
         Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
         // In single-pane mode, simply start the detail activity
         // for the selected item ID.
-        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-        detailIntent.putExtra(DetailActivity.ARG_ITEM_ID, (String) item.get("编号"));
-        startActivity(detailIntent);
+        String taskId = (String) item.get("编号");
+
+        new TaskBackgroundTask(taskId).execute();
     }
     // END_INCLUDE (initiate_refresh)
 
@@ -92,6 +93,12 @@ public class UncheckFragment extends SwipeRefreshListFragment {
         setRefreshing(false);
     }
 
+    private void openTask(Map<String, Object> task) {
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra(DetailActivity.ARG_ITEM, (Serializable) task);
+        startActivity(detailIntent);
+    }
+
     private class UncheckTasksBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 
         @Override
@@ -113,4 +120,29 @@ public class UncheckFragment extends SwipeRefreshListFragment {
 
     }
 
+    private class TaskBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
+
+        private final String taskId;
+
+        public TaskBackgroundTask(String taskId) {
+            this.taskId = taskId;
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(Void... params) {
+            try {
+                return App.getHttpServer().getTask(taskId);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> result) {
+            super.onPostExecute(result);
+
+            // Tell the Fragment that the refresh has completed
+            openTask(result);
+        }
+    }
 }
