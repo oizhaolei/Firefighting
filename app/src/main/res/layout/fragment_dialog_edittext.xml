@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_edittext"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/dialog_edittext_edittext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入内容"
-        android:minHeight="40dip" />
+        android:gravity="top"
+        android:hint="请输入内容" />
 </LinearLayout>

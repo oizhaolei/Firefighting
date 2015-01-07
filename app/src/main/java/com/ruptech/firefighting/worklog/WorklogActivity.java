@@ -65,6 +65,7 @@ public class WorklogActivity extends ActionBarActivity {
                         displayData();
                     }
                 });
+        dialog.setMultiLine(true);
 
         dialog.show(getFragmentManager(), getString(R.string.field_work_memo));
     }

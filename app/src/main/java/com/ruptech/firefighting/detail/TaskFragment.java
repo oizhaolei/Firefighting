@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ObservableScrollView;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ChoiceDialog;
@@ -25,6 +25,11 @@ import butterknife.OnClick;
 
 
 public class TaskFragment extends Fragment {
+
+    @InjectView(R.id.fab)
+    FloatingActionButton fab;
+    @InjectView(R.id.fragment_detail_task_scrollview)
+    ObservableScrollView scrollView;
 
     @InjectView(R.id.fragment_detail_task_name)
     TextView nameTextView;
@@ -48,6 +53,11 @@ public class TaskFragment extends Fragment {
         args.putSerializable(DetailActivity.ARG_ITEM, (java.io.Serializable) task);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @OnClick(R.id.fab)
+    public void doAdd() {
+        Toast.makeText(getActivity(), "Apply Item", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.fragment_detail_task_manager_name_layout)
@@ -109,6 +119,7 @@ public class TaskFragment extends Fragment {
         ButterKnife.inject(this, rootView);
 
         displayData();
+        fab.attachToScrollView(scrollView);
 
         return rootView;
     }
@@ -121,19 +132,6 @@ public class TaskFragment extends Fragment {
         senderTextView.setText(task.get("派单人姓名").toString());
         sendDateTextView.setText(task.get("派单时间").toString());
         statusTextView.setText(DataType.getTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_detail_task, menu);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
 }

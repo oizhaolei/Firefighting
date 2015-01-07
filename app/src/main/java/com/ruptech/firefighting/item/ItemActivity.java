@@ -109,6 +109,7 @@ public class ItemActivity extends ActionBarActivity {
                         displayData();
                     }
                 });
+        dialog.setMultiLine(true);
 
         dialog.show(getFragmentManager(), getString(R.string.field_item_resolve));
     }

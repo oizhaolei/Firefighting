@@ -1,4 +1,3 @@
-
 package com.ruptech.firefighting.main;
 
 import android.content.Context;

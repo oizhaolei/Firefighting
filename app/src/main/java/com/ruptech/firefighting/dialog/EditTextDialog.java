@@ -19,6 +19,7 @@ import com.ruptech.firefighting.R;
 public class EditTextDialog extends DialogFragment {
     private final String TAG = getClass().getSimpleName();
     private int inputType = InputType.TYPE_CLASS_TEXT;
+    private boolean multiLine = false;
     private String title = null;
     private String value = null;
     private OnChangeListener onChangeListener = null;
@@ -46,7 +47,13 @@ public class EditTextDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_dialog_edittext, (ViewGroup) ((Activity) context).findViewById(R.id.dialog_edittext));
         final EditText editText = (EditText) v.findViewById(R.id.dialog_edittext_edittext);
         editText.setText(value);
-        editText.setInputType(inputType);
+
+        if (multiLine) {
+            editText.setSingleLine(false);
+            editText.setLines(10);
+        } else {
+            editText.setInputType(inputType);
+        }
 
         builder.setView(v);
 
@@ -83,4 +90,7 @@ public class EditTextDialog extends DialogFragment {
         this.title = title;
     }
 
+    public void setMultiLine(boolean multiLine) {
+        this.multiLine = multiLine;
+    }
 }
