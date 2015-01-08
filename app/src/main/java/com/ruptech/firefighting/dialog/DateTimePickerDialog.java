@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class DatePickerDialog extends DialogFragment {
+public class DateTimePickerDialog extends DialogFragment {
     private final String TAG = getClass().getSimpleName();
     DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private String title = null;
@@ -30,8 +30,8 @@ public class DatePickerDialog extends DialogFragment {
     private Calendar c = Calendar.getInstance();
     private OnChangeListener onChangeListener = null;
 
-    public static DatePickerDialog newInstance(String title, String value, OnChangeListener dismissListener) {
-        DatePickerDialog editTextDialog = new DatePickerDialog();
+    public static DateTimePickerDialog newInstance(String title, String value, OnChangeListener dismissListener) {
+        DateTimePickerDialog editTextDialog = new DateTimePickerDialog();
         editTextDialog.setTitle(title);
         editTextDialog.setValue(value);
         editTextDialog.setOnChangeListener(dismissListener);
@@ -59,11 +59,10 @@ public class DatePickerDialog extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
-
-                        c.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+                        c.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute());
                         String newValue = sdf.format(c.getTime());
                         onChangeListener.onChange(value, newValue);
-
                     }
                 });
         builder.setNegativeButton(context.getString(R.string.cancel),

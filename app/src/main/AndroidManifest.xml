@@ -42,17 +42,17 @@
             android:label="@string/action_settings"
             android:launchMode="singleTop" />
         <activity
-            android:name=".worklog.WorklogActivity"
+            android:name=".detail.WorklogActivity"
             android:label="@string/tab_title_detail_worklog"
             android:launchMode="singleTop"
             android:parentActivityName=".detail.DetailActivity" />
         <activity
-            android:name=".worklog.WorkHourActivity"
+            android:name=".detail.WorkHourActivity"
             android:label="@string/tab_title_workhour"
             android:launchMode="singleTop"
-            android:parentActivityName=".worklog.WorklogActivity" />
+            android:parentActivityName=".detail.WorklogActivity" />
         <activity
-            android:name=".item.ItemActivity"
+            android:name=".detail.ItemActivity"
             android:label="@string/tab_title_detail_item"
             android:launchMode="singleTop"
             android:parentActivityName=".detail.DetailActivity" />

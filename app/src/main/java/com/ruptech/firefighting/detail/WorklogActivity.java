@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.worklog;
+package com.ruptech.firefighting.detail;
 
 import android.content.Intent;
 import android.os.Bundle;

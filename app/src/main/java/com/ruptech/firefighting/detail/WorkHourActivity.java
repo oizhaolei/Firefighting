@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.worklog;
+package com.ruptech.firefighting.detail;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.ruptech.firefighting.R;
-import com.ruptech.firefighting.dialog.DatePickerDialog;
+import com.ruptech.firefighting.dialog.DateTimePickerDialog;
 import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
 
@@ -47,7 +47,7 @@ public class WorkHourActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_workhour_start_layout)
     public void changeWorkHourStart() {
-        DatePickerDialog dialog = DatePickerDialog.newInstance(getString(R.string.field_workhour_start),
+        DateTimePickerDialog dialog = DateTimePickerDialog.newInstance(getString(R.string.field_workhour_start),
                 workHour.get("开始时间").toString(),
                 new OnChangeListener() {
                     @Override
@@ -63,7 +63,7 @@ public class WorkHourActivity extends ActionBarActivity {
 
     @OnClick(R.id.activity_workhour_end_layout)
     public void changeWorkHourEnd() {
-        DatePickerDialog dialog = DatePickerDialog.newInstance(getString(R.string.field_workhour_end),
+        DateTimePickerDialog dialog = DateTimePickerDialog.newInstance(getString(R.string.field_workhour_end),
                 workHour.get("结束时间").toString(),
                 new OnChangeListener() {
                     @Override

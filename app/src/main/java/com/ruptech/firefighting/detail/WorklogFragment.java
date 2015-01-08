@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.R;
-import com.ruptech.firefighting.worklog.WorklogActivity;
 
 import java.io.Serializable;
 import java.util.List;

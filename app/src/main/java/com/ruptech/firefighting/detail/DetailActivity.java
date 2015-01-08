@@ -74,12 +74,10 @@ public class DetailActivity extends ActionBarActivity implements MaterialTabList
 
     @Override
     public void onTabReselected(MaterialTab tab) {
-
     }
 
     @Override
     public void onTabUnselected(MaterialTab tab) {
-
     }
 
     @Override
