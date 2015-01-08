@@ -1,21 +1,24 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
     tools:context="com.ruptech.firefighting.worklog.WorklogActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_background_color" />
 
     <LinearLayout
         android:id="@+id/activity_worklog_top"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbar_background_color" />
 
         <RelativeLayout
             android:id="@+id/activity_worklog_name_layout"
@@ -78,23 +81,28 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/activity_worklog_workhours"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/activity_worklog_top"
-        android:layout_marginTop="20dp"
-        android:drawSelectorOnTop="false" />
+        android:layout_weight="1">
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_action_new"
-        fab:fab_colorNormal="@color/primary"
-        fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple" />
-</RelativeLayout>
+        <ListView
+            android:id="@+id/activity_worklog_workhours"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:drawSelectorOnTop="false" />
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_action_new"
+            fab:fab_colorNormal="@color/primary"
+            fab:fab_colorPressed="@color/primary_pressed"
+            fab:fab_colorRipple="@color/ripple" />
+    </RelativeLayout>
+</LinearLayout>

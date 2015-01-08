@@ -143,15 +143,39 @@ public abstract class HttpConnection {
     protected Response _get(String ifPage, Map<String, String> params) {
         String url = genRequestURL(ifPage, params);
         Response response = get(url);
-        response.setUrl(url);
         return response;
     }
 
     protected Response _post(String ifPage, Map<String, String> params) {
         String url = genRequestURL(ifPage, null);
         Response response = post(url, params);
-        response.setUrl(url);
         return response;
+    }
+
+    class Response {
+        private final String TAG = Response.class.getSimpleName();
+
+        private String body;
+
+        public Response(String body) {
+            this.body = body;
+        }
+
+        public JSONArray asJSONArray() throws RuntimeException {
+            try {
+                return new JSONArray(body);
+            } catch (Exception jsone) {
+                throw new RuntimeException(jsone.getMessage(), jsone);
+            }
+        }
+
+        public JSONObject asJSONObject() throws Exception {
+            try {
+                return new JSONObject(body);
+            } catch (JSONException jsone) {
+                throw new Exception(jsone.getMessage() + ":" + body, jsone);
+            }
+        }
     }
 
 }

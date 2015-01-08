@@ -31,6 +31,7 @@
     <string name="field_task_manager_name">联系人</string>
     <string name="field_task_manager_tel">联系电话</string>
     <string name="field_work_title">标题</string>
+    <string name="tab_title_workhour">工作时间</string>
     <string name="field_work_memo">详细描述</string>
     <string name="field_item_no">序号</string>
     <string name="field_item_company">单位</string>
@@ -50,5 +51,9 @@
     <string name="field_task_name">维修任务</string>
     <string name="ok">确认</string>
     <string name="cancel">取消</string>
+    <string name="field_workhour_worker">维修人员姓名</string>
+    <string name="field_workhour_spend">计</string>
+    <string name="field_workhour_start">开始时间</string>
+    <string name="field_workhour_end">结束时间</string>
 
 </resources>

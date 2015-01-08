@@ -1,8 +1,11 @@
 package com.ruptech.firefighting.worklog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class WorklogActivity extends ActionBarActivity {
+public class WorklogActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
     public static final String ARG_ITEM = "ARG_ITEM";
     @InjectView(R.id.activity_worklog_name)
     TextView mNameTextView;
@@ -96,8 +100,18 @@ public class WorklogActivity extends ActionBarActivity {
                         R.id.item_workhour_start,
                         R.id.item_workhour_end});
         mWorkhourListView.setAdapter(adapter);
+        mWorkhourListView.setOnItemClickListener(this);
 
         fab.attachToListView(mWorkhourListView);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Map<String, Object> workhour = (Map<String, Object>) mWorkhourListView.getAdapter().getItem(position);
+        // In single-pane mode, simply start the detail activity
+        // for the selected item ID.
+        Intent workhourIntent = new Intent(this, WorkHourActivity.class);
+        workhourIntent.putExtra(WorkHourActivity.ARG_ITEM, (Serializable) workhour);
+        startActivity(workhourIntent);
+    }
 }

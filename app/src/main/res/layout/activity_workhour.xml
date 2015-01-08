@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".worklog.WorkHourActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_background_color" />
+
+    <RelativeLayout
+        android:id="@+id/activity_workhour_worker_layout"
+        style="@style/editable_field_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/field_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/field_workhour_worker" />
+
+        <TextView
+            android:id="@+id/activity_workhour_worker"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/activity_workhour_worker_next" />
+
+        <ImageView
+            android:id="@+id/activity_workhour_worker_next"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_next_item" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/activity_workhour_spend_layout"
+        style="@style/field_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/field_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/field_workhour_spend" />
+
+        <TextView
+            android:id="@+id/activity_workhour_spend"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/activity_workhour_spend_next" />
+
+        <ImageView
+            android:id="@+id/activity_workhour_spend_next"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_next_item"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/activity_workhour_start_layout"
+        style="@style/editable_field_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/field_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/field_workhour_start" />
+
+        <TextView
+            android:id="@+id/activity_workhour_start"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/activity_workhour_start_next" />
+
+        <ImageView
+            android:id="@+id/activity_workhour_start_next"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_next_item" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/activity_workhour_end_layout"
+        style="@style/editable_field_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/field_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/field_workhour_end" />
+
+        <TextView
+            android:id="@+id/activity_workhour_end"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/activity_workhour_end_next" />
+
+        <ImageView
+            android:id="@+id/activity_workhour_end_next"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_next_item" />
+    </RelativeLayout>
+</LinearLayout>

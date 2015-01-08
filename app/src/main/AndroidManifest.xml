@@ -47,6 +47,11 @@
             android:launchMode="singleTop"
             android:parentActivityName=".detail.DetailActivity" />
         <activity
+            android:name=".worklog.WorkHourActivity"
+            android:label="@string/tab_title_workhour"
+            android:launchMode="singleTop"
+            android:parentActivityName=".worklog.WorklogActivity" />
+        <activity
             android:name=".item.ItemActivity"
             android:label="@string/tab_title_detail_item"
             android:launchMode="singleTop"

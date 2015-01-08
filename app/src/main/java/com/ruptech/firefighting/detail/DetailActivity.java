@@ -93,6 +93,10 @@ public class DetailActivity extends ActionBarActivity implements MaterialTabList
 
         task = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEM);
 
+        String title = ((Map<String, Object>) task.get("task")).get("标题").toString();
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // init view pager
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), setupTabs(task));
         pager.setAdapter(adapter);

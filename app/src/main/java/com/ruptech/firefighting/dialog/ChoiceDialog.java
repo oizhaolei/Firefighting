@@ -49,7 +49,7 @@ public class ChoiceDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);
 
-        View view = inflater.inflate(R.layout.fragment_dialog_choice, (ViewGroup) ((Activity) context).findViewById(R.id.dialog_singlechoice));
+        View view = inflater.inflate(R.layout.dialog_radio, (ViewGroup) ((Activity) context).findViewById(R.id.dialog_singlechoice));
         final RadioGroup radiogroup = (RadioGroup) view.findViewById(R.id.dialog_radiogroup);
 
         for (int key : choices.keySet()) {

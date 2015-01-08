@@ -7,7 +7,7 @@
     <color name="primary">#3f51b5</color>
     <color name="primary_pressed">#ff50699f</color>
     <color name="ripple">#ff80ab</color>
-    <color name="toolbar_background_color">#009688</color>
-    <color name="tab_primary_color">#009688</color>
+    <color name="toolbar_background_color">#ffff9200</color>
+    <color name="tab_primary_color">#ffe66300</color>
     <color name="tab_accent_color">#ffc400</color>
 </resources>

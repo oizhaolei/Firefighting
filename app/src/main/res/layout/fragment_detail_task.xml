@@ -214,7 +214,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_action_accept"
         fab:fab_colorNormal="@color/primary"
