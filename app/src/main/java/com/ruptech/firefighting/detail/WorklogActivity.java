@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
@@ -25,7 +26,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class WorklogActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-    public static final String ARG_ITEM = "ARG_ITEM";
+    public static final String ARG_ITEM = "ARG_DATA";
     @InjectView(R.id.activity_worklog_name)
     TextView mNameTextView;
     @InjectView(R.id.activity_worklog_memo)
@@ -93,6 +94,9 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         mMemoTextView.setText((String) worklog.get("维修工作描述"));
 
         List<Map<String, Object>> workhours = (List<Map<String, Object>>) worklog.get("workhours");
+        if (workhours == null) {
+            workhours = DataType.EMPTY_LIST;
+        }
         SimpleAdapter adapter = new SimpleAdapter(this, workhours, R.layout.item_workhour,
                 new String[]{"维修人员姓名", "工时", "开始时间", "结束时间"},
                 new int[]{R.id.item_workhour_worker,

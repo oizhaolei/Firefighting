@@ -51,16 +51,16 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                 getString(R.string.tab_title_todo)
         ) {
             public Fragment createFragment() {
-                return TodoFragment.newInstance(
+                return TodoListFragment.newInstance(
                 );
             }
         });
 
         mTabs.add(new PagerItem(
-                getString(R.string.tab_title_unchecked) // Title
+                getString(R.string.tab_title_audit) // Title
         ) {
             public Fragment createFragment() {
-                return UncheckFragment.newInstance();
+                return AuditListFragment.newInstance();
             }
         });
         return mTabs;
@@ -90,8 +90,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.title_activity_actionbar) + " - " + App.readUser().get真实姓名());
-
+        String title = getString(R.string.title_activity_actionbar) + " - " + App.readUser().get真实姓名();
+        getSupportActionBar().setTitle(title);
 
         // init view pager
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), setupTabs());

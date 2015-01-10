@@ -50,14 +50,14 @@ public class TaskFragment extends Fragment {
     public static TaskFragment newInstance(Map<String, Object> task) {
         TaskFragment fragment = new TaskFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailActivity.ARG_ITEM, (java.io.Serializable) task);
+        args.putSerializable(MaintainActivity.ARG_DATA, (java.io.Serializable) task);
         fragment.setArguments(args);
         return fragment;
     }
 
     @OnClick(R.id.fab)
     public void doAdd() {
-        Toast.makeText(getActivity(), "Apply Item", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Apply Task", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.fragment_detail_task_manager_name_layout)
@@ -109,7 +109,7 @@ public class TaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        task = (Map<String, Object>) getArguments().get(DetailActivity.ARG_ITEM);
+        task = (Map<String, Object>) getArguments().get(MaintainActivity.ARG_DATA);
     }
 
     @Override
@@ -125,8 +125,8 @@ public class TaskFragment extends Fragment {
     }
 
     private void displayData() {
-        nameTextView.setText(task.get("标题").toString());
-        companyTextView.setText(task.get("单位ID").toString());
+        nameTextView.setText(task.get("任务名称").toString());
+        companyTextView.setText(task.get("单位名称").toString());
         managerTextView.setText(task.get("单位联系人").toString());
         managerTelTextView.setText(task.get("单位联系人电话").toString());
         senderTextView.setText(task.get("派单人姓名").toString());

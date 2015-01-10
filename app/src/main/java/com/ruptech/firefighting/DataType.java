@@ -4,19 +4,26 @@ import android.os.AsyncTask;
 
 import com.ruptech.firefighting.utils.PrefUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DataType {
+    public static final String TYPE_MAINTAIN = "maintain";
+    public static final String TYPE_CHECK = "check";
 
+    public static final List<Map<String, Object>> EMPTY_LIST = new ArrayList<Map<String, Object>>();
+    public static Map<Integer, String> EMPTY_MAP = new HashMap<Integer, String>();
     static Map<Integer, String> taskStatus = new HashMap<Integer, String>();
 
     static {
-        taskStatus.put(5, "暂停");
-        taskStatus.put(6, "启动");
+        taskStatus.put(1, "正在进行");
+        taskStatus.put(2, "暂停");
+        taskStatus.put(3, "等待审核");
+        taskStatus.put(4, "审核不合格");
+        taskStatus.put(5, "完成");
     }
-
-    private static Map<Integer, String> EMPTY_MAP = new HashMap<Integer, String>();
 
     private static Map<Integer, String> deviceTypes;
     private static Map<Integer, String> systemTypes;

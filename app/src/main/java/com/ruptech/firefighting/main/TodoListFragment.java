@@ -10,19 +10,21 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.ruptech.firefighting.App;
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
-import com.ruptech.firefighting.detail.DetailActivity;
+import com.ruptech.firefighting.detail.CheckActivity;
+import com.ruptech.firefighting.detail.MaintainActivity;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class TodoFragment extends SwipeRefreshListFragment {
+public class TodoListFragment extends SwipeRefreshListFragment {
 
-    public static final String TAG = TodoFragment.class.getSimpleName();
+    public static final String TAG = TodoListFragment.class.getSimpleName();
 
-    public static TodoFragment newInstance() {
-        return new TodoFragment();
+    public static TodoListFragment newInstance() {
+        return new TodoListFragment();
     }
 
     @Override
@@ -58,9 +60,10 @@ public class TodoFragment extends SwipeRefreshListFragment {
         Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
         // In single-pane mode, simply start the detail activity
         // for the selected item ID.
-        String taskId = (String) item.get("编号");
+        String taskId = (String) item.get("ID");
+        String type = (String) item.get("任务类型");
 
-        new TaskBackgroundTask(taskId).execute();
+        new TaskBackgroundTask(taskId, type).execute();
     }
     // END_INCLUDE (initiate_refresh)
 
@@ -75,7 +78,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
         /**
          * Execute the background task, which uses {@link android.os.AsyncTask} to load the data.
          */
-        new TodoTasksBackgroundTask().execute();
+        new TodoListBackgroundTask().execute();
     }
 
     /**
@@ -84,7 +87,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
      */
     private void onRefreshComplete(List<Map<String, Object>> result) {
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), result, R.layout.item_task, new String[]{"标题", "任务状态", "派单时间"}, new int[]{R.id.item_task_name,
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), result, R.layout.item_task, new String[]{"任务名称", "任务状态", "派单时间"}, new int[]{R.id.item_task_name,
                 R.id.item_task_status, R.id.item_task_date});
         setListAdapter(adapter);
 
@@ -92,22 +95,26 @@ public class TodoFragment extends SwipeRefreshListFragment {
         setRefreshing(false);
     }
 
-    private void openTask(Map<String, Object> task) {
-        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-        detailIntent.putExtra(DetailActivity.ARG_ITEM, (Serializable) task);
+    private void openTask(Map<String, Object> task, String type, Map<String, Object> items) {
+        Intent detailIntent = null;
+        if (DataType.TYPE_MAINTAIN.equals(type)) {
+            detailIntent = new Intent(getActivity(), MaintainActivity.class);
+        } else {
+            detailIntent = new Intent(getActivity(), CheckActivity.class);
+        }
+        detailIntent.putExtra(MaintainActivity.ARG_ITEMS, (Serializable) items);
+        detailIntent.putExtra(MaintainActivity.ARG_DATA, (Serializable) task);
         startActivity(detailIntent);
     }
 
-    /**
-     *
-     */
-    private class TodoTasksBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
+    private class TodoListBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getTodoTaskList();
+                return App.getHttpServer().getTodoList();
             } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
                 return null;
             }
         }
@@ -125,16 +132,22 @@ public class TodoFragment extends SwipeRefreshListFragment {
     private class TaskBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
 
         private final String taskId;
+        private final String type;
+        private Map<String, Object> items;
 
-        public TaskBackgroundTask(String taskId) {
+        public TaskBackgroundTask(String taskId, String type) {
             this.taskId = taskId;
+            this.type = type;
         }
 
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getTask(taskId);
+                items = App.getHttpServer().getItems(taskId, type);
+
+                return App.getHttpServer().getTask(taskId, type);
             } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
                 return null;
             }
         }
@@ -144,7 +157,7 @@ public class TodoFragment extends SwipeRefreshListFragment {
             super.onPostExecute(result);
 
             // Tell the Fragment that the refresh has completed
-            openTask(result);
+            openTask(result, type, items);
         }
     }
 }

@@ -19,11 +19,14 @@
     <string name="action_apply">提交审核</string>
     <string name="action_settings">设置</string>
     <string name="tab_title_todo">待处理一览</string>
-    <string name="tab_title_unchecked">待审核一览</string>
-    <string name="title_item_detail">维保任务明细</string>
+    <string name="tab_title_audit">待审核一览</string>
+    <string name="title_item_maintain">维保任务明细</string>
+    <string name="title_item_check">检查任务明细</string>
     <string name="tab_title_detail_task">维修任务</string>
+    <string name="tab_title_detail_check">检查任务</string>
     <string name="tab_title_detail_worklog">工作记录</string>
     <string name="tab_title_detail_item">部件状态</string>
+    <string name="tab_title_detail_plan">检查计划</string>
     <string name="save">保存</string>
     <string name="logout">退出</string>
     <string name="logout_summary">退出账户</string>

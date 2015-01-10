@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".App"
@@ -29,14 +30,20 @@
             android:label="@string/title_activity_actionbar"
             android:launchMode="singleTop" />
         <activity
-            android:name=".detail.DetailActivity"
-            android:label="@string/title_item_detail"
+            android:name=".detail.MaintainActivity"
+            android:label="@string/title_item_maintain"
             android:launchMode="singleTop"
-            android:parentActivityName=".main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
-        </activity>
+            android:parentActivityName=".main.MainActivity" />
+        <activity
+            android:name=".detail.CheckActivity"
+            android:label="@string/title_item_check"
+            android:launchMode="singleTop"
+            android:parentActivityName=".main.MainActivity" />
+        <activity
+            android:name=".detail.PlanDetailActivity"
+            android:label="@string/title_item_check"
+            android:launchMode="singleTop"
+            android:parentActivityName=".detail.CheckActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"
@@ -45,7 +52,7 @@
             android:name=".detail.WorklogActivity"
             android:label="@string/tab_title_detail_worklog"
             android:launchMode="singleTop"
-            android:parentActivityName=".detail.DetailActivity" />
+            android:parentActivityName=".detail.MaintainActivity" />
         <activity
             android:name=".detail.WorkHourActivity"
             android:label="@string/tab_title_workhour"
@@ -55,7 +62,7 @@
             android:name=".detail.ItemActivity"
             android:label="@string/tab_title_detail_item"
             android:launchMode="singleTop"
-            android:parentActivityName=".detail.DetailActivity" />
+            android:parentActivityName=".detail.MaintainActivity" />
     </application>
 
 </manifest>

@@ -20,14 +20,17 @@ import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
-public class DetailActivity extends ActionBarActivity implements MaterialTabListener {
-    public static final String ARG_ITEM = "ARG_ITEM";
-    private static final String TAG = DetailActivity.class.getName();
+public class MaintainActivity extends ActionBarActivity implements MaterialTabListener {
+    public static final String ARG_ITEMS = "ARG_ITEMS";
+    public static final String ARG_DATA = "ARG_DATA";
+    private static final String TAG = MaintainActivity.class.getName();
     @InjectView(R.id.tabHost)
     MaterialTabHost tabHost;
     @InjectView(R.id.pager)
     ViewPager pager;
-    private Map<String, Object> task;
+    Map<String, Object> task;
+    private List<Map<String, Object>> sum;
+    private List<Map<String, Object>> items;
 
     protected List<PagerItem> setupTabs(final Map<String, Object> task) {
         List<PagerItem> mTabs = new ArrayList<PagerItem>();
@@ -51,7 +54,8 @@ public class DetailActivity extends ActionBarActivity implements MaterialTabList
         ) {
             public Fragment createFragment() {
                 List<Map<String, Object>> worklogs = (List<Map<String, Object>>) task.get("worklogs");
-                return WorklogFragment.newInstance(worklogs);
+                List<Map<String, Object>> workhoursum = (List<Map<String, Object>>) task.get("workhoursum");
+                return WorklogListFragment.newInstance(worklogs, workhoursum);
             }
         });
 
@@ -59,8 +63,7 @@ public class DetailActivity extends ActionBarActivity implements MaterialTabList
                 getString(R.string.tab_title_detail_item) // Title
         ) {
             public Fragment createFragment() {
-                List<Map<String, Object>> items = (List<Map<String, Object>>) task.get("items");
-                return ItemFragment.newInstance(items);
+                return ItemListFragment.newInstance(items, sum);
             }
         });
         // END_INCLUDE (populate_tabs)
@@ -89,9 +92,9 @@ public class DetailActivity extends ActionBarActivity implements MaterialTabList
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
 
-        task = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEM);
+        parseExtras();
 
-        String title = ((Map<String, Object>) task.get("task")).get("标题").toString();
+        String title = ((Map<String, Object>) task.get("task")).get("任务名称").toString();
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -114,5 +117,12 @@ public class DetailActivity extends ActionBarActivity implements MaterialTabList
             );
 
         }
+    }
+
+    void parseExtras() {
+        task = (Map<String, Object>) getIntent().getSerializableExtra(ARG_DATA);
+        Map<String, Object> result = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEMS);
+        sum = (List<Map<String, Object>>) result.get("sum");
+        items = (List<Map<String, Object>>) result.get("detail");
     }
 }

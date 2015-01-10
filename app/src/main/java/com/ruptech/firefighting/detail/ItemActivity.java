@@ -18,7 +18,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class ItemActivity extends ActionBarActivity {
-    public static final String ARG_ITEM = "ARG_ITEM";
+    public static final String ARG_ITEM = "ARG_DATA";
     @InjectView(R.id.activity_item_no)
     TextView mNoTextView;
     @InjectView(R.id.activity_item_company)

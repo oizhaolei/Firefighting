@@ -23,14 +23,14 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testGetUndoTaskList() throws Exception {
 
-        List<Map<String, Object>> tasks = App.getHttpServer().getTodoTaskList();
+        List<Map<String, Object>> tasks = App.getHttpServer().getTodoList();
         Assert.assertEquals(24, tasks.size());
         Assert.assertEquals(24, tasks.size());
     }
 
     public void testGetTask() throws Exception {
 
-        Map<String, Object> task = App.getHttpServer().getTask("");
+        Map<String, Object> task = App.getHttpServer().getTask(taskId, "");
         Assert.assertTrue(task.containsKey("task"));
         Assert.assertTrue(task.containsKey("worklogs"));
         Assert.assertTrue(task.containsKey("items"));

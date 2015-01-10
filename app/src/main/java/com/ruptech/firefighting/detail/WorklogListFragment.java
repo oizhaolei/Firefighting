@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
@@ -21,16 +22,22 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class WorklogFragment extends ListFragment {
+public class WorklogListFragment extends ListFragment {
+    public static final String ARG_WORK_LOGS = "ARG_WORK_LOGS";
+    public static final String ARG_WORK_HOUR_SUM = "ARG_WORK_HOUR_SUM";
 
     @InjectView(R.id.fab)
     FloatingActionButton fab;
+    @InjectView(R.id.fragment_detail_worklog_bottom)
+    TextView workhourSumTextView;
     private List<Map<String, Object>> worklogs;
+    private List<Map<String, Object>> workhoursum;
 
-    public static WorklogFragment newInstance(List<Map<String, Object>> worklogs) {
-        WorklogFragment fragment = new WorklogFragment();
+    public static WorklogListFragment newInstance(List<Map<String, Object>> worklogs, List<Map<String, Object>> workhoursum) {
+        WorklogListFragment fragment = new WorklogListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailActivity.ARG_ITEM, (java.io.Serializable) worklogs);
+        args.putSerializable(WorklogListFragment.ARG_WORK_LOGS, (java.io.Serializable) worklogs);
+        args.putSerializable(WorklogListFragment.ARG_WORK_HOUR_SUM, (java.io.Serializable) workhoursum);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +52,8 @@ public class WorklogFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
-        worklogs = (List<Map<String, Object>>) getArguments().get(DetailActivity.ARG_ITEM);
+        worklogs = (List<Map<String, Object>>) getArguments().get(ARG_WORK_LOGS);
+        workhoursum = (List<Map<String, Object>>) getArguments().get(ARG_WORK_HOUR_SUM);
     }
 
     @Override
@@ -58,13 +66,14 @@ public class WorklogFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        fab.attachToListView(getListView());
 
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), worklogs, R.layout.item_worklog,
-                new String[]{"标题", "维修工作描述"}, new int[]{R.id.item_worklog_name,
+                new String[]{"标题", "详细描述"}, new int[]{R.id.item_worklog_name,
                 R.id.item_worklog_memo});
         setListAdapter(adapter);
 
-        fab.attachToListView(getListView());
+        workhourSumTextView.setText(workhoursum.toString());
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {

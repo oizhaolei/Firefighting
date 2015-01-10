@@ -1,6 +1,7 @@
 package com.ruptech.firefighting;
 
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ public class App extends Application {
     public final static String TAG = App.class.getName();
     static public Properties properties;
     public static Context mContext;
+    public static NotificationManager notificationManager;
     private static HttpServer httpServer;
     private static User user;
 
@@ -72,6 +74,8 @@ public class App extends Application {
             Log.e(TAG, "App.onCreate");
 
         mContext = this.getApplicationContext();
+        notificationManager = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
 
         AssetsPropertyReader assetsPropertyReader = new AssetsPropertyReader(this);
         properties = assetsPropertyReader.getProperties("env.properties");

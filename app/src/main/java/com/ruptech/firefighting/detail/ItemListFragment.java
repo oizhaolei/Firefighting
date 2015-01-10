@@ -21,16 +21,20 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class ItemFragment extends ListFragment {
+public class ItemListFragment extends ListFragment {
 
+    public static final String EXTRA_ITEMS = "EXTRA_ITEMS";
+    public static final String EXTRA_SUM = "EXTRA_SUM";
     @InjectView(R.id.fab)
     FloatingActionButton fab;
     private List<Map<String, Object>> items;
+    private List<Map<String, Object>> sum;
 
-    public static ItemFragment newInstance(List<Map<String, Object>> items) {
-        ItemFragment fragment = new ItemFragment();
+    public static ItemListFragment newInstance(List<Map<String, Object>> items, List<Map<String, Object>> sum) {
+        ItemListFragment fragment = new ItemListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailActivity.ARG_ITEM, (java.io.Serializable) items);
+        args.putSerializable(EXTRA_ITEMS, (java.io.Serializable) items);
+        args.putSerializable(EXTRA_SUM, (java.io.Serializable) sum);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +49,8 @@ public class ItemFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        items = (List<Map<String, Object>>) getArguments().get(DetailActivity.ARG_ITEM);
+        items = (List<Map<String, Object>>) getArguments().get(EXTRA_ITEMS);
+        sum = (List<Map<String, Object>>) getArguments().get(EXTRA_SUM);
     }
 
     @Override
@@ -61,7 +66,7 @@ public class ItemFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), items, R.layout.item_item,
-                new String[]{"部件ID", "单位名称", "系统名称", "维修状态", "部件报修来源", "报修时间", "结束时间"},
+                new String[]{"序号", "单位", "系统名称", "维修状态", "部件报修来源", "报修时间", "结束时间"},
                 new int[]{R.id.item_item_no, R.id.item_item_company, R.id.item_item_name, R.id.item_item_status,
                         R.id.item_item_source, R.id.item_item_report_date, R.id.item_item_end_date});
         setListAdapter(adapter);
