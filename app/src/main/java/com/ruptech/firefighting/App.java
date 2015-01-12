@@ -1,12 +1,12 @@
 package com.ruptech.firefighting;
 
-import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.baidu.frontia.FrontiaApplication;
 import com.ruptech.firefighting.http.HttpServer;
 import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.model.User;
@@ -19,7 +19,7 @@ import java.util.Properties;
 /**
  * A login screen that offers login via email/password.
  */
-public class App extends Application {
+public class App extends FrontiaApplication {
     public final static String TAG = App.class.getName();
     static public Properties properties;
     public static Context mContext;

@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.SettingsActivity;
@@ -88,6 +90,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         ButterKnife.inject(this);
         instance = this;
 
+        initWithApiKey();
+
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
         String title = getString(R.string.title_activity_actionbar) + " - " + App.readUser().get真实姓名();
@@ -111,6 +115,14 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                             .setTabListener(this)
             );
         }
+    }
+
+    // 以apikey的方式绑定
+    private void initWithApiKey() {
+        // Push: 无账号初始化，用api key绑定
+        PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,
+                App.properties.getProperty("baidu_api_key"));
     }
 
     @Override
