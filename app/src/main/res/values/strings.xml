@@ -58,5 +58,9 @@
     <string name="field_workhour_spend">计</string>
     <string name="field_workhour_start">开始时间</string>
     <string name="field_workhour_end">结束时间</string>
+    <string name="field_checkout_item_no">企业编码</string>
+    <string name="field_check_item_memo">备注</string>
+    <string name="field_check_item_status">状态</string>
+    <string name="field_check_item_detail">故障内容</string>
 
 </resources>

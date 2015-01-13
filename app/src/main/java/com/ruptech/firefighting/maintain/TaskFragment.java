@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.maintain;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,22 +28,22 @@ public class TaskFragment extends Fragment {
 
     @InjectView(R.id.fab)
     FloatingActionButton fab;
-    @InjectView(R.id.fragment_detail_task_scrollview)
+    @InjectView(R.id.fragment_maintain_task_scrollview)
     ObservableScrollView scrollView;
 
-    @InjectView(R.id.fragment_detail_task_name)
+    @InjectView(R.id.fragment_maintain_task_name)
     TextView nameTextView;
-    @InjectView(R.id.fragment_detail_task_company)
+    @InjectView(R.id.fragment_maintain_task_company)
     TextView companyTextView;
-    @InjectView(R.id.fragment_detail_task_manager_name)
+    @InjectView(R.id.fragment_maintain_task_manager_name)
     TextView managerTextView;
-    @InjectView(R.id.fragment_detail_task_manager_tel)
+    @InjectView(R.id.fragment_maintain_task_manager_tel)
     TextView managerTelTextView;
-    @InjectView(R.id.fragment_detail_task_sender)
+    @InjectView(R.id.fragment_maintain_task_sender)
     TextView senderTextView;
-    @InjectView(R.id.fragment_detail_task_send_date)
+    @InjectView(R.id.fragment_maintain_task_send_date)
     TextView sendDateTextView;
-    @InjectView(R.id.fragment_detail_task_status)
+    @InjectView(R.id.fragment_maintain_task_status)
     TextView statusTextView;
     private Map<String, Object> task;
 
@@ -60,7 +60,7 @@ public class TaskFragment extends Fragment {
         Toast.makeText(getActivity(), "Apply Task", Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.fragment_detail_task_manager_name_layout)
+    @OnClick(R.id.fragment_maintain_task_manager_name_layout)
     public void changeManagerName() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), task.get("单位联系人").toString(), new OnChangeListener() {
             @Override
@@ -74,7 +74,7 @@ public class TaskFragment extends Fragment {
         dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_name));
     }
 
-    @OnClick(R.id.fragment_detail_task_manager_tel_layout)
+    @OnClick(R.id.fragment_maintain_task_manager_tel_layout)
     public void changeManagerTel() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), task.get("单位联系人电话").toString(), new OnChangeListener() {
             @Override
@@ -89,7 +89,7 @@ public class TaskFragment extends Fragment {
         dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_tel));
     }
 
-    @OnClick(R.id.fragment_detail_task_status_layout)
+    @OnClick(R.id.fragment_maintain_task_status_layout)
     public void changeTaskStatus() {
         Map choices = DataType.getTaskStatusMap();
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
@@ -115,7 +115,7 @@ public class TaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_detail_task, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_maintain_task, container, false);
         ButterKnife.inject(this, rootView);
 
         displayData();

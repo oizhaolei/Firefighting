@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.maintain;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +21,6 @@ import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
 public class MaintainActivity extends ActionBarActivity implements MaterialTabListener {
-    public static final String ARG_ITEMS = "ARG_ITEMS";
     public static final String ARG_DATA = "ARG_DATA";
     private static final String TAG = MaintainActivity.class.getName();
     @InjectView(R.id.tabHost)
@@ -29,8 +28,6 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
     @InjectView(R.id.pager)
     ViewPager pager;
     Map<String, Object> task;
-    private List<Map<String, Object>> sum;
-    private List<Map<String, Object>> items;
 
     protected List<PagerItem> setupTabs(final Map<String, Object> task) {
         List<PagerItem> mTabs = new ArrayList<PagerItem>();
@@ -63,6 +60,8 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
                 getString(R.string.tab_title_detail_item) // Title
         ) {
             public Fragment createFragment() {
+                List<Map<String, Object>> items = (List<Map<String, Object>>) task.get("items");
+                List<Map<String, Object>> sum = (List<Map<String, Object>>) task.get("componentsum");
                 return ItemListFragment.newInstance(items, sum);
             }
         });
@@ -121,8 +120,5 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
 
     void parseExtras() {
         task = (Map<String, Object>) getIntent().getSerializableExtra(ARG_DATA);
-        Map<String, Object> result = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEMS);
-        sum = (List<Map<String, Object>>) result.get("sum");
-        items = (List<Map<String, Object>>) result.get("detail");
     }
 }

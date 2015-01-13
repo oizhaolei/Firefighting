@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.maintain;
 
 import android.content.Intent;
 import android.os.Bundle;

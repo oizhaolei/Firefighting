@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.check;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class PlanDetailActivity extends ActionBarActivity {
+public class ItemListActivity extends ActionBarActivity {
 
     public static final String EXTRA_ITEMS = "EXTRA_ITEMS";
     public static final String EXTRA_SUM = "EXTRA_SUM";
@@ -23,8 +23,8 @@ public class PlanDetailActivity extends ActionBarActivity {
 
         // Set content view (which contains a PopupListFragment)
         setContentView(R.layout.activity_plan_detail);
-        items = (List<Map<String, Object>>) getIntent().getSerializableExtra(PlanDetailActivity.EXTRA_ITEMS);
-        sum = (List<Map<String, Object>>) getIntent().getSerializableExtra(PlanDetailActivity.EXTRA_SUM);
+        items = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_ITEMS);
+        sum = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_SUM);
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

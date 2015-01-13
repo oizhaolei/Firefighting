@@ -12,19 +12,19 @@ import android.widget.SimpleAdapter;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
-import com.ruptech.firefighting.detail.CheckActivity;
-import com.ruptech.firefighting.detail.MaintainActivity;
+import com.ruptech.firefighting.check.CheckActivity;
+import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class TodoListFragment extends SwipeRefreshListFragment {
+public class UndoListFragment extends SwipeRefreshListFragment {
 
-    public static final String TAG = TodoListFragment.class.getSimpleName();
+    public static final String TAG = UndoListFragment.class.getSimpleName();
 
-    public static TodoListFragment newInstance() {
-        return new TodoListFragment();
+    public static UndoListFragment newInstance() {
+        return new UndoListFragment();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TodoListFragment extends SwipeRefreshListFragment {
         /**
          * Execute the background task, which uses {@link android.os.AsyncTask} to load the data.
          */
-        new TodoListBackgroundTask().execute();
+        new UndoListBackgroundTask().execute();
     }
 
     /**
@@ -102,17 +102,16 @@ public class TodoListFragment extends SwipeRefreshListFragment {
         } else {
             detailIntent = new Intent(getActivity(), CheckActivity.class);
         }
-        detailIntent.putExtra(MaintainActivity.ARG_ITEMS, (Serializable) items);
         detailIntent.putExtra(MaintainActivity.ARG_DATA, (Serializable) task);
         startActivity(detailIntent);
     }
 
-    private class TodoListBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
+    private class UndoListBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getTodoList();
+                return App.getHttpServer().getTaskList("undo");
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 return null;

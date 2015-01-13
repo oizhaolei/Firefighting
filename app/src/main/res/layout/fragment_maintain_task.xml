@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.melnykov.fab.ObservableScrollView
-        android:id="@+id/fragment_detail_task_scrollview"
+        android:id="@+id/fragment_maintain_task_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_name_layout"
+                android:id="@+id/fragment_maintain_task_name_layout"
                 style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -27,14 +27,14 @@
                     android:text="@string/field_task_name" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_name"
+                    android:id="@+id/fragment_maintain_task_name"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_name_next" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_name_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_name_next"
+                    android:id="@+id/fragment_maintain_task_name_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -43,7 +43,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_company_layout"
+                android:id="@+id/fragment_maintain_task_company_layout"
                 style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -55,14 +55,14 @@
                     android:text="@string/field_task_company" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_company"
+                    android:id="@+id/fragment_maintain_task_company"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_company_next" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_company_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_company_next"
+                    android:id="@+id/fragment_maintain_task_company_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -71,7 +71,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_manager_name_layout"
+                android:id="@+id/fragment_maintain_task_manager_name_layout"
                 style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -83,14 +83,14 @@
                     android:text="@string/field_task_manager_name" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_manager_name"
+                    android:id="@+id/fragment_maintain_task_manager_name"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_manager_name_next" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_manager_name_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_manager_name_next"
+                    android:id="@+id/fragment_maintain_task_manager_name_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -98,7 +98,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_manager_tel_layout"
+                android:id="@+id/fragment_maintain_task_manager_tel_layout"
                 style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -110,14 +110,14 @@
                     android:text="@string/field_task_manager_tel" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_manager_tel"
+                    android:id="@+id/fragment_maintain_task_manager_tel"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_manager_tel_next" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_manager_tel_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_manager_tel_next"
+                    android:id="@+id/fragment_maintain_task_manager_tel_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -125,7 +125,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_sender_layout"
+                android:id="@+id/fragment_maintain_task_sender_layout"
                 style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -137,14 +137,14 @@
                     android:text="@string/field_task_sender" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_sender"
+                    android:id="@+id/fragment_maintain_task_sender"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_sender_next" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_sender_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_sender_next"
+                    android:id="@+id/fragment_maintain_task_sender_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -153,7 +153,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_send_date_layout"
+                android:id="@+id/fragment_maintain_task_send_date_layout"
                 style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -165,14 +165,14 @@
                     android:text="@string/field_task_send_date" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_send_date"
+                    android:id="@+id/fragment_maintain_task_send_date"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_send_date_next" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_send_date_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_send_date_next"
+                    android:id="@+id/fragment_maintain_task_send_date_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -181,7 +181,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/fragment_detail_task_status_layout"
+                android:id="@+id/fragment_maintain_task_status_layout"
                 style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -193,14 +193,14 @@
                     android:text="@string/field_task_status" />
 
                 <TextView
-                    android:id="@+id/fragment_detail_task_status"
+                    android:id="@+id/fragment_maintain_task_status"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_detail_task_status_edit" />
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_status_edit" />
 
                 <ImageView
-                    android:id="@+id/fragment_detail_task_status_edit"
+                    android:id="@+id/fragment_maintain_task_status_edit"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"

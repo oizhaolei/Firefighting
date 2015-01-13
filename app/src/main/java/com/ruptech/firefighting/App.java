@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.baidu.android.pushservice.PushManager;
 import com.baidu.frontia.FrontiaApplication;
 import com.ruptech.firefighting.http.HttpServer;
 import com.ruptech.firefighting.main.MainActivity;
@@ -61,6 +62,8 @@ public class App extends FrontiaApplication {
     }
 
     public static void logout() {
+        PushManager.stopWork(App.mContext);
+
         Log.v(TAG, "logout.");
         MainActivity.close();
         App.saveUser(null);

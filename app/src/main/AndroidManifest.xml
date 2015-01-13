@@ -30,44 +30,49 @@
             android:label="@string/title_activity_actionbar"
             android:launchMode="singleTop" />
         <activity
-            android:name=".detail.MaintainActivity"
+            android:name=".maintain.MaintainActivity"
             android:label="@string/title_item_maintain"
             android:launchMode="singleTop"
             android:parentActivityName=".main.MainActivity" />
         <activity
-            android:name=".detail.CheckActivity"
+            android:name=".check.CheckActivity"
             android:label="@string/title_item_check"
             android:launchMode="singleTop"
             android:parentActivityName=".main.MainActivity" />
         <activity
-            android:name=".detail.PlanDetailActivity"
+            android:name=".check.ItemListActivity"
             android:label="@string/title_item_check"
             android:launchMode="singleTop"
-            android:parentActivityName=".detail.CheckActivity" />
+            android:parentActivityName=".check.CheckActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"
             android:launchMode="singleTop" />
         <activity
-            android:name=".detail.WorklogActivity"
+            android:name=".maintain.WorklogActivity"
             android:label="@string/tab_title_detail_worklog"
             android:launchMode="singleTop"
-            android:parentActivityName=".detail.MaintainActivity" />
+            android:parentActivityName=".maintain.MaintainActivity" />
         <activity
-            android:name=".detail.WorkHourActivity"
+            android:name=".maintain.WorkHourActivity"
             android:label="@string/tab_title_workhour"
             android:launchMode="singleTop"
-            android:parentActivityName=".detail.WorklogActivity" />
+            android:parentActivityName=".maintain.WorklogActivity" />
         <activity
-            android:name=".detail.ItemActivity"
+            android:name=".maintain.ItemActivity"
             android:label="@string/tab_title_detail_item"
             android:launchMode="singleTop"
-            android:parentActivityName=".detail.MaintainActivity" />
+            android:parentActivityName=".maintain.MaintainActivity" />
+        <activity
+            android:name=".check.ItemActivity"
+            android:label="@string/tab_title_detail_item"
+            android:launchMode="singleTop"
+            android:parentActivityName=".check.CheckActivity" />
 
 
         <!-- push应用定义消息receiver声明 -->
-        <receiver android:name=".push.MyPushMessageReceiver">
-            <intent-filter>
+        <receiver android:name=".BaiduPushMessageReceiver">
+        <intent-filter>
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
                 <!-- 接收bind,unbind,fetch,delete等反馈消息 -->

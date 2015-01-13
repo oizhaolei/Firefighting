@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context="com.ruptech.firefighting.detail.WorklogActivity">
+    tools:context="com.ruptech.firefighting.maintain.WorklogActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

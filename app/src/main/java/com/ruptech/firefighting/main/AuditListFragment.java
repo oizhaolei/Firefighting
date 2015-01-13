@@ -12,8 +12,8 @@ import android.widget.SimpleAdapter;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
-import com.ruptech.firefighting.detail.CheckActivity;
-import com.ruptech.firefighting.detail.MaintainActivity;
+import com.ruptech.firefighting.check.CheckActivity;
+import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -100,7 +100,6 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         Intent detailIntent = null;
         if (DataType.TYPE_MAINTAIN.equals(type)) {
             detailIntent = new Intent(getActivity(), MaintainActivity.class);
-            detailIntent.putExtra(MaintainActivity.ARG_ITEMS, (Serializable) items);
         } else {
             detailIntent = new Intent(getActivity(), CheckActivity.class);
         }
@@ -113,7 +112,7 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getAuditTaskList();
+                return App.getHttpServer().getTaskList("audit");
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 return null;

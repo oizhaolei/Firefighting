@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.push;
+package com.ruptech.firefighting;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -32,11 +32,11 @@ import java.util.List;
  * <p/>
  * 当您遇到以上返回错误时，如果解释不了您的问题，请用同一请求的返回值requestId和errorCode联系我们追查问题。
  */
-public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
+public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
     /**
      * TAG to Log
      */
-    public static final String TAG = MyPushMessageReceiver.class
+    public static final String TAG = BaiduPushMessageReceiver.class
             .getSimpleName();
 
     /**
@@ -58,7 +58,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
         String responseString = "onBind errorCode=" + errorCode + " appid="
                 + appid + " userId=" + userId + " channelId=" + channelId
                 + " requestId=" + requestId;
-        Log.d(TAG, responseString);
+        Log.e(TAG, responseString);
 
         // 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
         if (errorCode == 0) {
@@ -77,7 +77,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
                           String customContentString) {
         String messageString = "透传消息 message=\"" + message
                 + "\" customContentString=" + customContentString;
-        Log.d(TAG, messageString);
+        Log.e(TAG, messageString);
 
         // 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
         if (!TextUtils.isEmpty(customContentString)) {
@@ -109,7 +109,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
                                       String description, String customContentString) {
         String notifyString = "通知点击 title=\"" + title + "\" description=\""
                 + description + "\" customContent=" + customContentString;
-        Log.d(TAG, notifyString);
+        Log.e(TAG, notifyString);
 
         // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
         if (!TextUtils.isEmpty(customContentString)) {
@@ -143,7 +143,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
         String responseString = "onSetTags errorCode=" + errorCode
                 + " sucessTags=" + sucessTags + " failTags=" + failTags
                 + " requestId=" + requestId;
-        Log.d(TAG, responseString);
+        Log.e(TAG, responseString);
 
     }
 
@@ -162,7 +162,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
         String responseString = "onDelTags errorCode=" + errorCode
                 + " sucessTags=" + sucessTags + " failTags=" + failTags
                 + " requestId=" + requestId;
-        Log.d(TAG, responseString);
+        Log.e(TAG, responseString);
 
     }
 
@@ -179,7 +179,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
                            String requestId) {
         String responseString = "onListTags errorCode=" + errorCode + " tags="
                 + tags;
-        Log.d(TAG, responseString);
+        Log.e(TAG, responseString);
 
     }
 
@@ -194,7 +194,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
     public void onUnbind(Context context, int errorCode, String requestId) {
         String responseString = "onUnbind errorCode=" + errorCode
                 + " requestId = " + requestId;
-        Log.d(TAG, responseString);
+        Log.e(TAG, responseString);
 
         // 解绑定成功，设置未绑定flag，
         if (errorCode == 0) {

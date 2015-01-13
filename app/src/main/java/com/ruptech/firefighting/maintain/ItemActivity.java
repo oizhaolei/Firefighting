@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.maintain;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -19,31 +19,31 @@ import butterknife.OnClick;
 
 public class ItemActivity extends ActionBarActivity {
     public static final String ARG_ITEM = "ARG_DATA";
-    @InjectView(R.id.activity_item_no)
+    @InjectView(R.id.activity_maintain_item_no)
     TextView mNoTextView;
-    @InjectView(R.id.activity_item_company)
+    @InjectView(R.id.activity_maintain_item_company)
     TextView mCompanyTextView;
-    @InjectView(R.id.activity_item_name)
+    @InjectView(R.id.activity_maintain_item_name)
     TextView mNameTextView;
-    @InjectView(R.id.activity_item_status)
+    @InjectView(R.id.activity_maintain_item_status)
     TextView mStatusTextView;
-    @InjectView(R.id.activity_item_source)
+    @InjectView(R.id.activity_maintain_item_source)
     TextView mSourceTextView;
-    @InjectView(R.id.activity_item_report_date)
+    @InjectView(R.id.activity_maintain_item_report_date)
     TextView mReportDateTextView;
-    @InjectView(R.id.activity_item_end_date)
+    @InjectView(R.id.activity_maintain_item_end_date)
     TextView mEndDateTextView;
-    @InjectView(R.id.activity_item_system)
+    @InjectView(R.id.activity_maintain_item_system)
     TextView mSystemTextView;
-    @InjectView(R.id.activity_item_device)
+    @InjectView(R.id.activity_maintain_item_device)
     TextView mDeviceTextView;
-    @InjectView(R.id.activity_item_error)
+    @InjectView(R.id.activity_maintain_item_error)
     TextView mErrorTextView;
-    @InjectView(R.id.activity_item_resolve)
+    @InjectView(R.id.activity_maintain_item_resolve)
     TextView mResolveTextView;
     private Map<String, Object> item;
 
-    @OnClick(R.id.activity_item_system_layout)
+    @OnClick(R.id.activity_maintain_item_system_layout)
     public void changeItemSystem() {
         Map choices = DataType.getItemSystemMap();
 
@@ -61,7 +61,7 @@ public class ItemActivity extends ActionBarActivity {
         dialog.show(getFragmentManager(), getString(R.string.field_item_system));
     }
 
-    @OnClick(R.id.activity_item_device_layout)
+    @OnClick(R.id.activity_maintain_item_device_layout)
     public void changeItemDevice() {
         Map choices = DataType.getItemDeviceMap();
 
@@ -79,7 +79,7 @@ public class ItemActivity extends ActionBarActivity {
         dialog.show(getFragmentManager(), getString(R.string.field_item_device));
     }
 
-    @OnClick(R.id.activity_item_error_layout)
+    @OnClick(R.id.activity_maintain_item_error_layout)
     public void changeItemError() {
         Map choices = DataType.getItemErrorMap();
 
@@ -97,7 +97,7 @@ public class ItemActivity extends ActionBarActivity {
         dialog.show(getFragmentManager(), getString(R.string.field_item_error));
     }
 
-    @OnClick(R.id.activity_item_resolve_layout)
+    @OnClick(R.id.activity_maintain_item_resolve_layout)
     public void changeItemResolve() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_resolve),
                 item.get("故障内容").toString(),
@@ -117,7 +117,7 @@ public class ItemActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item);
+        setContentView(R.layout.activity_maintain_item);
         ButterKnife.inject(this);
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);

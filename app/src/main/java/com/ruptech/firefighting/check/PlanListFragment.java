@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.check;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,6 +16,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -79,24 +80,24 @@ public class PlanListFragment extends ListFragment {
         // for the selected item ID.
 
         String planId = plan.get("SId").toString();
-        new TaskBackgroundTask(planId, DataType.TYPE_CHECK).execute();
+        new ItemListBackgroundTask(planId, DataType.TYPE_CHECK).execute();
 
     }
 
-    private void openTask(List<Map<String, Object>> items, List<Map<String, Object>> sum) {
+    private void openItemList(List<Map<String, Object>> items, List<Map<String, Object>> sum) {
 
-        Intent intent = new Intent(getActivity(), PlanDetailActivity.class);
-        intent.putExtra(PlanDetailActivity.EXTRA_ITEMS, (Serializable) items);
-        intent.putExtra(PlanDetailActivity.EXTRA_SUM, (Serializable) sum);
+        Intent intent = new Intent(getActivity(), ItemListActivity.class);
+        intent.putExtra(ItemListActivity.EXTRA_ITEMS, (Serializable) items);
+        intent.putExtra(ItemListActivity.EXTRA_SUM, (Serializable) sum);
         startActivity(intent);
     }
 
-    private class TaskBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
+    private class ItemListBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
 
         private final String planId;
         private final String type;
 
-        public TaskBackgroundTask(String taskId, String type) {
+        public ItemListBackgroundTask(String taskId, String type) {
             this.planId = taskId;
             this.type = type;
         }
@@ -118,7 +119,7 @@ public class PlanListFragment extends ListFragment {
             List<Map<String, Object>> sum = (List<Map<String, Object>>) result.get("sum");
             List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("detail");
             // Tell the Fragment that the refresh has completed
-            openTask(items, sum);
+            openItemList(items, sum);
         }
     }
 

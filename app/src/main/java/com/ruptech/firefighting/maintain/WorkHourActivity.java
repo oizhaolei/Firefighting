@@ -1,4 +1,4 @@
-package com.ruptech.firefighting.detail;
+package com.ruptech.firefighting.maintain;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
