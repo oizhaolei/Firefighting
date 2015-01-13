@@ -105,7 +105,7 @@ public class PlanListFragment extends ListFragment {
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getItems(planId, type);
+                return App.getHttpServer().getItemList(planId, type);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 return null;

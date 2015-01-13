@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class DataType {
+    public static final String TAB_UNDO = "undo";
+    public static final String TAB_AUDIT = "audit";
+
     public static final String TYPE_MAINTAIN = "maintain";
     public static final String TYPE_CHECK = "check";
 

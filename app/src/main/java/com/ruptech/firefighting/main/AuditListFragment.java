@@ -112,7 +112,7 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getTaskList("audit");
+                return App.getHttpServer().getTaskList(DataType.TAB_AUDIT);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 return null;
@@ -143,7 +143,7 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-                items = App.getHttpServer().getItems(taskId, type);
+                items = App.getHttpServer().getItemList(taskId, type);
 
                 return App.getHttpServer().getTask(taskId, type);
             } catch (Exception e) {

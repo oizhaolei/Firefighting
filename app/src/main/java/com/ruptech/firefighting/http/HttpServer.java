@@ -3,6 +3,7 @@ package com.ruptech.firefighting.http;
 
 import android.util.Log;
 
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.model.User;
 
 import org.json.JSONArray;
@@ -58,7 +59,7 @@ public class HttpServer extends HttpConnection {
         Map<String, String> params = new HashMap<String, String>();
         params.put("type", type);
 
-        Response res = _get(API_TASK_LIST + type, null);
+        Response res = _get(API_TASK_LIST + type, params);
         JSONObject result = res.asJSONObject();
 
         if (result.getBoolean("success")) {
@@ -94,7 +95,7 @@ public class HttpServer extends HttpConnection {
         }
     }
 
-    public Map<String, Object> getItems(String taskId, String type) throws Exception {
+    public Map<String, Object> getItemList(String taskId, String type) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         params.put("id", taskId);
         params.put("type", type);
@@ -369,10 +370,10 @@ public class HttpServer extends HttpConnection {
         } else if ((API_ITEM_DELETE).equals(ifPage)) {
             String body = "{\"success\":true,\"message\":\"\"}";
             response = new Response(body);
-        } else if ((API_TASK_LIST + "audit").equals(ifPage)) {
+        } else if ((API_TASK_LIST + DataType.TAB_AUDIT).equals(ifPage)) {
             String body = "{\"success\":true,\"message\":\"\",\"data\":[]} ";
             response = new Response(body);
-        } else if ((API_TASK_LIST + "undo").equals(ifPage)) {
+        } else if ((API_TASK_LIST + DataType.TAB_UNDO).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -548,7 +549,7 @@ public class HttpServer extends HttpConnection {
                     "    ]" +
                     "}";
             response = new Response(body);
-        } else if ((API_WORKLOG_DETAIL + "maintain").equals(ifPage)) {
+        } else if ((API_WORKLOG_DETAIL + DataType.TYPE_MAINTAIN).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -583,7 +584,7 @@ public class HttpServer extends HttpConnection {
                     "    }" +
                     "}";
             response = new Response(body);
-        } else if ((API_WORKLOG_DETAIL + "check").equals(ifPage)) {
+        } else if ((API_WORKLOG_DETAIL + DataType.TYPE_CHECK).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -618,7 +619,7 @@ public class HttpServer extends HttpConnection {
                     "    }" +
                     "}";
             response = new Response(body);
-        } else if ((API_ITEM_DETAIL + "maintain").equals(ifPage)) {
+        } else if ((API_ITEM_DETAIL + DataType.TYPE_MAINTAIN).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -650,7 +651,7 @@ public class HttpServer extends HttpConnection {
                     "        }" +
                     "}";
             response = new Response(body);
-        } else if ((API_ITEM_DETAIL + "check").equals(ifPage)) {
+        } else if ((API_ITEM_DETAIL + DataType.TYPE_CHECK).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -682,7 +683,7 @@ public class HttpServer extends HttpConnection {
                     "        }" +
                     "}";
             response = new Response(body);
-        } else if ((API_ITEM_LIST + "maintain").equals(ifPage)) {
+        } else if ((API_ITEM_LIST + DataType.TYPE_MAINTAIN).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -754,7 +755,7 @@ public class HttpServer extends HttpConnection {
                     "    }" +
                     "}";
             response = new Response(body);
-        } else if ((API_ITEM_LIST + "check").equals(ifPage)) {
+        } else if ((API_ITEM_LIST + DataType.TYPE_CHECK).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -818,7 +819,7 @@ public class HttpServer extends HttpConnection {
                     "    }" +
                     "}";
             response = new Response(body);
-        } else if ((API_TASK_DETAIL + "check").equals(ifPage)) {
+        } else if ((API_TASK_DETAIL + DataType.TYPE_CHECK).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -1089,7 +1090,7 @@ public class HttpServer extends HttpConnection {
                     "    ]" +
                     "}";
             response = new Response(body);
-        } else if ((API_TASK_DETAIL + "maintain").equals(ifPage)) {
+        } else if ((API_TASK_DETAIL + DataType.TYPE_MAINTAIN).equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +

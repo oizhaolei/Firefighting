@@ -95,7 +95,7 @@ public class UndoListFragment extends SwipeRefreshListFragment {
         setRefreshing(false);
     }
 
-    private void openTask(Map<String, Object> task, String type, Map<String, Object> items) {
+    private void openTask(Map<String, Object> task, String type) {
         Intent detailIntent = null;
         if (DataType.TYPE_MAINTAIN.equals(type)) {
             detailIntent = new Intent(getActivity(), MaintainActivity.class);
@@ -111,7 +111,7 @@ public class UndoListFragment extends SwipeRefreshListFragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getTaskList("undo");
+                return App.getHttpServer().getTaskList(DataType.TAB_UNDO);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 return null;
@@ -132,7 +132,6 @@ public class UndoListFragment extends SwipeRefreshListFragment {
 
         private final String taskId;
         private final String type;
-        private Map<String, Object> items;
 
         public TaskBackgroundTask(String taskId, String type) {
             this.taskId = taskId;
@@ -142,7 +141,6 @@ public class UndoListFragment extends SwipeRefreshListFragment {
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-                items = App.getHttpServer().getItems(taskId, type);
 
                 return App.getHttpServer().getTask(taskId, type);
             } catch (Exception e) {
@@ -156,7 +154,7 @@ public class UndoListFragment extends SwipeRefreshListFragment {
             super.onPostExecute(result);
 
             // Tell the Fragment that the refresh has completed
-            openTask(result, type, items);
+            openTask(result, type);
         }
     }
 }
