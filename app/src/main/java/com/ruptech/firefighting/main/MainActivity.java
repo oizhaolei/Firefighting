@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
@@ -38,11 +39,25 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     MaterialTabHost tabHost;
     @InjectView(R.id.pager)
     ViewPager pager;
+    long back_pressed;
 
     public static void close() {
         if (instance != null) {
             instance.finish();
             instance = null;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            finish();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.confirm_exit), Toast.LENGTH_SHORT)
+                    .show();
+            back_pressed = System.currentTimeMillis();
         }
     }
 
