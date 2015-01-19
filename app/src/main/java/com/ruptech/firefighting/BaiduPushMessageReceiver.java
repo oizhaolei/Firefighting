@@ -1,13 +1,11 @@
 package com.ruptech.firefighting;
 
 import android.content.Context;
-import android.text.TextUtils;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.ruptech.firefighting.utils.PrefUtils;
 
 import java.util.List;
 
@@ -62,6 +60,8 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
 
         // 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
         if (errorCode == 0) {
+            String token = userId + ',' + channelId;
+            new BaiduRegiseBackgroundTask(App.readUser().get编号(), token).execute();
         }
     }
 
@@ -78,22 +78,6 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
         String messageString = "透传消息 message=\"" + message
                 + "\" customContentString=" + customContentString;
         Log.e(TAG, messageString);
-
-        // 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
-        if (!TextUtils.isEmpty(customContentString)) {
-            JSONObject customJson = null;
-            try {
-                customJson = new JSONObject(customContentString);
-                String myvalue = null;
-                if (!customJson.isNull("mykey")) {
-                    myvalue = customJson.getString("mykey");
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
     }
 
     /**
@@ -110,22 +94,6 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
         String notifyString = "通知点击 title=\"" + title + "\" description=\""
                 + description + "\" customContent=" + customContentString;
         Log.e(TAG, notifyString);
-
-        // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
-        if (!TextUtils.isEmpty(customContentString)) {
-            JSONObject customJson = null;
-            try {
-                customJson = new JSONObject(customContentString);
-                String myvalue = null;
-                if (!customJson.isNull("mykey")) {
-                    myvalue = customJson.getString("mykey");
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
     }
 
     /**
@@ -180,7 +148,6 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
         String responseString = "onListTags errorCode=" + errorCode + " tags="
                 + tags;
         Log.e(TAG, responseString);
-
     }
 
     /**
@@ -198,6 +165,34 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
 
         // 解绑定成功，设置未绑定flag，
         if (errorCode == 0) {
+        }
+    }
+
+    private class BaiduRegiseBackgroundTask extends AsyncTask<Void, Void, Void> {
+
+        private final String id;
+        private final String token;
+
+        public BaiduRegiseBackgroundTask(String id, String token) {
+            this.id = id;
+            this.token = token;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                App.getHttpServer().baiduPushRegist(id, token);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            // TODO Toast.makeText()
+            PrefUtils.writePushToken(token);
         }
     }
 

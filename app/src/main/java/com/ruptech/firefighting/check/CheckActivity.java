@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.maintain.WorklogListFragment;
 import com.ruptech.firefighting.view.PagerItem;
 import com.ruptech.firefighting.view.ViewPagerAdapter;
@@ -22,13 +23,14 @@ import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
 public class CheckActivity extends ActionBarActivity implements MaterialTabListener {
-    public static final String ARG_DATA = "ARG_DATA";
+    public static final String EXTRA_TASK = "EXTRA_TASK";
     private static final String TAG = CheckActivity.class.getName();
     @InjectView(R.id.tabHost)
     MaterialTabHost tabHost;
     @InjectView(R.id.pager)
     ViewPager pager;
     Map<String, Object> task;
+    String type;
 
     protected List<PagerItem> setupTabs(final Map<String, Object> task) {
         List<PagerItem> mTabs = new ArrayList<PagerItem>();
@@ -43,7 +45,7 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
         ) {
             public Fragment createFragment() {
                 Map<String, Object> basicTask = (Map<String, Object>) task.get("task");
-                return TaskFragment.newInstance(basicTask);
+                return TaskFragment.newInstance(basicTask, type);
             }
         });
 
@@ -53,7 +55,7 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
             public Fragment createFragment() {
                 List<Map<String, Object>> worklogs = (List<Map<String, Object>>) task.get("worklogs");
                 List<Map<String, Object>> workhoursum = (List<Map<String, Object>>) task.get("workhoursum");
-                return WorklogListFragment.newInstance(worklogs, workhoursum);
+                return WorklogListFragment.newInstance(worklogs, workhoursum, type);
             }
         });
 
@@ -62,7 +64,7 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
         ) {
             public Fragment createFragment() {
                 List<Map<String, Object>> items = (List<Map<String, Object>>) task.get("plans");
-                return PlanListFragment.newInstance(items);
+                return PlanListFragment.newInstance(items, type);
             }
         });
         // END_INCLUDE (populate_tabs)
@@ -119,6 +121,7 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
     }
 
     void parseExtras() {
-        task = (Map<String, Object>) getIntent().getSerializableExtra(ARG_DATA);
+        task = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_TASK);
+        type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
     }
 }

@@ -23,14 +23,14 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testGetUndoTaskList() throws Exception {
 
-        List<Map<String, Object>> tasks = App.getHttpServer().getTodoList();
+        List<Map<String, Object>> tasks = App.getHttpServer().getTaskList(DataType.TAB_UNDO);
         Assert.assertEquals(24, tasks.size());
         Assert.assertEquals(24, tasks.size());
     }
 
     public void testGetTask() throws Exception {
 
-        Map<String, Object> task = App.getHttpServer().getTask(taskId, "");
+        Map<String, Object> task = App.getHttpServer().getTask("taskId", "");
         Assert.assertTrue(task.containsKey("task"));
         Assert.assertTrue(task.containsKey("worklogs"));
         Assert.assertTrue(task.containsKey("items"));
@@ -39,7 +39,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testGetTypes() throws Exception {
 
-        Map<Integer, String> types = App.getHttpServer().getTypes("system");
+        Map<Integer, String> types = App.getHttpServer().getOptions("system");
         Assert.assertTrue(types.containsKey(1));
         Assert.assertEquals("未带电话插口手动报警报钮", types.get(2));
     }

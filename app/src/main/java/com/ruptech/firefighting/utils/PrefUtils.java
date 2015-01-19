@@ -23,6 +23,11 @@ public class PrefUtils {
     private static final String PREF_DEVICE = "PREF_DEVICE";
     private static final String PREF_SYSTEM = "PREF_SYSTEM";
     private static final String PREF_ERROR = "PREF_ERROR";
+    private static final String PREF_PUSH_TOKEN = "PREF_PUSH_TOKEN";
+    private static final String PREF_STATUS_CHECK_TASK = "PREF_STATUS_CHECK_TASK";
+    private static final String PREF_STATUS_MAINTAIN_TASK = "PREF_STATUS_MAINTAIN_TASK";
+    private static final String PREF_STATUS_MAINTAIN_ITEM = "PREF_STATUS_MAINTAIN_ITEM";
+    private static final String PREF_STATUS_CHECK_ITEM = "PREF_STATUS_CHECK_ITEM";
     private static SharedPreferences mPref;
 
 
@@ -31,6 +36,10 @@ public class PrefUtils {
             mPref = PreferenceManager.getDefaultSharedPreferences(App.mContext);
         }
         return mPref;
+    }
+
+    public static boolean existsPushToken() {
+        return getPref().getString(PREF_PUSH_TOKEN, null) != null;
     }
 
     public static void removePref(String prefKey) {
@@ -53,20 +62,57 @@ public class PrefUtils {
         return (Map<Integer, String>) readObject(PREF_DEVICE);
     }
 
+    public static Map<Integer, String> readMaintainTaskStatusMap() {
+        return (Map<Integer, String>) readObject(PREF_STATUS_MAINTAIN_TASK);
+    }
+
+    public static Map<Integer, String> readCheckTaskStatusMap() {
+        return (Map<Integer, String>) readObject(PREF_STATUS_CHECK_TASK);
+    }
+
+    public static Map<Integer, String> readMaintainItemStatusMap() {
+        return (Map<Integer, String>) readObject(PREF_STATUS_MAINTAIN_ITEM);
+    }
+
+    public static Map<Integer, String> readCheckItemStatusMap() {
+        return (Map<Integer, String>) readObject(PREF_STATUS_CHECK_ITEM);
+    }
+
+    public static void writeMaintainTaskStatus(Map<Integer, String> maintaintasks) {
+        writeObject(PREF_STATUS_MAINTAIN_TASK, maintaintasks);
+    }
+
+    public static void writeCheckItemStatus(Map<Integer, String> checkItemStatus) {
+        writeObject(PREF_STATUS_CHECK_ITEM, checkItemStatus);
+    }
+
+    public static void writeMaintainItemStatus(Map<Integer, String> maintainItemStatus) {
+        writeObject(PREF_STATUS_MAINTAIN_ITEM, maintainItemStatus);
+    }
+
+    public static void writeCheckTaskStatus(Map<Integer, String> checkTaskStatus) {
+        writeObject(PREF_STATUS_CHECK_TASK, checkTaskStatus);
+    }
+
     public static void writeUser(User user) {
-        writeObject(user, PREF_USER);
+        writeObject(PREF_USER, user);
+    }
+
+
+    public static void writePushToken(String token) {
+        getPref().edit().putString(PREF_PUSH_TOKEN, token).commit();
     }
 
     public static void writeSystemTypes(Map<Integer, String> types) {
-        writeObject(types, PREF_SYSTEM);
+        writeObject(PREF_SYSTEM, types);
     }
 
     public static void writeErrorTypes(Map<Integer, String> types) {
-        writeObject(types, PREF_ERROR);
+        writeObject(PREF_ERROR, types);
     }
 
     public static void writeDeviceTypes(Map<Integer, String> types) {
-        writeObject(types, PREF_DEVICE);
+        writeObject(PREF_DEVICE, types);
     }
 
     private static Object readObject(String prefKey) {
@@ -89,7 +135,7 @@ public class PrefUtils {
         }
     }
 
-    private static void writeObject(Object obj, String prefKey) {
+    private static void writeObject(String prefKey, Object obj) {
         if (obj == null) {
             removePref(prefKey);
         } else {
@@ -118,4 +164,5 @@ public class PrefUtils {
             }
         }
     }
+
 }

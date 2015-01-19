@@ -25,10 +25,11 @@ public class HttpServer extends HttpConnection {
     private static final String API_TASK_DETAIL = "TaskDetail.aspx";
     private static final String API_TASK_EDIT = "TaskEdit.aspx";
     private static final String API_TASK_LIST = "TaskList.aspx";
-    private static final String API_TYPES = "Option.aspx";
+    private static final String API_OPTIONS = "Option.aspx";
     private static final String API_WORKER = "Worker.aspx";
     private static final String API_WORKLOG_DETAIL = "WorkLogDetail.aspx";
     private static final String API_WORKLOG_EDIT = "WorkLogEdit.aspx";
+    private static final String API_BAIDU_PUSH_REGISTER = "Baidu/BaiduUserTokenSave.aspx";
 
     private final String TAG = HttpServer.class.getSimpleName();
 
@@ -52,6 +53,23 @@ public class HttpServer extends HttpConnection {
         } else {
             throw new RuntimeException(result.getString("message"));
         }
+    }
+
+
+    public boolean baiduPushRegist(String id, String token)
+            throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("token", token);
+
+        Response res = _get(API_BAIDU_PUSH_REGISTER, params);
+        JSONObject result = res.asJSONObject();
+
+        boolean success = result.getBoolean("success");
+        if (!success) {
+            throw new RuntimeException(result.getString("message"));
+        }
+        return success;
     }
 
 
@@ -113,6 +131,24 @@ public class HttpServer extends HttpConnection {
         }
     }
 
+    public Map<String, Object> getWorkLogDetail(String workLogId, String type) throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", workLogId);
+        params.put("type", type);
+
+        Response res = _get(API_WORKLOG_DETAIL + type, params);
+        JSONObject result = res.asJSONObject();
+
+        if (result.getBoolean("success")) {
+            JSONObject data = result.getJSONObject("data");
+            Map<String, Object> task = jsonToMap(data);
+
+            return task;
+        } else {
+            throw new RuntimeException(result.getString("message"));
+        }
+    }
+
 
     public Map<String, Object> getItemDetail(String taskId, String type) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -132,11 +168,11 @@ public class HttpServer extends HttpConnection {
         }
     }
 
-    public Map<Integer, String> getTypes(String type) throws Exception {
+    public Map<Integer, String> getOptions(String type) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         params.put("type", type);
 
-        Response res = _get(API_TYPES + type, params);
+        Response res = _get(API_OPTIONS + type, params);
         JSONObject result = res.asJSONObject();
 
         if (result.getBoolean("success")) {
@@ -147,6 +183,30 @@ public class HttpServer extends HttpConnection {
             for (Map<String, Object> map : list) {
                 Integer id = Integer.valueOf(map.get("id").toString());
                 String value = map.get("data").toString();
+
+                types.put(id, value);
+            }
+            return types;
+        } else {
+            throw new RuntimeException(result.getString("message"));
+        }
+    }
+
+    public Map<Integer, String> getStatus(String category) throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("category", category);
+
+        Response res = _get(API_STATUS + category, params);
+        JSONObject result = res.asJSONObject();
+
+        if (result.getBoolean("success")) {
+            JSONArray data = result.getJSONArray("data");
+            List<Map<String, Object>> list = toList(data);
+
+            Map<Integer, String> types = new HashMap<Integer, String>(list.size());
+            for (Map<String, Object> map : list) {
+                Integer id = Integer.valueOf(map.get("code").toString());
+                String value = map.get("name").toString();
 
                 types.put(id, value);
             }
@@ -182,7 +242,7 @@ public class HttpServer extends HttpConnection {
                     "    }" +
                     "}";
             response = new Response(body);
-        } else if ((API_TYPES + "system").equals(ifPage)) {
+        } else if ((API_OPTIONS + "system").equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -254,7 +314,7 @@ public class HttpServer extends HttpConnection {
                     "    ]" +
                     "}";
             response = new Response(body);
-        } else if ((API_TYPES + "error").equals(ifPage)) {
+        } else if ((API_OPTIONS + "error").equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -286,7 +346,7 @@ public class HttpServer extends HttpConnection {
                     "    ]" +
                     "}";
             response = new Response(body);
-        } else if ((API_TYPES + "device").equals(ifPage)) {
+        } else if ((API_OPTIONS + "device").equals(ifPage)) {
             String body = "{" +
                     "    \"success\": true," +
                     "    \"message\": \"\"," +
@@ -362,6 +422,9 @@ public class HttpServer extends HttpConnection {
             String body = "{\"success\":true,\"message\":\"\"}";
             response = new Response(body);
         } else if ((API_WORKLOG_EDIT).equals(ifPage)) {
+            String body = "{\"success\":true,\"message\":\"\"}";
+            response = new Response(body);
+        } else if ((API_BAIDU_PUSH_REGISTER).equals(ifPage)) {
             String body = "{\"success\":true,\"message\":\"\"}";
             response = new Response(body);
         } else if ((API_ITEM_EDIT).equals(ifPage)) {

@@ -14,6 +14,7 @@ import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ChoiceDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
+import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.util.Map;
@@ -41,11 +42,13 @@ public class TaskFragment extends Fragment {
     @InjectView(R.id.fragment_check_task_status)
     TextView statusTextView;
     private Map<String, Object> task;
+    private String type;
 
-    public static TaskFragment newInstance(Map<String, Object> task) {
+    public static TaskFragment newInstance(Map<String, Object> task, String type) {
         TaskFragment fragment = new TaskFragment();
         Bundle args = new Bundle();
-        args.putSerializable(MaintainActivity.ARG_DATA, (java.io.Serializable) task);
+        args.putSerializable(MaintainActivity.EXTRA_TASK, (java.io.Serializable) task);
+        args.putString(MainActivity.EXTRA_TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +60,7 @@ public class TaskFragment extends Fragment {
 
     @OnClick(R.id.fragment_check_task_status_layout)
     public void changeTaskStatus() {
-        Map choices = DataType.getTaskStatusMap();
+        Map choices = DataType.getCheckTaskStatusMap();
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
             @Override
             public void onChange(Object oldValue, Object newValue) {
@@ -75,7 +78,8 @@ public class TaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        task = (Map<String, Object>) getArguments().get(MaintainActivity.ARG_DATA);
+        task = (Map<String, Object>) getArguments().get(MaintainActivity.EXTRA_TASK);
+        type = getArguments().getString(MainActivity.EXTRA_TYPE);
     }
 
     @Override
@@ -95,7 +99,7 @@ public class TaskFragment extends Fragment {
         managerTelTextView.setText(task.get("单位联系人电话").toString());
         senderTextView.setText(task.get("派单人姓名").toString());
         sendDateTextView.setText(task.get("派单时间").toString());
-        statusTextView.setText(DataType.getTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
+        statusTextView.setText(DataType.getCheckTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
     }
 
 }

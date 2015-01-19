@@ -26,7 +26,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class WorklogActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-    public static final String ARG_ITEM = "ARG_DATA";
+    public static final String ARG_ITEM = "EXTRA_TASK";
     @InjectView(R.id.activity_worklog_name)
     TextView mNameTextView;
     @InjectView(R.id.activity_worklog_memo)
@@ -61,12 +61,12 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
     @OnClick(R.id.activity_worklog_memo_layout)
     public void changeWorklogMemo() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_work_memo),
-                worklog.get("维修工作描述").toString(),
+                worklog.get("详细描述").toString(),
                 new OnChangeListener() {
                     @Override
                     public void onChange(Object oldValue, Object newValue) {
                         // TODO save to server
-                        worklog.put("维修工作描述", newValue);
+                        worklog.put("详细描述", newValue);
                         displayData();
                     }
                 });
@@ -91,7 +91,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
 
     private void displayData() {
         mNameTextView.setText((String) worklog.get("标题"));
-        mMemoTextView.setText((String) worklog.get("维修工作描述"));
+        mMemoTextView.setText((String) worklog.get("详细描述"));
 
         List<Map<String, Object>> workhours = (List<Map<String, Object>>) worklog.get("workhours");
         if (workhours == null) {

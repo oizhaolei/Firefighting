@@ -17,7 +17,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class WorkHourActivity extends ActionBarActivity {
-    public static final String ARG_ITEM = "ARG_DATA";
+    public static final String ARG_ITEM = "EXTRA_TASK";
     @InjectView(R.id.activity_workhour_worker)
     TextView mWorkerTextView;
     @InjectView(R.id.activity_workhour_spend)

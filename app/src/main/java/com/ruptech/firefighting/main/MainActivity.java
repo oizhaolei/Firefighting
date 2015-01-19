@@ -13,8 +13,10 @@ import android.view.MenuItem;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.ruptech.firefighting.App;
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.SettingsActivity;
+import com.ruptech.firefighting.utils.PrefUtils;
 import com.ruptech.firefighting.view.PagerItem;
 import com.ruptech.firefighting.view.ViewPagerAdapter;
 
@@ -30,6 +32,7 @@ import it.neokree.materialtabs.MaterialTabListener;
 public class MainActivity extends ActionBarActivity implements MaterialTabListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String EXTRA_TYPE = "EXTRA_TYPE";
     public static MainActivity instance = null;
     @InjectView(R.id.tabHost)
     MaterialTabHost tabHost;
@@ -89,12 +92,16 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         ButterKnife.inject(this);
         instance = this;
 
-        initWithApiKey();
+        if (!PrefUtils.existsPushToken()) {
+            initWithApiKey();
+        }
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
         String title = getString(R.string.title_activity_actionbar) + " - " + App.readUser().get真实姓名();
         getSupportActionBar().setTitle(title);
+
+        DataType.init();
 
         // init view pager
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), setupTabs());

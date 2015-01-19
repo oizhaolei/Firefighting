@@ -18,7 +18,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class ItemActivity extends ActionBarActivity {
-    public static final String ARG_ITEM = "ARG_DATA";
+    public static final String ARG_ITEM = "EXTRA_TASK";
     @InjectView(R.id.activity_maintain_item_no)
     TextView mNoTextView;
     @InjectView(R.id.activity_maintain_item_company)
@@ -100,12 +100,12 @@ public class ItemActivity extends ActionBarActivity {
     @OnClick(R.id.activity_maintain_item_resolve_layout)
     public void changeItemResolve() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_resolve),
-                item.get("故障内容").toString(),
+                item.get("维修措施").toString(),
                 new OnChangeListener() {
                     @Override
                     public void onChange(Object oldValue, Object newValue) {
                         // TODO save to server
-                        item.put("故障内容", newValue);
+                        item.put("维修措施", newValue);
                         displayData();
                     }
                 });
@@ -129,8 +129,8 @@ public class ItemActivity extends ActionBarActivity {
     }
 
     private void displayData() {
-        mNoTextView.setText((String) item.get("部件ID"));
-        mCompanyTextView.setText((String) item.get("单位名称"));
+        mNoTextView.setText((String) item.get("ID"));
+        mCompanyTextView.setText((String) item.get("单位ID"));
         mNameTextView.setText((String) item.get("系统名称"));
         mStatusTextView.setText((String) item.get("维修状态"));
         mSourceTextView.setText((String) item.get("部件报修来源"));
@@ -139,7 +139,7 @@ public class ItemActivity extends ActionBarActivity {
         mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf(item.get("系统类型ID").toString())));
         mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf(item.get("设备单项").toString())));
         mErrorTextView.setText(DataType.getItemError(Integer.valueOf(item.get("故障单项").toString())));
-        mResolveTextView.setText((String) item.get("故障内容"));
+        mResolveTextView.setText((String) item.get("维修措施"));
     }
 
 }

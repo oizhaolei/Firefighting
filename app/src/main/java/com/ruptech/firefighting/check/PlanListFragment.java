@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.App;
-import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.io.Serializable;
@@ -32,11 +32,13 @@ public class PlanListFragment extends ListFragment {
     @InjectView(R.id.fab)
     FloatingActionButton fab;
     private List<Map<String, Object>> plans;
+    private String type;
 
-    public static PlanListFragment newInstance(List<Map<String, Object>> plans) {
+    public static PlanListFragment newInstance(List<Map<String, Object>> plans, String type) {
         PlanListFragment fragment = new PlanListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(MaintainActivity.ARG_DATA, (Serializable) plans);
+        args.putSerializable(MaintainActivity.EXTRA_TASK, (Serializable) plans);
+        args.putString(MainActivity.EXTRA_TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,7 +53,8 @@ public class PlanListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        plans = (List<Map<String, Object>>) getArguments().get(MaintainActivity.ARG_DATA);
+        plans = (List<Map<String, Object>>) getArguments().get(MaintainActivity.EXTRA_TASK);
+        type = getArguments().getString(MainActivity.EXTRA_TYPE);
     }
 
     @Override
@@ -76,11 +79,9 @@ public class PlanListFragment extends ListFragment {
 
     public void onListItemClick(ListView l, View v, int position, long id) {
         Map<String, Object> plan = (Map<String, Object>) getListAdapter().getItem(position);
-        // In single-pane mode, simply start the detail activity
-        // for the selected item ID.
 
         String planId = plan.get("SId").toString();
-        new ItemListBackgroundTask(planId, DataType.TYPE_CHECK).execute();
+        new ItemListBackgroundTask(planId, type).execute();
 
     }
 
@@ -89,6 +90,7 @@ public class PlanListFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), ItemListActivity.class);
         intent.putExtra(ItemListActivity.EXTRA_ITEMS, (Serializable) items);
         intent.putExtra(ItemListActivity.EXTRA_SUM, (Serializable) sum);
+        intent.putExtra(MainActivity.EXTRA_TYPE, type);
         startActivity(intent);
     }
 

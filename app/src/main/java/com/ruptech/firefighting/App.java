@@ -83,7 +83,6 @@ public class App extends FrontiaApplication {
         AssetsPropertyReader assetsPropertyReader = new AssetsPropertyReader(this);
         properties = assetsPropertyReader.getProperties("env.properties");
 
-        DataType.init();
     }
 
 }

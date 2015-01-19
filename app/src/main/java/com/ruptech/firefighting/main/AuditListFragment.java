@@ -21,7 +21,6 @@ import java.util.Map;
 
 public class AuditListFragment extends SwipeRefreshListFragment {
 
-
     public static final String TAG = AuditListFragment.class.getSimpleName();
 
     public static AuditListFragment newInstance() {
@@ -88,22 +87,24 @@ public class AuditListFragment extends SwipeRefreshListFragment {
      */
     private void onRefreshComplete(List<Map<String, Object>> result) {
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), result, R.layout.item_task, new String[]{"任务名称", "任务状态", "派单时间"}, new int[]{R.id.item_task_name,
-                R.id.item_task_status, R.id.item_task_date});
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), result, R.layout.item_task, new String[]{"任务名称", "任务状态", "派单时间", "任务类型"}, new int[]{R.id.item_task_name,
+                R.id.item_task_status, R.id.item_task_date, R.id.item_task_type});
         setListAdapter(adapter);
 
         // Stop the refreshing indicator
         setRefreshing(false);
     }
 
-    private void openTask(Map<String, Object> task, String type, Map<String, Object> items) {
-        Intent detailIntent = null;
+    private void openTask(Map<String, Object> task, String type) {
+        Intent detailIntent;
         if (DataType.TYPE_MAINTAIN.equals(type)) {
             detailIntent = new Intent(getActivity(), MaintainActivity.class);
+            detailIntent.putExtra(MaintainActivity.EXTRA_TASK, (Serializable) task);
         } else {
             detailIntent = new Intent(getActivity(), CheckActivity.class);
+            detailIntent.putExtra(CheckActivity.EXTRA_TASK, (Serializable) task);
         }
-        detailIntent.putExtra(MaintainActivity.ARG_DATA, (Serializable) task);
+        detailIntent.putExtra(MainActivity.EXTRA_TYPE, type);
         startActivity(detailIntent);
     }
 
@@ -133,7 +134,6 @@ public class AuditListFragment extends SwipeRefreshListFragment {
 
         private final String taskId;
         private final String type;
-        private Map<String, Object> items;
 
         public TaskBackgroundTask(String taskId, String type) {
             this.taskId = taskId;
@@ -143,7 +143,6 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-                items = App.getHttpServer().getItemList(taskId, type);
 
                 return App.getHttpServer().getTask(taskId, type);
             } catch (Exception e) {
@@ -157,7 +156,7 @@ public class AuditListFragment extends SwipeRefreshListFragment {
             super.onPostExecute(result);
 
             // Tell the Fragment that the refresh has completed
-            openTask(result, type, items);
+            openTask(result, type);
         }
     }
 }
