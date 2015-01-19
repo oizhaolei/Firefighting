@@ -140,7 +140,7 @@ public abstract class HttpConnection {
      *
      * @return the response
      */
-    protected Response _get(String ifPage, Map<String, String> params) {
+    protected Response _get(String ifPage, Map<String, String> params) throws InterruptedException {
         String url = genRequestURL(ifPage, params);
         Response response = get(url);
         return response;

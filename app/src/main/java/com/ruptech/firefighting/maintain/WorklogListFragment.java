@@ -1,5 +1,6 @@
 package com.ruptech.firefighting.maintain;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -103,6 +104,7 @@ public class WorklogListFragment extends ListFragment {
 
         private final String workLogId;
         private final String type;
+        private ProgressDialog progressDialog;
 
         public DetailBackgroundTask(String workLogId, String type) {
             this.workLogId = workLogId;
@@ -125,7 +127,17 @@ public class WorklogListFragment extends ListFragment {
 
             // Tell the Fragment that the refresh has completed
             openDetail(result);
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
         }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.progress_title), getActivity().getString(R.string.progress_message), true, false);
+        }
+
+
     }
 
 }

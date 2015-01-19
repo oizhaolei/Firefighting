@@ -1,5 +1,6 @@
 package com.ruptech.firefighting.check;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -144,6 +145,7 @@ public class ItemActivity extends ActionBarActivity {
         private final String type;
         String[] columns;
         String[] values;
+        private ProgressDialog progressDialog;
 
         public ItemEditTask(String taskId, String type, String column, String value) {
             this.taskId = taskId;
@@ -160,6 +162,18 @@ public class ItemActivity extends ActionBarActivity {
                 Log.e(TAG, e.getMessage(), e);
             }
             return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(ItemActivity.this, ItemActivity.this.getString(R.string.progress_title), ItemActivity.this.getString(R.string.progress_message), true, false);
         }
     }
 

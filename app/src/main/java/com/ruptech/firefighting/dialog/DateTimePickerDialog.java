@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.ruptech.firefighting.R;
 
@@ -62,7 +63,11 @@ public class DateTimePickerDialog extends DialogFragment {
                         c.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
                                 timePicker.getCurrentHour(), timePicker.getCurrentMinute());
                         String newValue = sdf.format(c.getTime());
-                        onChangeListener.onChange(value, newValue);
+                        if (!newValue.equals(value)) {
+                            onChangeListener.onChange(value, newValue);
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getString(R.string.data_no_change), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
         builder.setNegativeButton(context.getString(R.string.cancel),

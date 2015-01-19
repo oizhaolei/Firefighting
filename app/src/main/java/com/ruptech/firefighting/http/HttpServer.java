@@ -279,10 +279,10 @@ public class HttpServer extends HttpConnection {
         }
     }
 
-    protected Response _get(String ifPage, Map<String, String> params) {
+    protected Response _get(String ifPage, Map<String, String> params) throws InterruptedException {
         String url = genRequestURL(ifPage, params);
         Log.e(TAG, url);
-
+        Thread.sleep(1000);
         Response response = null;
         if (API_LOGIN.equals(ifPage)) {
             String body = "{" +

@@ -1,5 +1,6 @@
 package com.ruptech.firefighting;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -151,6 +152,7 @@ public class LoginActivity extends ActionBarActivity {
         private final String mUsername;
         private final String mPassword;
         private User user;
+        private ProgressDialog progressDialog;
 
         UserLoginTask(String username, String password) {
             mUsername = username;
@@ -180,11 +182,14 @@ public class LoginActivity extends ActionBarActivity {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
         }
 
         @Override
-        protected void onCancelled() {
-            mAuthTask = null;
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(LoginActivity.this, LoginActivity.this.getString(R.string.progress_title), LoginActivity.this.getString(R.string.progress_message), true, false);
         }
     }
 }

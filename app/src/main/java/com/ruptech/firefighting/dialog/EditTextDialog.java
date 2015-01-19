@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ruptech.firefighting.R;
 
@@ -62,7 +63,11 @@ public class EditTextDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
                         String newValue = editText.getText().toString();
-                        onChangeListener.onChange(value, newValue);
+                        if (!newValue.equals(value)) {
+                            onChangeListener.onChange(value, newValue);
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getString(R.string.data_no_change), Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });

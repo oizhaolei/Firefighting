@@ -1,5 +1,6 @@
 package com.ruptech.firefighting.maintain;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -133,6 +134,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         private final String type;
         String[] columns;
         String[] values;
+        private ProgressDialog progressDialog;
 
         public WorklogEditTask(String worklogId, String type, String column, String value) {
             this.worklogId = worklogId;
@@ -149,6 +151,18 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
                 Log.e(TAG, e.getMessage(), e);
             }
             return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(WorklogActivity.this, WorklogActivity.this.getString(R.string.progress_title), WorklogActivity.this.getString(R.string.progress_message), true, false);
         }
     }
 }

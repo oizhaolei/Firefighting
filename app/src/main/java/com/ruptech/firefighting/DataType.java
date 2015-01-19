@@ -28,7 +28,15 @@ public class DataType {
     private static Map<Integer, String> checkItemStatus;
 
     public static void init() {
-        new TypesBackgroundTask().execute();
+        if ((getCheckItemStatusMap() == EMPTY_LIST) || (
+                getCheckTaskStatusMap() == EMPTY_LIST) || (
+                getItemDeviceMap() == EMPTY_LIST) || (
+                getItemErrorMap() == EMPTY_LIST) || (
+                getItemSystemMap() == EMPTY_LIST) || (
+                getMaintainItemStatusMap() == EMPTY_LIST) || (
+                getMaintainTaskStatusMap() == EMPTY_LIST)) {
+            new TypesBackgroundTask().execute();
+        }
     }
 
     public static String getItemDevice(int id) {

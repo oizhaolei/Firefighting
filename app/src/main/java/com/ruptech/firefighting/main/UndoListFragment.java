@@ -1,5 +1,6 @@
 package com.ruptech.firefighting.main;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -110,6 +111,8 @@ public class UndoListFragment extends SwipeRefreshListFragment {
 
     private class UndoListBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
 
+        private ProgressDialog progressDialog;
+
         @Override
         protected List<Map<String, Object>> doInBackground(Void... params) {
             try {
@@ -126,6 +129,15 @@ public class UndoListFragment extends SwipeRefreshListFragment {
 
             // Tell the Fragment that the refresh has completed
             onRefreshComplete(result);
+
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.progress_title), getActivity().getString(R.string.progress_message), true, false);
         }
 
     }
@@ -134,6 +146,7 @@ public class UndoListFragment extends SwipeRefreshListFragment {
 
         private final String taskId;
         private final String type;
+        private ProgressDialog progressDialog;
 
         public TaskBackgroundTask(String taskId, String type) {
             this.taskId = taskId;
@@ -143,7 +156,6 @@ public class UndoListFragment extends SwipeRefreshListFragment {
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-
                 return App.getHttpServer().getTask(taskId, type);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
@@ -157,6 +169,16 @@ public class UndoListFragment extends SwipeRefreshListFragment {
 
             // Tell the Fragment that the refresh has completed
             openTask(result, type);
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
         }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.progress_title), getActivity().getString(R.string.progress_message), true, false);
+        }
+
+
     }
 }

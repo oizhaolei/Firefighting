@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.ruptech.firefighting.R;
 
@@ -80,7 +81,11 @@ public class ChoiceDialog extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
-                        onChangeListener.onChange(Integer.valueOf(value).toString(), Integer.valueOf(newValue).toString());
+                        if (value != newValue) {
+                            onChangeListener.onChange(Integer.valueOf(value).toString(), Integer.valueOf(newValue).toString());
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getString(R.string.data_no_change), Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });
@@ -101,6 +106,7 @@ public class ChoiceDialog extends DialogFragment {
 
     public void setValue(int value) {
         this.value = value;
+        this.newValue = value;
     }
 
 

@@ -1,5 +1,6 @@
 package com.ruptech.firefighting.maintain;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -143,11 +144,11 @@ public class TaskFragment extends Fragment {
     }
 
     private class TaskEditTask extends AsyncTask<Void, Void, Boolean> {
-
         private final String taskId;
         private final String type;
         String[] columns;
         String[] values;
+        private ProgressDialog progressDialog;
 
         public TaskEditTask(String taskId, String type, String column, String value) {
             this.taskId = taskId;
@@ -165,6 +166,19 @@ public class TaskFragment extends Fragment {
             }
             return false;
         }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.progress_title), getActivity().getString(R.string.progress_message), true, false);
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
     }
 
 }
