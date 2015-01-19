@@ -19,6 +19,8 @@ import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
 
+import org.json.JSONException;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +54,13 @@ public class WorklogListFragment extends ListFragment {
 
     @OnClick(R.id.fab)
     public void doAdd() {
-        Toast.makeText(getActivity(), "Add Worklog", Toast.LENGTH_SHORT).show();
+        try {
+            Map<String, Object> emptyWorklog = App.getHttpServer().genEmptyWorklog();
+            openDetail(emptyWorklog);
+            Toast.makeText(getActivity(), "Add WorkHour", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
     }
 
     @Override

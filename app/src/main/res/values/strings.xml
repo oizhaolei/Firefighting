@@ -67,5 +67,7 @@
     <string name="progress_title">处理中...</string>
     <string name="progress_message">请耐心等待...</string>
     <string name="data_no_change">没有变化</string>
+    <string name="worklog_apply">正式提交</string>
+    <string name="worklog_save_temp">临时保存</string>
 
 </resources>

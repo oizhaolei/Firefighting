@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
-import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
@@ -24,14 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 public class PlanListFragment extends ListFragment {
     private static final String TAG = PlanListFragment.class.getName();
 
-    @InjectView(R.id.fab)
-    FloatingActionButton fab;
     private List<Map<String, Object>> plans;
     private String type;
 
@@ -42,11 +36,6 @@ public class PlanListFragment extends ListFragment {
         args.putString(MainActivity.EXTRA_TYPE, type);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @OnClick(R.id.fab)
-    public void doAdd() {
-        Toast.makeText(getActivity(), "Add Plan", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -75,7 +64,6 @@ public class PlanListFragment extends ListFragment {
                 new int[]{R.id.item_plan_company, R.id.item_plan_name});
         setListAdapter(adapter);
 
-        fab.attachToListView(getListView());
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ObservableScrollView;
@@ -59,8 +58,12 @@ public class TaskFragment extends Fragment {
     }
 
     @OnClick(R.id.fab)
-    public void doAdd() {
-        Toast.makeText(getActivity(), "Apply Task", Toast.LENGTH_SHORT).show();
+    public void doApply() {
+        //维保任务提交审核
+        String newValue = "5";
+        new TaskEditTask(task.get("ID").toString(), type, "任务状态", newValue).execute();
+        task.put("单位联系人", newValue);
+        displayData();
     }
 
     @OnClick(R.id.fragment_check_task_status_layout)

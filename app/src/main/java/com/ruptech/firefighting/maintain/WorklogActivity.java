@@ -22,6 +22,8 @@ import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
 import com.ruptech.firefighting.main.MainActivity;
 
+import org.json.JSONException;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +48,13 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
 
     @OnClick(R.id.fab)
     public void doAdd() {
-        Toast.makeText(this, "Add Workhour", Toast.LENGTH_SHORT).show();
+        try {
+            Map<String, Object> emptyWorkHour = App.getHttpServer().genEmptyWorkHour();
+            openWorkHourDetail(emptyWorkHour);
+            Toast.makeText(this, "Add WorkHour", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
     }
 
     @OnClick(R.id.activity_worklog_name_layout)
@@ -123,6 +131,10 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         Map<String, Object> workhour = (Map<String, Object>) mWorkhourListView.getAdapter().getItem(position);
         // In single-pane mode, simply start the detail activity
         // for the selected item ID.
+        openWorkHourDetail(workhour);
+    }
+
+    private void openWorkHourDetail(Map<String, Object> workhour) {
         Intent workhourIntent = new Intent(this, WorkHourActivity.class);
         workhourIntent.putExtra(WorkHourActivity.ARG_ITEM, (Serializable) workhour);
         startActivity(workhourIntent);

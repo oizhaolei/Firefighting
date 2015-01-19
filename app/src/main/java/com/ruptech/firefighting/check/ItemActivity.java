@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ruptech.firefighting.App;
@@ -41,6 +42,25 @@ public class ItemActivity extends ActionBarActivity {
     TextView mErrorTextView;
     String type;
     private Map<String, Object> item;
+
+    @OnClick(R.id.activity_check_item_status_layout)
+    public void changeItemStatus() {
+        Map choices = DataType.getCheckItemStatusMap();
+
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_system),
+                choices, Integer.valueOf(item.get("维修状态").toString()),
+                new OnChangeListener() {
+                    @Override
+                    public void onChange(String oldValue, String newValue) {
+                        new ItemEditTask(item.get("ID").toString(), type, "维修状态", newValue).execute();
+                        item.put("维修状态", newValue);
+                        displayData();
+                    }
+                });
+
+        dialog.show(getFragmentManager(), getString(R.string.field_item_system));
+    }
+
 
     @OnClick(R.id.activity_check_item_system_layout)
     public void changeItemSystem() {
@@ -133,7 +153,17 @@ public class ItemActivity extends ActionBarActivity {
         mNoTextView.setText((String) item.get("部件ID"));
         mCompanyTextView.setText((String) item.get("单位名称"));
         mNameTextView.setText((String) item.get("系统名称"));
-        mStatusTextView.setText((String) item.get("维修状态"));
+        int checkItemStatus = Integer.valueOf(item.get("维修状态").toString());
+        mStatusTextView.setText(DataType.getCheckItemStatus(checkItemStatus));
+        if (checkItemStatus == 1) { //1:故障
+            mSystemTextView.setVisibility(View.INVISIBLE);
+            mDeviceTextView.setVisibility(View.INVISIBLE);
+            mErrorTextView.setVisibility(View.INVISIBLE);
+        } else {
+            mSystemTextView.setVisibility(View.VISIBLE);
+            mDeviceTextView.setVisibility(View.VISIBLE);
+            mErrorTextView.setVisibility(View.VISIBLE);
+        }
         mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf(item.get("系统类型ID").toString())));
         mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf(item.get("设备单项").toString())));
         mErrorTextView.setText(DataType.getItemError(Integer.valueOf(item.get("故障单项").toString())));

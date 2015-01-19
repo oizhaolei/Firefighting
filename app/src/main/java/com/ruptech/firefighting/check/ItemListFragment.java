@@ -20,6 +20,8 @@ import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
 
+import org.json.JSONException;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +54,13 @@ public class ItemListFragment extends ListFragment {
 
     @OnClick(R.id.fab)
     public void doAdd() {
-        Toast.makeText(getActivity(), "Add Item", Toast.LENGTH_SHORT).show();
+        try {
+            Map<String, Object> emptyItem = App.getHttpServer().genEmptyItem(type);
+            openDetail(emptyItem);
+            Toast.makeText(getActivity(), "Add Item", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
     }
 
     @Override

@@ -1,108 +1,138 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:weightSum="2"
-    tools:context="com.ruptech.firefighting.maintain.WorklogActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/toolbar_background_color" />
+    android:layout_height="fill_parent">
 
     <LinearLayout
-        android:id="@+id/activity_worklog_top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/activity_worklog_bottom"
+        android:orientation="vertical"
+        android:weightSum="2"
+        tools:context="com.ruptech.firefighting.maintain.WorklogActivity">
 
-        <RelativeLayout
-            android:id="@+id/activity_worklog_name_layout"
-            style="@style/editable_field_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbar_background_color" />
 
-            <TextView
-                style="@style/field_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/field_work_title" />
+        <LinearLayout
+            android:id="@+id/activity_worklog_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/activity_worklog_name"
-                style="@style/field_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/activity_worklog_name_next" />
-
-            <ImageView
-                android:id="@+id/activity_worklog_name_next"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_action_next_item" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/activity_worklog_memo_layout"
-            style="@style/editable_field_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/activity_worklog_name_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/activity_worklog_memo_next"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
                     style="@style/field_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_work_memo" />
+                    android:text="@string/field_work_title" />
 
                 <TextView
-                    android:id="@+id/activity_worklog_memo"
+                    android:id="@+id/activity_worklog_name"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_worklog_name_next" />
 
-            <ImageView
-                android:id="@+id/activity_worklog_memo_next"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_action_next_item" />
-        </RelativeLayout>
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/activity_worklog_name_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+            <RelativeLayout
+                android:id="@+id/activity_worklog_memo_layout"
+                style="@style/editable_field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-        <ListView
-            android:id="@+id/activity_worklog_workhours"
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_worklog_memo_next"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/field_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/field_work_memo" />
+
+                    <TextView
+                        android:id="@+id/activity_worklog_memo"
+                        style="@style/field_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/activity_worklog_memo_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:drawSelectorOnTop="false" />
+            android:layout_weight="1">
 
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/fab"
+            <ListView
+                android:id="@+id/activity_worklog_workhours"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:drawSelectorOnTop="false" />
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_action_new"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/primary_pressed"
+                fab:fab_colorRipple="@color/ripple" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_worklog_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/activity_worklog_save_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_action_new"
-            fab:fab_colorNormal="@color/primary"
-            fab:fab_colorPressed="@color/primary_pressed"
-            fab:fab_colorRipple="@color/ripple" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_weight="1"
+            android:text="@string/worklog_save_temp" />
+
+        <Button
+            android:id="@+id/activity_worklog_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/worklog_apply" />
+    </LinearLayout>
+</RelativeLayout>

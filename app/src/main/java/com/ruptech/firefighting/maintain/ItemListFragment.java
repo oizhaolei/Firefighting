@@ -19,6 +19,8 @@ import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
 
+import org.json.JSONException;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +53,13 @@ public class ItemListFragment extends ListFragment {
 
     @OnClick(R.id.fab)
     public void doAdd() {
-        Toast.makeText(getActivity(), "Add Item", Toast.LENGTH_SHORT).show();
+        try {
+            Map<String, Object> emptyItem = App.getHttpServer().genEmptyItem(type);
+            openDetail(emptyItem);
+            Toast.makeText(getActivity(), "Add Item", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
     }
 
     @Override
@@ -96,7 +104,7 @@ public class ItemListFragment extends ListFragment {
 
     }
 
-    private void openDetail(Map<String, Object> item, String type) {
+    private void openDetail(Map<String, Object> item) {
         Intent intent = new Intent(getActivity(), ItemActivity.class);
         intent.putExtra(ItemActivity.EXTRA_ITEM, (Serializable) item);
         intent.putExtra(MainActivity.EXTRA_TYPE, type);
@@ -130,7 +138,7 @@ public class ItemListFragment extends ListFragment {
             super.onPostExecute(result);
 
             // Tell the Fragment that the refresh has completed
-            openDetail(result, type);
+            openDetail(result);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }

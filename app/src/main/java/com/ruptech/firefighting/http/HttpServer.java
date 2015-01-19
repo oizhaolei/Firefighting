@@ -7,6 +7,7 @@ import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.model.User;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -43,6 +44,58 @@ public class HttpServer extends HttpConnection {
             sbStr.append(aArr[i]);
         }
         return sbStr.toString();
+    }
+
+    public Map<String, Object> genEmptyWorklog() throws JSONException {
+        String s = "{" +
+                "        \"ID\": \"\"," +
+                "        \"标题\": \"\"," +
+                "        \"详细描述\": \"\"," +
+                "        \"是否提交\": \"\"" +
+                "    }";
+        return jsonToMap(new JSONObject(s));
+    }
+
+    public Map<String, Object> genEmptyWorkHour() throws JSONException {
+        String s = "{" +
+                "                \"维修人员ID\": \"\"," +
+                "                \"开始时间\": \"\"," +
+                "                \"结束时间\": \"\"," +
+                "                \"工时\": \"\"," +
+                "                \"维修人员姓名\": \"\"" +
+                "            }";
+        return jsonToMap(new JSONObject(s));
+    }
+
+    public Map<String, Object> genEmptyItem(String type) throws JSONException {
+        //TODO type
+        String s = "{" +
+                "            \"ID\": \"\"," +
+                "            \"部件报修来源\": \"\"," +
+                "            \"受理编号\": \"\"," +
+                "            \"中心ID\": \"\"," +
+                "            \"单位ID\": \"\"," +
+                "            \"故障内容\": \"\"," +
+                "            \"报修时间\": \"\"," +
+                "            \"系统类型ID\": \"\"," +
+                "            \"部件ID\": \"\"," +
+                "            \"派单时间\": \"\"," +
+                "            \"结束时间\": \"\"," +
+                "            \"维修状态\": \"\"," +
+                "            \"检查编号\": \"\"," +
+                "            \"建筑物编号\": \"\"," +
+                "            \"建筑物类型\": \"\"," +
+                "            \"设备单项\": \"\"," +
+                "            \"故障单项\": \"\"," +
+                "            \"实际系统类型ID\": \"\"," +
+                "            \"实际设备单项\": \"\"," +
+                "            \"实际故障单项\": \"\"," +
+                "            \"维修措施\": \"\"," +
+                "            \"报修类型\": \"\"," +
+                "            \"维修联系人\": \"\"," +
+                "            \"维修联系电话\": \"\"" +
+                "        }";
+        return jsonToMap(new JSONObject(s));
     }
 
     public User userLogin(String username, String password)
@@ -1439,4 +1492,5 @@ public class HttpServer extends HttpConnection {
         }
         return response;
     }
+
 }
