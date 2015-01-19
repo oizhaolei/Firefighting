@@ -63,5 +63,6 @@
     <string name="field_check_item_status">状态</string>
     <string name="field_check_item_detail">故障内容</string>
     <string name="confirm_exit">再按一次，退出程序</string>
+    <string name="push">推送</string>
 
 </resources>

@@ -38,8 +38,8 @@ public class PrefUtils {
         return mPref;
     }
 
-    public static boolean existsPushToken() {
-        return getPref().getString(PREF_PUSH_TOKEN, null) != null;
+    public static String readPushToken() {
+        return getPref().getString(PREF_PUSH_TOKEN, null);
     }
 
     public static void removePref(String prefKey) {

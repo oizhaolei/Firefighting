@@ -191,7 +191,6 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
 
         @Override
         protected void onPostExecute(Void v) {
-            // TODO Toast.makeText()
             PrefUtils.writePushToken(token);
         }
     }

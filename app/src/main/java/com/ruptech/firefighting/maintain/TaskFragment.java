@@ -1,8 +1,10 @@
 package com.ruptech.firefighting.maintain;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ObservableScrollView;
+import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ChoiceDialog;
@@ -26,6 +29,7 @@ import butterknife.OnClick;
 
 
 public class TaskFragment extends Fragment {
+    private static final String TAG = TaskFragment.class.getName();
 
     @InjectView(R.id.fab)
     FloatingActionButton fab;
@@ -67,8 +71,8 @@ public class TaskFragment extends Fragment {
     public void changeManagerName() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), task.get("单位联系人").toString(), new OnChangeListener() {
             @Override
-            public void onChange(Object oldValue, Object newValue) {
-                // TODO save to server
+            public void onChange(String oldValue, String newValue) {
+                new TaskEditTask(task.get("ID").toString(), type, "单位联系人", newValue).execute();
                 task.put("单位联系人", newValue);
                 displayData();
             }
@@ -81,8 +85,8 @@ public class TaskFragment extends Fragment {
     public void changeManagerTel() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), task.get("单位联系人电话").toString(), new OnChangeListener() {
             @Override
-            public void onChange(Object oldValue, Object newValue) {
-                // TODO save to server
+            public void onChange(String oldValue, String newValue) {
+                new TaskEditTask(task.get("ID").toString(), type, "单位联系人电话", newValue).execute();
                 task.put("单位联系人电话", newValue);
                 displayData();
             }
@@ -97,8 +101,8 @@ public class TaskFragment extends Fragment {
         Map choices = DataType.getMaintainTaskStatusMap();
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
             @Override
-            public void onChange(Object oldValue, Object newValue) {
-                // TODO save to server
+            public void onChange(String oldValue, String newValue) {
+                new TaskEditTask(task.get("ID").toString(), type, "任务状态", newValue).execute();
                 task.put("任务状态", newValue);
                 displayData();
             }
@@ -136,6 +140,31 @@ public class TaskFragment extends Fragment {
         senderTextView.setText(task.get("派单人姓名").toString());
         sendDateTextView.setText(task.get("派单时间").toString());
         statusTextView.setText(DataType.getMaintainTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
+    }
+
+    private class TaskEditTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String taskId;
+        private final String type;
+        String[] columns;
+        String[] values;
+
+        public TaskEditTask(String taskId, String type, String column, String value) {
+            this.taskId = taskId;
+            this.type = type;
+            columns = new String[]{column};
+            values = new String[]{value};
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                return App.getHttpServer().editTask(taskId, type, columns, values);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return false;
+        }
     }
 
 }

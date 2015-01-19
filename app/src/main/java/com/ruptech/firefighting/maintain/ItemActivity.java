@@ -1,15 +1,19 @@
 package com.ruptech.firefighting.maintain;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ChoiceDialog;
 import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
+import com.ruptech.firefighting.main.MainActivity;
 
 import java.util.Map;
 
@@ -18,7 +22,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class ItemActivity extends ActionBarActivity {
-    public static final String ARG_ITEM = "EXTRA_TASK";
+    public static final String EXTRA_ITEM = "EXTRA_ITEM";
+    private static final String TAG = ItemActivity.class.getName();
     @InjectView(R.id.activity_maintain_item_no)
     TextView mNoTextView;
     @InjectView(R.id.activity_maintain_item_company)
@@ -39,8 +44,7 @@ public class ItemActivity extends ActionBarActivity {
     TextView mDeviceTextView;
     @InjectView(R.id.activity_maintain_item_error)
     TextView mErrorTextView;
-    @InjectView(R.id.activity_maintain_item_resolve)
-    TextView mResolveTextView;
+    String type;
     private Map<String, Object> item;
 
     @OnClick(R.id.activity_maintain_item_system_layout)
@@ -51,8 +55,8 @@ public class ItemActivity extends ActionBarActivity {
                 choices, Integer.valueOf(item.get("系统类型ID").toString()),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
-                        // TODO save to server
+                    public void onChange(String oldValue, String newValue) {
+                        new ItemEditTask(item.get("ID").toString(), type, "系统类型ID", newValue).execute();
                         item.put("系统类型ID", newValue);
                         displayData();
                     }
@@ -69,8 +73,8 @@ public class ItemActivity extends ActionBarActivity {
                 choices, Integer.valueOf(item.get("设备单项").toString()),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
-                        // TODO save to server
+                    public void onChange(String oldValue, String newValue) {
+                        new ItemEditTask(item.get("ID").toString(), type, "设备单项", newValue).execute();
                         item.put("设备单项", newValue);
                         displayData();
                     }
@@ -87,8 +91,8 @@ public class ItemActivity extends ActionBarActivity {
                 choices, Integer.valueOf(item.get("故障单项").toString()),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
-                        // TODO save to server
+                    public void onChange(String oldValue, String newValue) {
+                        new ItemEditTask(item.get("ID").toString(), type, "故障单项", newValue).execute();
                         item.put("故障单项", newValue);
                         displayData();
                     }
@@ -103,8 +107,8 @@ public class ItemActivity extends ActionBarActivity {
                 item.get("维修措施").toString(),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
-                        // TODO save to server
+                    public void onChange(String oldValue, String newValue) {
+                        new ItemEditTask(item.get("ID").toString(), type, "维修措施", newValue).execute();
                         item.put("维修措施", newValue);
                         displayData();
                     }
@@ -124,7 +128,9 @@ public class ItemActivity extends ActionBarActivity {
         this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        item = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEM);
+        item = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_ITEM);
+        type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
+
         displayData();
     }
 
@@ -139,7 +145,31 @@ public class ItemActivity extends ActionBarActivity {
         mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf(item.get("系统类型ID").toString())));
         mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf(item.get("设备单项").toString())));
         mErrorTextView.setText(DataType.getItemError(Integer.valueOf(item.get("故障单项").toString())));
-        mResolveTextView.setText((String) item.get("维修措施"));
+    }
+
+    private class ItemEditTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String taskId;
+        private final String type;
+        String[] columns;
+        String[] values;
+
+        public ItemEditTask(String taskId, String type, String column, String value) {
+            this.taskId = taskId;
+            this.type = type;
+            columns = new String[]{column};
+            values = new String[]{value};
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                return App.getHttpServer().editItem(taskId, type, columns, values);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return false;
+        }
     }
 
 }

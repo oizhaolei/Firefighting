@@ -35,7 +35,7 @@ public class WorkHourActivity extends ActionBarActivity {
                 workHour.get("维修人员姓名").toString(),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
+                    public void onChange(String oldValue, String newValue) {
                         // TODO save to server
                         workHour.put("维修人员姓名", newValue);
                         displayData();
@@ -51,7 +51,7 @@ public class WorkHourActivity extends ActionBarActivity {
                 workHour.get("开始时间").toString(),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
+                    public void onChange(String oldValue, String newValue) {
                         // TODO save to server
                         workHour.put("开始时间", newValue);
                         displayData();
@@ -67,7 +67,7 @@ public class WorkHourActivity extends ActionBarActivity {
                 workHour.get("结束时间").toString(),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
+                    public void onChange(String oldValue, String newValue) {
                         // TODO save to server
                         workHour.put("结束时间", newValue);
                         displayData();

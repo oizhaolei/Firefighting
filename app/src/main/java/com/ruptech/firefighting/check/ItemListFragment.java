@@ -17,6 +17,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
+import com.ruptech.firefighting.main.MainActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -36,12 +37,14 @@ public class ItemListFragment extends ListFragment {
     FloatingActionButton fab;
     private List<Map<String, Object>> items;
     private List<Map<String, Object>> sum;
+    private String type;
 
-    public static ItemListFragment newInstance(List<Map<String, Object>> items, List<Map<String, Object>> sum) {
+    public static ItemListFragment newInstance(List<Map<String, Object>> items, List<Map<String, Object>> sum, String type) {
         ItemListFragment fragment = new ItemListFragment();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_ITEMS, (Serializable) items);
         args.putSerializable(EXTRA_SUM, (Serializable) sum);
+        args.putString(MainActivity.EXTRA_TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,6 +61,7 @@ public class ItemListFragment extends ListFragment {
 
         items = (List<Map<String, Object>>) getArguments().get(EXTRA_ITEMS);
         sum = (List<Map<String, Object>>) getArguments().get(EXTRA_SUM);
+        type = getArguments().getString(MainActivity.EXTRA_TYPE);
     }
 
     @Override
@@ -88,23 +92,24 @@ public class ItemListFragment extends ListFragment {
         Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
         String itemId = item.get("ID").toString();
 
-        new ItemDetailBackgroundTask(itemId, DataType.TYPE_CHECK).execute();
+        new DetailBackgroundTask(itemId, DataType.TYPE_CHECK).execute();
 
     }
 
-    private void openItemDetail(Map<String, Object> item) {
+    private void openDetail(Map<String, Object> item) {
         Intent intent = new Intent(getActivity(), ItemActivity.class);
-        intent.putExtra(ItemActivity.ARG_ITEM, (Serializable) item);
+        intent.putExtra(ItemActivity.EXTRA_ITEM, (Serializable) item);
+        intent.putExtra(MainActivity.EXTRA_TYPE, type);
         startActivity(intent);
 
     }
 
-    private class ItemDetailBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
+    private class DetailBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
 
         private final String taskId;
         private final String type;
 
-        public ItemDetailBackgroundTask(String taskId, String type) {
+        public DetailBackgroundTask(String taskId, String type) {
             this.taskId = taskId;
             this.type = type;
         }
@@ -124,7 +129,7 @@ public class ItemListFragment extends ListFragment {
             super.onPostExecute(result);
 
             // Tell the Fragment that the refresh has completed
-            openItemDetail(result);
+            openDetail(result);
         }
     }
 

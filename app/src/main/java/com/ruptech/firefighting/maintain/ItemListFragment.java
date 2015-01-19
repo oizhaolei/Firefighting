@@ -95,27 +95,28 @@ public class ItemListFragment extends ListFragment {
 
     }
 
-    private void openDetail(Map<String, Object> item) {
+    private void openDetail(Map<String, Object> item, String type) {
         Intent intent = new Intent(getActivity(), ItemActivity.class);
-        intent.putExtra(ItemActivity.ARG_ITEM, (Serializable) item);
+        intent.putExtra(ItemActivity.EXTRA_ITEM, (Serializable) item);
+        intent.putExtra(MainActivity.EXTRA_TYPE, type);
         startActivity(intent);
 
     }
 
     private class DetailBackgroundTask extends AsyncTask<Void, Void, Map<String, Object>> {
 
-        private final String taskId;
+        private final String itemId;
         private final String type;
 
-        public DetailBackgroundTask(String taskId, String type) {
-            this.taskId = taskId;
+        public DetailBackgroundTask(String itemId, String type) {
+            this.itemId = itemId;
             this.type = type;
         }
 
         @Override
         protected Map<String, Object> doInBackground(Void... params) {
             try {
-                return App.getHttpServer().getItemDetail(taskId, type);
+                return App.getHttpServer().getItemDetail(itemId, type);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
                 return null;
@@ -127,7 +128,7 @@ public class ItemListFragment extends ListFragment {
             super.onPostExecute(result);
 
             // Tell the Fragment that the refresh has completed
-            openDetail(result);
+            openDetail(result, type);
         }
     }
 

@@ -94,7 +94,7 @@ public class WorklogListFragment extends ListFragment {
 
     private void openDetail(Map<String, Object> worklog) {
         Intent intent = new Intent(getActivity(), WorklogActivity.class);
-        intent.putExtra(WorklogActivity.ARG_ITEM, (Serializable) worklog);
+        intent.putExtra(WorklogActivity.EXTRA_WORKLOG, (Serializable) worklog);
         startActivity(intent);
 
     }

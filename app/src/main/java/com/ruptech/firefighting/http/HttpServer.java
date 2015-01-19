@@ -35,6 +35,16 @@ public class HttpServer extends HttpConnection {
 
     // Low-level interface
 
+    private static String strJoin(String[] aArr, String sSep) {
+        StringBuilder sbStr = new StringBuilder();
+        for (int i = 0, il = aArr.length; i < il; i++) {
+            if (i > 0)
+                sbStr.append(sSep);
+            sbStr.append(aArr[i]);
+        }
+        return sbStr.toString();
+    }
+
     public User userLogin(String username, String password)
             throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -55,7 +65,6 @@ public class HttpServer extends HttpConnection {
         }
     }
 
-
     public boolean baiduPushRegist(String id, String token)
             throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -63,6 +72,60 @@ public class HttpServer extends HttpConnection {
         params.put("token", token);
 
         Response res = _get(API_BAIDU_PUSH_REGISTER, params);
+        JSONObject result = res.asJSONObject();
+
+        boolean success = result.getBoolean("success");
+        if (!success) {
+            throw new RuntimeException(result.getString("message"));
+        }
+        return success;
+    }
+
+    public boolean editWorklog(String id, String type, String[] columns, String[] values)
+            throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("type", type);
+        params.put("column", strJoin(columns, ","));
+        params.put("value", strJoin(values, ","));
+
+        Response res = _get(API_WORKLOG_EDIT, params);
+        JSONObject result = res.asJSONObject();
+
+        boolean success = result.getBoolean("success");
+        if (!success) {
+            throw new RuntimeException(result.getString("message"));
+        }
+        return success;
+    }
+
+    public boolean editItem(String id, String type, String[] columns, String[] values)
+            throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("type", type);
+        params.put("column", strJoin(columns, ","));
+        params.put("value", strJoin(values, ","));
+
+        Response res = _get(API_ITEM_EDIT, params);
+        JSONObject result = res.asJSONObject();
+
+        boolean success = result.getBoolean("success");
+        if (!success) {
+            throw new RuntimeException(result.getString("message"));
+        }
+        return success;
+    }
+
+    public boolean editTask(String id, String type, String[] columns, String[] values)
+            throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("type", type);
+        params.put("column", strJoin(columns, ","));
+        params.put("value", strJoin(values, ","));
+
+        Response res = _get(API_TASK_EDIT, params);
         JSONObject result = res.asJSONObject();
 
         boolean success = result.getBoolean("success");

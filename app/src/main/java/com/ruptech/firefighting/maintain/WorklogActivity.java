@@ -1,9 +1,11 @@
 package com.ruptech.firefighting.maintain;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
+import com.ruptech.firefighting.main.MainActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +30,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class WorklogActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-    public static final String ARG_ITEM = "EXTRA_TASK";
+    public static final String EXTRA_WORKLOG = "EXTRA_WORKLOG";
+    private static final String TAG = ItemActivity.class.getName();
     @InjectView(R.id.activity_worklog_name)
     TextView mNameTextView;
     @InjectView(R.id.activity_worklog_memo)
@@ -35,6 +40,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
     ListView mWorkhourListView;
     @InjectView(R.id.fab)
     FloatingActionButton fab;
+    String type;
     private Map<String, Object> worklog;
 
     @OnClick(R.id.fab)
@@ -48,8 +54,8 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
                 worklog.get("标题").toString(),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
-                        // TODO save to server
+                    public void onChange(String oldValue, String newValue) {
+                        new WorklogEditTask(worklog.get("ID").toString(), type, "标题", newValue).execute();
                         worklog.put("标题", newValue);
                         displayData();
                     }
@@ -64,8 +70,8 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
                 worklog.get("详细描述").toString(),
                 new OnChangeListener() {
                     @Override
-                    public void onChange(Object oldValue, Object newValue) {
-                        // TODO save to server
+                    public void onChange(String oldValue, String newValue) {
+                        new WorklogEditTask(worklog.get("ID").toString(), type, "详细描述", newValue).execute();
                         worklog.put("详细描述", newValue);
                         displayData();
                     }
@@ -85,7 +91,9 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        worklog = (Map<String, Object>) getIntent().getSerializableExtra(ARG_ITEM);
+        worklog = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_WORKLOG);
+        type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
+
         displayData();
     }
 
@@ -117,5 +125,30 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         Intent workhourIntent = new Intent(this, WorkHourActivity.class);
         workhourIntent.putExtra(WorkHourActivity.ARG_ITEM, (Serializable) workhour);
         startActivity(workhourIntent);
+    }
+
+    private class WorklogEditTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String worklogId;
+        private final String type;
+        String[] columns;
+        String[] values;
+
+        public WorklogEditTask(String worklogId, String type, String column, String value) {
+            this.worklogId = worklogId;
+            this.type = type;
+            columns = new String[]{column};
+            values = new String[]{value};
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                return App.getHttpServer().editWorklog(worklogId, type, columns, values);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return false;
+        }
     }
 }

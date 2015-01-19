@@ -107,7 +107,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         ButterKnife.inject(this);
         instance = this;
 
-        if (!PrefUtils.existsPushToken()) {
+        if (PrefUtils.readPushToken() == null) {
             initWithApiKey();
         }
 

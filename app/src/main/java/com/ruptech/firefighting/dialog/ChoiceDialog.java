@@ -80,7 +80,7 @@ public class ChoiceDialog extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
-                        onChangeListener.onChange(value, newValue);
+                        onChangeListener.onChange(Integer.valueOf(value).toString(), Integer.valueOf(newValue).toString());
 
                     }
                 });
