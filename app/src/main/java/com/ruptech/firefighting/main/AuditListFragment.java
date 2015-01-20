@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
@@ -88,8 +88,9 @@ public class AuditListFragment extends SwipeRefreshListFragment {
      */
     private void onRefreshComplete(List<Map<String, Object>> result) {
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), result, R.layout.item_task, new String[]{"任务名称", "任务状态", "派单时间", "任务类型"}, new int[]{R.id.item_task_name,
-                R.id.item_task_status, R.id.item_task_date, R.id.item_task_type});
+        ArrayAdapter adapter = new TaskListArrayAdapter(getActivity());
+        adapter.clear();
+        adapter.addAll(result);
         setListAdapter(adapter);
 
         // Stop the refreshing indicator

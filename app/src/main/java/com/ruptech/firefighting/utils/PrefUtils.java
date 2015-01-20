@@ -100,7 +100,11 @@ public class PrefUtils {
 
 
     public static void writePushToken(String token) {
-        getPref().edit().putString(PREF_PUSH_TOKEN, token).commit();
+        if (token == null) {
+            getPref().edit().remove(PREF_PUSH_TOKEN).commit();
+        } else {
+            getPref().edit().putString(PREF_PUSH_TOKEN, token).commit();
+        }
     }
 
     public static void writeSystemTypes(Map<Integer, String> types) {

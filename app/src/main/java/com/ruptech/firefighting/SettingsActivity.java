@@ -32,7 +32,7 @@ public class SettingsActivity extends ActionBarActivity {
         this.setSupportActionBar(toolbar);
         String title = getString(R.string.action_settings);
         getSupportActionBar().setTitle(title);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mPushTextView.setText(PrefUtils.readPushToken());
     }
