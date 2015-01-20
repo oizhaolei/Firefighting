@@ -28,13 +28,13 @@ public class DataType {
     private static Map<Integer, String> checkItemStatus;
 
     public static void init() {
-        if ((getCheckItemStatusMap() == EMPTY_LIST) || (
-                getCheckTaskStatusMap() == EMPTY_LIST) || (
-                getItemDeviceMap() == EMPTY_LIST) || (
-                getItemErrorMap() == EMPTY_LIST) || (
-                getItemSystemMap() == EMPTY_LIST) || (
-                getMaintainItemStatusMap() == EMPTY_LIST) || (
-                getMaintainTaskStatusMap() == EMPTY_LIST)) {
+        if ((getCheckItemStatusMap().isEmpty()) || (
+                getCheckTaskStatusMap().isEmpty()) || (
+                getItemDeviceMap().isEmpty()) || (
+                getItemErrorMap().isEmpty()) || (
+                getItemSystemMap().isEmpty()) || (
+                getMaintainItemStatusMap().isEmpty()) || (
+                getMaintainTaskStatusMap().isEmpty())) {
             new TypesBackgroundTask().execute();
         }
     }

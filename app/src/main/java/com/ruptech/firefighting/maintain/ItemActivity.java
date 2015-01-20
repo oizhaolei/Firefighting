@@ -45,6 +45,8 @@ public class ItemActivity extends ActionBarActivity {
     TextView mDeviceTextView;
     @InjectView(R.id.activity_maintain_item_error)
     TextView mErrorTextView;
+    @InjectView(R.id.activity_maintain_item_resolve)
+    TextView mResolveTextView;
     String type;
     private Map<String, Object> item;
 
@@ -146,6 +148,7 @@ public class ItemActivity extends ActionBarActivity {
         mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf(item.get("系统类型ID").toString())));
         mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf(item.get("设备单项").toString())));
         mErrorTextView.setText(DataType.getItemError(Integer.valueOf(item.get("故障单项").toString())));
+        mResolveTextView.setText((String) item.get("维修措施"));
     }
 
     private class ItemEditTask extends AsyncTask<Void, Void, Boolean> {
