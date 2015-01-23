@@ -89,7 +89,6 @@ public class AuditListFragment extends SwipeRefreshListFragment {
     private void onRefreshComplete(List<Map<String, Object>> result) {
 
         ArrayAdapter adapter = new TaskListArrayAdapter(getActivity());
-        adapter.clear();
         adapter.addAll(result);
         setListAdapter(adapter);
 
