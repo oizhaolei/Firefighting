@@ -46,7 +46,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".main.MainActivity" />
         <activity
             android:name=".maintain.WorklogActivity"
             android:label="@string/tab_title_detail_worklog"

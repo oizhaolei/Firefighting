@@ -3,6 +3,7 @@ package com.ruptech.firefighting.check;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
@@ -25,6 +26,13 @@ public class ItemListActivity extends ActionBarActivity {
 
         // Set content view (which contains a PopupListFragment)
         setContentView(R.layout.activity_plan_detail);
+
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
+        String title = getString(R.string.title_item_check);
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         items = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_ITEMS);
         sum = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_SUM);
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);

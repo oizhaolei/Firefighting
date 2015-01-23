@@ -165,6 +165,7 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
 
         // 解绑定成功，设置未绑定flag，
         if (errorCode == 0) {
+            PrefUtils.writePushToken(null);
         }
     }
 
