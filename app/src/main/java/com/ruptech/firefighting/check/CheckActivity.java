@@ -41,7 +41,7 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
          * color, which are used by {@link com.ruptech.firefighting.view.SlidingTabLayout}.
          */
         mTabs.add(new PagerItem(
-                getString(R.string.tab_title_detail_task)
+                getString(R.string.tab_title_detail_check)
         ) {
             public Fragment createFragment() {
                 Map<String, Object> basicTask = (Map<String, Object>) task.get("task");
@@ -55,7 +55,8 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
             public Fragment createFragment() {
                 List<Map<String, Object>> worklogs = (List<Map<String, Object>>) task.get("worklogs");
                 List<Map<String, Object>> workhoursum = (List<Map<String, Object>>) task.get("workhoursum");
-                return WorklogListFragment.newInstance(worklogs, workhoursum, type);
+                List<Map<String, Object>> workers = (List<Map<String, Object>>) task.get("workers");
+                return WorklogListFragment.newInstance(worklogs, workhoursum, type, (String)((Map<String, Object>) task.get("task")).get("ID"), workers);
             }
         });
 
@@ -95,9 +96,9 @@ public class CheckActivity extends ActionBarActivity implements MaterialTabListe
 
         parseExtras();
 
-        String title = ((Map<String, Object>) task.get("task")).get("任务名称").toString();
+        String title = (String)((Map<String, Object>) task.get("task")).get("任务名称");
         getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // init view pager
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), setupTabs(task));

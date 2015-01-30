@@ -31,7 +31,7 @@ public class ItemListActivity extends ActionBarActivity {
         this.setSupportActionBar(toolbar);
         String title = getString(R.string.title_item_check);
         getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         items = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_ITEMS);
         sum = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_SUM);

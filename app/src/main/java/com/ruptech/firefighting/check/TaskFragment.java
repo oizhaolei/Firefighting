@@ -38,7 +38,7 @@ public class TaskFragment extends Fragment {
     @InjectView(R.id.fragment_check_task_name)
     TextView nameTextView;
     @InjectView(R.id.fragment_check_task_company)
-    TextView managerTelTextView;
+    TextView companyTextView;
     @InjectView(R.id.fragment_check_task_sender)
     TextView senderTextView;
     @InjectView(R.id.fragment_check_task_send_date)
@@ -61,7 +61,7 @@ public class TaskFragment extends Fragment {
     public void doApply() {
         //维保任务提交审核
         String newValue = "5";
-        new TaskEditTask(task.get("ID").toString(), type, "任务状态", newValue).execute();
+        new TaskEditTask((String)task.get("ID"), type, "任务状态", newValue).execute();
         task.put("单位联系人", newValue);
         displayData();
     }
@@ -69,10 +69,10 @@ public class TaskFragment extends Fragment {
     @OnClick(R.id.fragment_check_task_status_layout)
     public void changeTaskStatus() {
         Map choices = DataType.getCheckTaskStatusMap();
-        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf((String)task.get("任务状态")), new OnChangeListener() {
             @Override
             public void onChange(String oldValue, String newValue) {
-                new TaskEditTask(task.get("ID").toString(), type, "任务状态", newValue).execute();
+                new TaskEditTask((String)task.get("ID"), type, "状态", newValue).execute();
                 task.put("任务状态", newValue);
                 displayData();
             }
@@ -103,11 +103,11 @@ public class TaskFragment extends Fragment {
     }
 
     private void displayData() {
-        nameTextView.setText(task.get("任务名称").toString());
-        managerTelTextView.setText(task.get("单位联系人电话").toString());
-        senderTextView.setText(task.get("派单人姓名").toString());
-        sendDateTextView.setText(task.get("派单时间").toString());
-        statusTextView.setText(DataType.getCheckTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
+        nameTextView.setText((String)task.get("任务名称"));
+        companyTextView.setText((String)task.get("单位名称"));
+        senderTextView.setText((String)task.get("派单人姓名"));
+        sendDateTextView.setText((String)task.get("派单时间"));
+        statusTextView.setText(DataType.getCheckTaskStatus(Integer.valueOf((String)task.get("任务状态"))));
     }
 
     private class TaskEditTask extends AsyncTask<Void, Void, Boolean> {

@@ -24,7 +24,7 @@
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_no_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -46,13 +46,12 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_company_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -74,13 +73,12 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_name_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -102,13 +100,12 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_status_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -130,13 +127,12 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_source_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -158,13 +154,12 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_report_date_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -186,13 +181,12 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_end_date_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -214,8 +208,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout

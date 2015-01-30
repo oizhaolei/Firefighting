@@ -69,7 +69,7 @@ public class PlanListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         Map<String, Object> plan = (Map<String, Object>) getListAdapter().getItem(position);
 
-        String planId = plan.get("SId").toString();
+        String planId = (String)plan.get("SId");
         new ItemListBackgroundTask(planId, type).execute();
 
     }

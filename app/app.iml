@@ -47,7 +47,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/debug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../xmpp/tttalk-android/app/src/main/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/jni" isTestSource="false" />
@@ -91,6 +91,7 @@
     <orderEntry type="library" exported="" name="android-ui-1.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-21.0.0" level="project" />
+    <orderEntry type="library" exported="" name="json-lib-2.4-jdk15" level="project" />
     <orderEntry type="library" exported="" name="pushservice-4.3.0.4" level="project" />
     <orderEntry type="library" exported="" name="http-request-5.6" level="project" />
     <orderEntry type="library" exported="" name="MaterialTabs-0.11" level="project" />

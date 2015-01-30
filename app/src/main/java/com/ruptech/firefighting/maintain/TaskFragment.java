@@ -66,17 +66,17 @@ public class TaskFragment extends Fragment {
     public void doApply() {
         //维保任务提交审核
         String newValue = "5";
-        new TaskEditTask(task.get("ID").toString(), type, "任务状态", newValue).execute();
+        new TaskEditTask((String)task.get("ID"), type, "任务状态", newValue).execute();
         task.put("单位联系人", newValue);
         displayData();
     }
 
     @OnClick(R.id.fragment_maintain_task_manager_name_layout)
     public void changeManagerName() {
-        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), task.get("单位联系人").toString(), new OnChangeListener() {
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), (String)task.get("单位联系人"), new OnChangeListener() {
             @Override
             public void onChange(String oldValue, String newValue) {
-                new TaskEditTask(task.get("ID").toString(), type, "单位联系人", newValue).execute();
+                new TaskEditTask((String)task.get("ID"), type, "单位联系人", newValue).execute();
                 task.put("单位联系人", newValue);
                 displayData();
             }
@@ -87,10 +87,10 @@ public class TaskFragment extends Fragment {
 
     @OnClick(R.id.fragment_maintain_task_manager_tel_layout)
     public void changeManagerTel() {
-        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), task.get("单位联系人电话").toString(), new OnChangeListener() {
+        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), (String)task.get("单位联系人电话"), new OnChangeListener() {
             @Override
             public void onChange(String oldValue, String newValue) {
-                new TaskEditTask(task.get("ID").toString(), type, "单位联系人电话", newValue).execute();
+                new TaskEditTask((String)task.get("ID"), type, "单位联系人电话", newValue).execute();
                 task.put("单位联系人电话", newValue);
                 displayData();
             }
@@ -103,10 +103,10 @@ public class TaskFragment extends Fragment {
     @OnClick(R.id.fragment_maintain_task_status_layout)
     public void changeTaskStatus() {
         Map choices = DataType.getMaintainTaskStatusMap();
-        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(task.get("任务状态").toString()), new OnChangeListener() {
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf((String)task.get("任务状态")), new OnChangeListener() {
             @Override
             public void onChange(String oldValue, String newValue) {
-                new TaskEditTask(task.get("ID").toString(), type, "任务状态", newValue).execute();
+                new TaskEditTask((String)task.get("ID"), type, "任务状态", newValue).execute();
                 task.put("任务状态", newValue);
                 displayData();
             }
@@ -137,13 +137,13 @@ public class TaskFragment extends Fragment {
     }
 
     private void displayData() {
-        nameTextView.setText(task.get("任务名称").toString());
-        companyTextView.setText(task.get("单位名称").toString());
-        managerTextView.setText(task.get("单位联系人").toString());
-        managerTelTextView.setText(task.get("单位联系人电话").toString());
-        senderTextView.setText(task.get("派单人姓名").toString());
-        sendDateTextView.setText(task.get("派单时间").toString());
-        statusTextView.setText(DataType.getMaintainTaskStatus(Integer.valueOf(task.get("任务状态").toString())));
+        nameTextView.setText((String)task.get("任务名称"));
+        companyTextView.setText((String)task.get("单位名称"));
+        managerTextView.setText((String)task.get("单位联系人"));
+        managerTelTextView.setText((String)task.get("单位联系人电话"));
+        senderTextView.setText((String)task.get("派单人姓名"));
+        sendDateTextView.setText((String)task.get("派单时间"));
+        statusTextView.setText(DataType.getMaintainTaskStatus(Integer.valueOf((String)task.get("任务状态"))));
     }
 
     private class TaskEditTask extends AsyncTask<Void, Void, Boolean> {

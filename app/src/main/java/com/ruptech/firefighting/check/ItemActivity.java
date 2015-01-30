@@ -48,11 +48,11 @@ public class ItemActivity extends ActionBarActivity {
         Map choices = DataType.getCheckItemStatusMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_system),
-                choices, Integer.valueOf(item.get("维修状态").toString()),
+                choices, Integer.valueOf((String)item.get("维修状态")),
                 new OnChangeListener() {
                     @Override
                     public void onChange(String oldValue, String newValue) {
-                        new ItemEditTask(item.get("ID").toString(), type, "维修状态", newValue).execute();
+                        new ItemEditTask((String)item.get("ID"), type, "维修状态", newValue).execute();
                         item.put("维修状态", newValue);
                         displayData();
                     }
@@ -67,11 +67,11 @@ public class ItemActivity extends ActionBarActivity {
         Map choices = DataType.getItemSystemMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_system),
-                choices, Integer.valueOf(item.get("系统类型ID").toString()),
+                choices, Integer.valueOf((String)item.get("系统类型ID")),
                 new OnChangeListener() {
                     @Override
                     public void onChange(String oldValue, String newValue) {
-                        new ItemEditTask(item.get("ID").toString(), type, "系统类型ID", newValue).execute();
+                        new ItemEditTask((String)item.get("ID"), type, "系统类型ID", newValue).execute();
                         item.put("系统类型ID", newValue);
                         displayData();
                     }
@@ -85,11 +85,11 @@ public class ItemActivity extends ActionBarActivity {
         Map choices = DataType.getItemDeviceMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_device),
-                choices, Integer.valueOf(item.get("设备单项").toString()),
+                choices, Integer.valueOf((String)item.get("设备单项")),
                 new OnChangeListener() {
                     @Override
                     public void onChange(String oldValue, String newValue) {
-                        new ItemEditTask(item.get("ID").toString(), type, "设备单项", newValue).execute();
+                        new ItemEditTask((String)item.get("ID"), type, "设备单项", newValue).execute();
                         item.put("设备单项", newValue);
                         displayData();
                     }
@@ -103,11 +103,11 @@ public class ItemActivity extends ActionBarActivity {
         Map choices = DataType.getItemErrorMap();
 
         ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_error),
-                choices, Integer.valueOf(item.get("故障单项").toString()),
+                choices, Integer.valueOf((String)item.get("故障单项")),
                 new OnChangeListener() {
                     @Override
                     public void onChange(String oldValue, String newValue) {
-                        new ItemEditTask(item.get("ID").toString(), type, "故障单项", newValue).execute();
+                        new ItemEditTask((String)item.get("ID"), type, "故障单项", newValue).execute();
                         item.put("故障单项", newValue);
                         displayData();
                     }
@@ -119,11 +119,11 @@ public class ItemActivity extends ActionBarActivity {
     @OnClick(R.id.activity_check_item_resolve_layout)
     public void changeItemResolve() {
         EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_resolve),
-                item.get("故障内容").toString(),
+                (String)item.get("故障内容"),
                 new OnChangeListener() {
                     @Override
                     public void onChange(String oldValue, String newValue) {
-                        new ItemEditTask(item.get("ID").toString(), type, "故障内容", newValue).execute();
+                        new ItemEditTask((String)item.get("ID"), type, "故障内容", newValue).execute();
                         item.put("故障内容", newValue);
                         displayData();
                     }
@@ -141,7 +141,7 @@ public class ItemActivity extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         item = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_ITEM);
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
@@ -153,7 +153,7 @@ public class ItemActivity extends ActionBarActivity {
         mNoTextView.setText((String) item.get("部件ID"));
         mCompanyTextView.setText((String) item.get("单位名称"));
         mNameTextView.setText((String) item.get("系统名称"));
-        int checkItemStatus = Integer.valueOf(item.get("维修状态").toString());
+        int checkItemStatus = Integer.valueOf((String)item.get("维修状态"));
         mStatusTextView.setText(DataType.getCheckItemStatus(checkItemStatus));
         if (checkItemStatus == 1) { //1:故障
             mSystemTextView.setVisibility(View.INVISIBLE);
@@ -164,38 +164,43 @@ public class ItemActivity extends ActionBarActivity {
             mDeviceTextView.setVisibility(View.VISIBLE);
             mErrorTextView.setVisibility(View.VISIBLE);
         }
-        mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf(item.get("系统类型ID").toString())));
-        mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf(item.get("设备单项").toString())));
-        mErrorTextView.setText(DataType.getItemError(Integer.valueOf(item.get("故障单项").toString())));
+        mSystemTextView.setText(DataType.getItemSystem(Integer.valueOf((String)item.get("系统类型ID"))));
+        mDeviceTextView.setText(DataType.getItemDevice(Integer.valueOf((String)item.get("设备单项"))));
+        mErrorTextView.setText(DataType.getItemError(Integer.valueOf((String)item.get("故障单项"))));
     }
 
-    private class ItemEditTask extends AsyncTask<Void, Void, Boolean> {
+    private class ItemEditTask extends AsyncTask<Void, Void, String> {
 
-        private final String taskId;
+        private final String id;
+        private final String parentId = "";
         private final String type;
         String[] columns;
         String[] values;
         private ProgressDialog progressDialog;
 
-        public ItemEditTask(String taskId, String type, String column, String value) {
-            this.taskId = taskId;
+        public ItemEditTask(String id, String type, String column, String value) {
+            this.id = id;
+            //this.parentId = sid;
             this.type = type;
             columns = new String[]{column};
             values = new String[]{value};
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             try {
-                return App.getHttpServer().editItem(taskId, type, columns, values);
+                return App.getHttpServer().editItem(id, type, columns, values, parentId);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
             }
-            return false;
+            return "";
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final String newId) {
+            if(!("").equals(newId)) {
+                item.put("ID",newId);
+            }
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }

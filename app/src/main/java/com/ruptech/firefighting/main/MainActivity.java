@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String EXTRA_TYPE = "EXTRA_TYPE";
+    public static final String EXTRA_WORKERS = "EXTRA_WORKER";
     public static MainActivity instance = null;
     @InjectView(R.id.tabHost)
     MaterialTabHost tabHost;

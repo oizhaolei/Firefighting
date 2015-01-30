@@ -99,7 +99,7 @@ public class ItemListFragment extends ListFragment {
 
     public void onListItemClick(ListView l, View v, int position, long id) {
         Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
-        String itemId = item.get("ID").toString();
+        String itemId = (String)item.get("ID");
 
         new DetailBackgroundTask(itemId, DataType.TYPE_CHECK).execute();
 

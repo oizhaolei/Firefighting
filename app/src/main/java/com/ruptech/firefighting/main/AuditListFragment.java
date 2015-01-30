@@ -17,6 +17,7 @@ import com.ruptech.firefighting.check.CheckActivity;
 import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,8 +64,9 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         // for the selected item ID.
         String taskId = (String) item.get("ID");
         String type = (String) item.get("任务类型");
+        List<Map<String, Object>> workers = (ArrayList<Map<String, Object>>)item.get("wokers");
 
-        new TaskBackgroundTask(taskId, type).execute();
+        new TaskBackgroundTask(taskId, type, workers).execute();
     }
     // END_INCLUDE (initiate_refresh)
 
@@ -148,7 +150,7 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         private final String type;
         private ProgressDialog progressDialog;
 
-        public TaskBackgroundTask(String taskId, String type) {
+        public TaskBackgroundTask(String taskId, String type, List<Map<String, Object>> workers) {
             this.taskId = taskId;
             this.type = type;
         }
@@ -167,7 +169,6 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         @Override
         protected void onPostExecute(Map<String, Object> result) {
             super.onPostExecute(result);
-
             // Tell the Fragment that the refresh has completed
             openTask(result, type);
             if (progressDialog != null) {

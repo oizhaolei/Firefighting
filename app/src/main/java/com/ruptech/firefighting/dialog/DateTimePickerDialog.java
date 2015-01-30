@@ -53,6 +53,7 @@ public class DateTimePickerDialog extends DialogFragment {
         final TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
         timePicker.setCurrentHour(getHour());
         timePicker.setCurrentMinute(getMinute());
+        timePicker.setIs24HourView(true);
 
         builder.setView(v);
 

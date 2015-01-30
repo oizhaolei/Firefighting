@@ -30,5 +30,11 @@
         android:id="@+id/fragment_detail_worklog_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:editable="false"
+        android:minHeight="40dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/info_text_color"
+        android:textStyle="bold"
+        android:textSize="20dp" />
 </RelativeLayout>

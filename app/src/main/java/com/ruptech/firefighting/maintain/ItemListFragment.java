@@ -30,8 +30,10 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class ItemListFragment extends ListFragment {
-    public static final String EXTRA_ITEMS = "EXTRA_ITEMS";
-    public static final String EXTRA_SUM = "EXTRA_SUM";
+    public static final String ARGS_ITEMS = "ARGS_ITEMS";
+    public static final String ARGS_SUM = "ARGS_SUM";
+    public static final String ARGS_TASKID = "ARGS_TASKID";
+    public static final String RETURN_ITEM = "RETURN_ITEM";
     private static final String TAG = ItemListFragment.class.getName();
     @InjectView(R.id.fragment_detail_item_top)
     TextView sumTextView;
@@ -40,12 +42,15 @@ public class ItemListFragment extends ListFragment {
     private List<Map<String, Object>> items;
     private List<Map<String, Object>> sum;
     private String type;
+    private String taskid;
+    private int currentItem = -1;
 
-    public static ItemListFragment newInstance(List<Map<String, Object>> items, List<Map<String, Object>> sum, String type) {
+    public static ItemListFragment newInstance(List<Map<String, Object>> items, List<Map<String, Object>> sum, String type, String taskId) {
         ItemListFragment fragment = new ItemListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_ITEMS, (Serializable) items);
-        args.putSerializable(EXTRA_SUM, (Serializable) sum);
+        args.putSerializable(ARGS_ITEMS, (Serializable) items);
+        args.putSerializable(ARGS_SUM, (Serializable) sum);
+        args.putString(ARGS_TASKID, taskId);
         args.putString(MainActivity.EXTRA_TYPE, type);
         fragment.setArguments(args);
         return fragment;
@@ -57,6 +62,8 @@ public class ItemListFragment extends ListFragment {
             Map<String, Object> emptyItem = App.getHttpServer().genEmptyItem(type);
             openDetail(emptyItem);
             Toast.makeText(getActivity(), "Add Item", Toast.LENGTH_SHORT).show();
+
+            currentItem = items.size();
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
         }
@@ -67,9 +74,10 @@ public class ItemListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        items = (List<Map<String, Object>>) getArguments().get(EXTRA_ITEMS);
-        sum = (List<Map<String, Object>>) getArguments().get(EXTRA_SUM);
+        items = (List<Map<String, Object>>) getArguments().get(ARGS_ITEMS);
+        sum = (List<Map<String, Object>>) getArguments().get(ARGS_SUM);
         type = getArguments().getString(MainActivity.EXTRA_TYPE);
+        taskid = getArguments().getString(ARGS_TASKID);
     }
 
     @Override
@@ -85,21 +93,66 @@ public class ItemListFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), items, R.layout.item_maintain_item,
-                new String[]{"序号", "单位", "系统名称", "维修状态", "部件报修来源", "报修时间", "结束时间"},
-                new int[]{R.id.item_maintain_item_no, R.id.item_maintain_item_company, R.id.item_maintain_item_name, R.id.item_maintain_item_status,
+                new String[]{"单位ID", "中心ID", "维修状态名称", "部件报修来源", "报修时间", "结束时间"},
+                new int[]{R.id.item_maintain_item_company, R.id.item_maintain_item_name, R.id.item_maintain_item_status,
                         R.id.item_maintain_item_source, R.id.item_maintain_item_report_date, R.id.item_maintain_item_end_date});
         setListAdapter(adapter);
 
         fab.attachToListView(getListView());
 
-        sumTextView.setText(sum.toString());
+        String status_sum = "";
+        for(Map<String, Object> status : sum) {
+            status_sum += (String)status.get("option")
+                    + "(" + (String)status.get("count") + ")"
+                    + ",";
+        }
+        if(sum.size() > 0) {
+            status_sum = status_sum.substring(0,status_sum.length()-1);
+        }
+        sumTextView.setText(status_sum);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == ItemActivity.RETURN_ITEM_CODE) {
+            boolean needRefresh = false;
+            Map<String, Object> item = (Map<String, Object>) data.getSerializableExtra(RETURN_ITEM);
+            if (currentItem == items.size()) {
+                // 新增部件
+                if( !("").equals((String)item.get("受理编号"))
+                        || !("").equals((String)item.get("单位ID"))
+                        || !("").equals((String)item.get("中心ID"))
+                        || !("").equals((String)item.get("维修状态"))
+                        || !("").equals((String)item.get("部件报修来源"))
+                        || !("").equals((String)item.get("报修时间"))
+                        || !("").equals((String)item.get("结束时间"))
+                        || !("").equals((String)item.get("系统类型ID"))
+                        || !("").equals((String)item.get("设备单项"))
+                        || !("").equals((String)item.get("故障单项"))
+                        || !("").equals((String)item.get("维修措施"))
+                        ) {
+                    items.add(0, item);
+                    needRefresh = true;
+                }
+            } else {
+                items.remove(currentItem);
+                items.add(currentItem, item);
+                needRefresh = true;
+            }
+            if(needRefresh) {
+                ((SimpleAdapter) getListAdapter()).notifyDataSetChanged();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
         Map<String, Object> item = (Map<String, Object>) getListAdapter().getItem(position);
-        String itemId = item.get("ID").toString();
+        String itemId = (String)item.get("ID");
 
+        currentItem = position;
         new DetailBackgroundTask(itemId, type).execute();
 
     }
@@ -108,7 +161,8 @@ public class ItemListFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), ItemActivity.class);
         intent.putExtra(ItemActivity.EXTRA_ITEM, (Serializable) item);
         intent.putExtra(MainActivity.EXTRA_TYPE, type);
-        startActivity(intent);
+        intent.putExtra(ItemActivity.EXTRA_TASKID, taskid);
+        startActivityForResult(intent, ItemActivity.RETURN_ITEM_CODE);
 
     }
 

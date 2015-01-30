@@ -28,6 +28,7 @@ public class PrefUtils {
     private static final String PREF_STATUS_MAINTAIN_TASK = "PREF_STATUS_MAINTAIN_TASK";
     private static final String PREF_STATUS_MAINTAIN_ITEM = "PREF_STATUS_MAINTAIN_ITEM";
     private static final String PREF_STATUS_CHECK_ITEM = "PREF_STATUS_CHECK_ITEM";
+    private static final String PREF_WORKER = "PREF_WORKER";
     private static SharedPreferences mPref;
 
 
@@ -78,6 +79,10 @@ public class PrefUtils {
         return (Map<Integer, String>) readObject(PREF_STATUS_CHECK_ITEM);
     }
 
+    public static Map<Integer, String> readWorkerMap() {
+        return (Map<Integer, String>) readObject(PREF_WORKER);
+    }
+
     public static void writeMaintainTaskStatus(Map<Integer, String> maintaintasks) {
         writeObject(PREF_STATUS_MAINTAIN_TASK, maintaintasks);
     }
@@ -92,6 +97,10 @@ public class PrefUtils {
 
     public static void writeCheckTaskStatus(Map<Integer, String> checkTaskStatus) {
         writeObject(PREF_STATUS_CHECK_TASK, checkTaskStatus);
+    }
+
+    public static void writeWorker(Map<Integer, String> worker) {
+        writeObject(PREF_WORKER, worker);
     }
 
     public static void writeUser(User user) {

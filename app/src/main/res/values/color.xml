@@ -12,4 +12,5 @@
     <color name="toolbar_background_color">#ffff9200</color>
     <color name="tab_primary_color">#ffe66300</color>
     <color name="tab_accent_color">#ffc400</color>
+    <color name="info_text_color">#ff0808ff</color>
 </resources>

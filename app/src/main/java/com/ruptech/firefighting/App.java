@@ -14,6 +14,9 @@ import com.ruptech.firefighting.model.User;
 import com.ruptech.firefighting.utils.AssetsPropertyReader;
 import com.ruptech.firefighting.utils.PrefUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 
@@ -69,8 +72,7 @@ public class App extends FrontiaApplication {
         App.saveUser(null);
     }
 
-
-    @Override
+     @Override
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG)

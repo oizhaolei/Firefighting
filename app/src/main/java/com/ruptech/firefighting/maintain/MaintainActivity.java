@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.view.PagerItem;
@@ -54,7 +55,9 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
             public Fragment createFragment() {
                 List<Map<String, Object>> worklogs = (List<Map<String, Object>>) task.get("worklogs");
                 List<Map<String, Object>> workhoursum = (List<Map<String, Object>>) task.get("workhoursum");
-                return WorklogListFragment.newInstance(worklogs, workhoursum, type);
+                List<Map<String, Object>> workers = (List<Map<String, Object>>) task.get("workers");
+                return WorklogListFragment.newInstance(worklogs, workhoursum, type, (String)((Map<String, Object>) task.get("task")).get("ID"), workers);
+
             }
         });
 
@@ -64,7 +67,7 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
             public Fragment createFragment() {
                 List<Map<String, Object>> items = (List<Map<String, Object>>) task.get("items");
                 List<Map<String, Object>> sum = (List<Map<String, Object>>) task.get("componentsum");
-                return ItemListFragment.newInstance(items, sum, type);
+                return ItemListFragment.newInstance(items, sum, type, (String)((Map<String, Object>) task.get("task")).get("ID"));
             }
         });
         // END_INCLUDE (populate_tabs)
@@ -95,9 +98,9 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
 
         parseExtras();
 
-        String title = ((Map<String, Object>) task.get("task")).get("任务名称").toString();
+        String title = (String)((Map<String, Object>) task.get("task")).get("任务名称");
         getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // init view pager
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), setupTabs(task));

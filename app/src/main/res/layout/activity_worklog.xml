@@ -31,19 +31,23 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/field_title"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_work_title" />
+                    android:layout_toLeftOf="@+id/activity_worklog_name_next"
+                    android:orientation="vertical">
+                    <TextView
+                        style="@style/field_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/field_work_title" />
 
-                <TextView
-                    android:id="@+id/activity_worklog_name"
-                    style="@style/field_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_worklog_name_next" />
-
+                    <TextView
+                        android:id="@+id/activity_worklog_name"
+                        style="@style/field_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:id="@+id/activity_worklog_name_next"
                     android:layout_width="18dp"
