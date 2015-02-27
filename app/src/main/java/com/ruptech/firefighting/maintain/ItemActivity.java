@@ -37,18 +37,28 @@ public class ItemActivity extends ActionBarActivity {
     public static final String EXTRA_TASKID = "EXTRA_TASKID";
     public static final int RETURN_ITEM_CODE = 200;
     private static final String TAG = ItemActivity.class.getName();
-    @InjectView(R.id.activity_maintain_item_no)
-    TextView mNoTextView;
+    @InjectView(R.id.activity_maintain_item_center)
+    TextView mCenterTextView;
     @InjectView(R.id.activity_maintain_item_company)
     TextView mCompanyTextView;
-    @InjectView(R.id.activity_maintain_item_name)
-    TextView mNameTextView;
-    @InjectView(R.id.activity_maintain_item_status)
-    TextView mStatusTextView;
-    @InjectView(R.id.activity_maintain_item_source)
-    TextView mSourceTextView;
+    @InjectView(R.id.activity_maintain_item_company_address)
+    TextView mCompanyAddressTextView;
+    @InjectView(R.id.activity_maintain_item_float)
+    TextView mFloatTextView;
+    @InjectView(R.id.activity_maintain_item_address)
+    TextView mAddressTextView;
+    @InjectView(R.id.activity_maintain_item_no)
+    TextView mNoTextView;
+    @InjectView(R.id.activity_maintain_item_category)
+    TextView mCategoryTextView;
+    @InjectView(R.id.activity_maintain_item_type)
+    TextView mTypeTextView;
     @InjectView(R.id.activity_maintain_item_report_date)
     TextView mReportDateTextView;
+    @InjectView(R.id.activity_maintain_item_content)
+    TextView mContentTextView;
+    @InjectView(R.id.activity_maintain_item_send_date)
+    TextView mSendDateTextView;
     @InjectView(R.id.activity_maintain_item_end_date)
     TextView mEndDateTextView;
     @InjectView(R.id.activity_maintain_item_system)
@@ -59,19 +69,43 @@ public class ItemActivity extends ActionBarActivity {
     TextView mErrorTextView;
     @InjectView(R.id.activity_maintain_item_resolve)
     TextView mResolveTextView;
+    @InjectView(R.id.activity_maintain_item_status)
+    TextView mStatusTextView;
+    @InjectView(R.id.activity_maintain_item_report_type)
+    TextView mReportTypeTextView;
+    @InjectView(R.id.activity_maintain_item_contact)
+    TextView mContactTextView;
+    @InjectView(R.id.activity_maintain_item_contact_tel)
+    TextView mContactTelTextView;
+    @InjectView(R.id.activity_maintain_item_source)
+    TextView mSourceTextView;
+    @InjectView(R.id.activity_maintain_item_recieve_no)
+    TextView mRecieveNoTextView;
+    @InjectView(R.id.activity_maintain_item_check_no)
+    TextView mCheckNoTextView;
 
-    @InjectView(R.id.activity_maintain_item_no_layout)
-    RelativeLayout mNoRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_center_layout)
+    RelativeLayout mCenterRelativeLayout;
     @InjectView(R.id.activity_maintain_item_company_layout)
     RelativeLayout mCompanyRelativeLayout;
-    @InjectView(R.id.activity_maintain_item_name_layout)
-    RelativeLayout mNameRelativeLayout;
-    @InjectView(R.id.activity_maintain_item_status_layout)
-    RelativeLayout mStatusRelativeLayout;
-    @InjectView(R.id.activity_maintain_item_source_layout)
-    RelativeLayout mSourceRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_company_address_layout)
+    RelativeLayout mCompanyAddressRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_float_layout)
+    RelativeLayout mFloatRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_address_layout)
+    RelativeLayout mAddressRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_no_layout)
+    RelativeLayout mNoRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_category_layout)
+    RelativeLayout mCategoryLayout;
+    @InjectView(R.id.activity_maintain_item_type_layout)
+    RelativeLayout mTypeLayout;
     @InjectView(R.id.activity_maintain_item_report_date_layout)
-    RelativeLayout mReportDateRelativeLayout;
+    RelativeLayout mReportDateLayout;
+    @InjectView(R.id.activity_maintain_item_content_layout)
+    RelativeLayout mContentRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_send_date_layout)
+    RelativeLayout mSendRelativeLayout;
     @InjectView(R.id.activity_maintain_item_end_date_layout)
     RelativeLayout mEndRelativeLayout;
     @InjectView(R.id.activity_maintain_item_system_layout)
@@ -81,19 +115,26 @@ public class ItemActivity extends ActionBarActivity {
     @InjectView(R.id.activity_maintain_item_error_layout)
     RelativeLayout mErrorRelativeLayout;
     @InjectView(R.id.activity_maintain_item_resolve_layout)
-    RelativeLayout mRelativeLayout;
+    RelativeLayout mResolveRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_status_layout)
+    RelativeLayout mStatusRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_report_type_layout)
+    RelativeLayout mReportTypeRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_contact_layout)
+    RelativeLayout mContactRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_contact_tel_layout)
+    RelativeLayout mContactTelRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_source_layout)
+    RelativeLayout mSourceRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_recieve_no_layout)
+    RelativeLayout mRecieveNoRelativeLayout;
+    @InjectView(R.id.activity_maintain_item_check_no_layout)
+    RelativeLayout mCheckNoRelativeLayout;
+
     @InjectView(R.id.activity_maintain_item_no_next)
     ImageView mNoImageView;
-    @InjectView(R.id.activity_maintain_item_company_next)
-    ImageView mCompanyImageView;
-    @InjectView(R.id.activity_maintain_item_name_next)
-    ImageView mNameImageView;
-    @InjectView(R.id.activity_maintain_item_status_next)
-    ImageView mStatusImageView;
-    @InjectView(R.id.activity_maintain_item_source_next)
-    ImageView mSourceImageView;
-    @InjectView(R.id.activity_maintain_item_report_date_next)
-    ImageView mReportDateImageView;
+    @InjectView(R.id.activity_maintain_item_content_next)
+    ImageView mContentImageView;
     @InjectView(R.id.activity_maintain_item_end_date_next)
     ImageView mEndImageView;
     @InjectView(R.id.activity_maintain_item_system_next)
@@ -104,25 +145,29 @@ public class ItemActivity extends ActionBarActivity {
     ImageView mErrorImageView;
     @InjectView(R.id.activity_maintain_item_resolve_next)
     ImageView mResolveImageView;
-    String type;
-    String taskId;
-    boolean editable = true;
+    @InjectView(R.id.activity_maintain_item_status_next)
+    ImageView mStatusImageView;
+
+    private String type;
+    private String taskId;
+    boolean editable;
     private Map<String, Object> item;
-    Map<Integer, String> devices;
-    Map<Integer, String> errors;
+    private Map<Integer, String> devices;
+    private Map<Integer, String> errors;
 
 
     @OnClick(R.id.activity_maintain_item_no_layout)
     public void changeItemNo() {
         if(editable) {
             EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_no),
-                    (String)item.get("受理编号"),
+                    (String)item.get("企业编码"),
                     new OnChangeListener() {
                         @Override
                         public void onChange(String oldValue, String newValue) {
                             String itemId = (String)item.get("ID");
-                            new ItemEditTask(itemId, type, "受理编号", newValue, taskId).execute();
-                            item.put("受理编号", newValue);
+                            // TODO
+                            // 企业编码校验
+                            item.put("企业编码", newValue);
                             displayData();
                         }
                     });
@@ -131,103 +176,22 @@ public class ItemActivity extends ActionBarActivity {
         }
     }
 
-    @OnClick(R.id.activity_maintain_item_company_layout)
-    public void changeItemCompany() {
+    @OnClick(R.id.activity_maintain_item_content_layout)
+    public void changeItemContent() {
         if(editable) {
-            EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_company),
-                    (String)item.get("单位ID"),
+            EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_content),
+                    (String)item.get("故障内容"),
                     new OnChangeListener() {
                         @Override
                         public void onChange(String oldValue, String newValue) {
                             String itemId = (String)item.get("ID");
-                            new ItemEditTask(itemId, type, "单位ID", newValue, taskId).execute();
-                            item.put("单位ID", newValue);
+                            new ItemEditTask(itemId, type, "故障内容", newValue, taskId).execute();
+                            item.put("故障内容", newValue);
                             displayData();
                         }
                     });
 
-            dialog.show(getFragmentManager(), getString(R.string.field_item_company));
-        }
-    }
-
-    @OnClick(R.id.activity_maintain_item_name_layout)
-    public void changeItemName() {
-        if(editable) {
-            EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_name),
-                    (String)item.get("中心ID"),
-                    new OnChangeListener() {
-                        @Override
-                        public void onChange(String oldValue, String newValue) {
-                            String itemId = (String)item.get("ID");
-                            new ItemEditTask(itemId, type, "中心ID", newValue, taskId).execute();
-                            item.put("中心ID", newValue);
-                            displayData();
-                        }
-                    });
-
-            dialog.show(getFragmentManager(), getString(R.string.field_item_name));
-        }
-    }
-
-    @OnClick(R.id.activity_maintain_item_status_layout)
-    public void changeItemStatus() {
-        if(editable) {
-            Map choices = DataType.getMaintainItemStatusMap();
-
-            int status = -1;
-            if(!("").equals((String)item.get("维修状态"))) {
-                status = Integer.valueOf((String)item.get("维修状态"));
-            }
-            ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_status),
-                    choices, status,
-                    new OnChangeListener() {
-                        @Override
-                        public void onChange(String oldValue, String newValue) {
-                            new ItemEditTask((String)item.get("ID"), type, "维修状态", newValue, taskId).execute();
-                            item.put("维修状态", newValue);
-                            item.put("维修状态名称", DataType.getMaintainItemStatus(Integer.valueOf(newValue)));
-                            displayData();
-                        }
-                    });
-
-            dialog.show(getFragmentManager(), getString(R.string.field_item_status));
-        }
-    }
-
-    @OnClick(R.id.activity_maintain_item_source_layout)
-    public void changeItemSource() {
-        if(editable) {
-            EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_item_source),
-                    (String)item.get("部件报修来源"),
-                    new OnChangeListener() {
-                        @Override
-                        public void onChange(String oldValue, String newValue) {
-                            String itemId = (String)item.get("ID");
-                            new ItemEditTask(itemId, type, "部件报修来源", newValue, taskId).execute();
-                            item.put("部件报修来源", newValue);
-                            displayData();
-                        }
-                    });
-
-            dialog.show(getFragmentManager(), getString(R.string.field_item_source));
-        }
-    }
-
-    @OnClick(R.id.activity_maintain_item_report_date_layout)
-    public void changeItemReportDate() {
-        if(editable) {
-            DateTimePickerDialog dialog = DateTimePickerDialog.newInstance(getString(R.string.field_item_report_date),
-                    (String) item.get("报修时间"),
-                    new OnChangeListener() {
-                        @Override
-                        public void onChange(String oldValue, String newValue) {
-                            String itemId = (String) item.get("ID");
-                            new ItemEditTask(itemId, type, "报修时间", newValue, taskId).execute();
-                            item.put("报修时间", newValue);
-                            displayData();
-                        }
-                    });
-            dialog.show(getFragmentManager(), getString(R.string.field_item_report_date));
+            dialog.show(getFragmentManager(), getString(R.string.field_item_content));
         }
     }
 
@@ -332,6 +296,31 @@ public class ItemActivity extends ActionBarActivity {
         dialog.show(getFragmentManager(), getString(R.string.field_item_resolve));
     }
 
+    @OnClick(R.id.activity_maintain_item_status_layout)
+    public void changeItemStatus() {
+        if(editable) {
+            Map choices = DataType.getMaintainItemStatusMap();
+
+            int status = -1;
+            if(!("").equals((String)item.get("维修状态"))) {
+                status = Integer.valueOf((String)item.get("维修状态"));
+            }
+            ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_item_maintain_status),
+                    choices, status,
+                    new OnChangeListener() {
+                        @Override
+                        public void onChange(String oldValue, String newValue) {
+                            new ItemEditTask((String)item.get("ID"), type, "维修状态", newValue, taskId).execute();
+                            item.put("维修状态", newValue);
+                            item.put("维修状态名称", DataType.getMaintainItemStatus(Integer.valueOf(newValue)));
+                            displayData();
+                        }
+                    });
+
+            dialog.show(getFragmentManager(), getString(R.string.field_item_maintain_status));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -345,24 +334,66 @@ public class ItemActivity extends ActionBarActivity {
         item = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_ITEM);
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
         taskId = getIntent().getStringExtra(ItemActivity.EXTRA_TASKID);
+        editable = getIntent().getBooleanExtra(MainActivity.EXTRA_EDITABLE, false);
 
         displayData();
     }
 
     private void displayData() {
-        mNoTextView.setText((String) item.get("受理编号"));
-        mCompanyTextView.setText((String) item.get("单位ID"));
-        mNameTextView.setText((String) item.get("中心ID"));
-        String status = (String)item.get("维修状态");
-        if(null != status && !("").equals(status) ) {
-            String statusName = DataType.getMaintainItemStatus(Integer.valueOf(status));
-            mStatusTextView.setText(statusName);
-            item.put("维修状态名称", statusName);
+        if(!editable) {
+            mNoRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mContentRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mEndRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mSystemRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mDeviceRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mErrorRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mResolveRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mStatusRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+
+            mNoImageView.setVisibility(View.INVISIBLE);
+            mContentImageView.setVisibility(View.INVISIBLE);
+            mEndImageView.setVisibility(View.INVISIBLE);
+            mSystemImageView.setVisibility(View.INVISIBLE);
+            mDeviceImageView.setVisibility(View.INVISIBLE);
+            mErrorImageView.setVisibility(View.INVISIBLE);
+            mResolveImageView.setVisibility(View.INVISIBLE);
+            mStatusImageView.setVisibility(View.INVISIBLE);
         } else {
-            mStatusTextView.setText("");
+            if(null == (String)item.get("ID") || ("").equals((String)item.get("ID"))) {
+                // 新增
+                mCenterRelativeLayout.setVisibility(View.GONE);
+                mCompanyRelativeLayout.setVisibility(View.GONE);
+                mCompanyAddressRelativeLayout.setVisibility(View.GONE);
+                mFloatRelativeLayout.setVisibility(View.GONE);
+                mAddressRelativeLayout.setVisibility(View.GONE);
+                mCategoryLayout.setVisibility(View.GONE);
+                mTypeLayout.setVisibility(View.GONE);
+                mReportDateLayout.setVisibility(View.GONE);
+                mSendRelativeLayout.setVisibility(View.GONE);
+                mReportTypeRelativeLayout.setVisibility(View.GONE);
+                mContactRelativeLayout.setVisibility(View.GONE);
+                mContactTelRelativeLayout.setVisibility(View.GONE);
+                mSourceRelativeLayout.setVisibility(View.GONE);
+                mRecieveNoRelativeLayout.setVisibility(View.GONE);
+                mCheckNoRelativeLayout.setVisibility(View.GONE);
+            } else {
+                // 编辑
+                mNoRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+                mNoImageView.setVisibility(View.INVISIBLE);
+            }
         }
-        mSourceTextView.setText((String) item.get("部件报修来源"));
+
+        mCenterTextView.setText((String) item.get("中心名称"));
+        mCompanyTextView.setText((String) item.get("单位名称"));
+        mCompanyAddressTextView.setText((String) item.get("单位地址"));
+        mFloatTextView.setText((String) item.get("楼层"));
+        mAddressTextView.setText((String) item.get("安装地址"));
+        mNoTextView.setText((String) item.get("企业编码"));
+        mCategoryTextView.setText((String) item.get("部件类型名称"));
+        mTypeTextView.setText((String) item.get("部件型号"));
         mReportDateTextView.setText((String) item.get("报修时间"));
+        mContentTextView.setText((String) item.get("故障内容"));
+        mSendDateTextView.setText((String) item.get("派单时间"));
         mEndDateTextView.setText((String) item.get("结束时间"));
         String system = (String)item.get("系统类型ID");
         if(null != system && !("").equals(system) ) {
@@ -385,31 +416,20 @@ public class ItemActivity extends ActionBarActivity {
 //        }
         mErrorTextView.setText((String)item.get("故障单项名称"));
         mResolveTextView.setText((String) item.get("维修措施"));
-
-        if(!editable) {
-            mNoRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mCompanyRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mNameRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mStatusRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mSourceRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mReportDateRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mEndRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mSystemRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mDeviceRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mErrorRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mNoImageView.setVisibility(View.INVISIBLE);
-            mCompanyImageView.setVisibility(View.INVISIBLE);
-            mNameImageView.setVisibility(View.INVISIBLE);
-            mStatusImageView.setVisibility(View.INVISIBLE);
-            mSourceImageView.setVisibility(View.INVISIBLE);
-            mReportDateImageView.setVisibility(View.INVISIBLE);
-            mEndImageView.setVisibility(View.INVISIBLE);
-            mSystemImageView.setVisibility(View.INVISIBLE);
-            mDeviceImageView.setVisibility(View.INVISIBLE);
-            mErrorImageView.setVisibility(View.INVISIBLE);
-            mResolveImageView.setVisibility(View.INVISIBLE);
+        String status = (String)item.get("维修状态");
+        if(null != status && !("").equals(status) ) {
+            String statusName = DataType.getMaintainItemStatus(Integer.valueOf(status));
+            mStatusTextView.setText(statusName);
+            item.put("维修状态名称", statusName);
+        } else {
+            mStatusTextView.setText("");
         }
+        mReportTypeTextView.setText((String) item.get("报修类型"));
+        mContactTextView.setText((String) item.get("维修联系人"));
+        mContactTelTextView.setText((String) item.get("维修联系电话"));
+        mSourceTextView.setText((String) item.get("部件报修来源名称"));
+        mRecieveNoTextView.setText((String) item.get("受理编号"));
+        mCheckNoTextView.setText((String) item.get("检查编号"));
     }
 
     @Override
@@ -446,15 +466,13 @@ public class ItemActivity extends ActionBarActivity {
                 return App.getHttpServer().editItem(id, type, columns, values, parentid);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
+                return null;
             }
-            return "";
         }
 
         @Override
         protected void onPostExecute(final String newId) {
-            if(!("").equals(newId)) {
-                item.put("ID",newId);
-            }
+            afterItemEdit(newId);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
@@ -463,6 +481,14 @@ public class ItemActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(ItemActivity.this, ItemActivity.this.getString(R.string.progress_title), ItemActivity.this.getString(R.string.progress_message), true, false);
+        }
+    }
+
+    private void afterItemEdit(String newId) {
+        if(null == newId) {
+            Toast.makeText(ItemActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+        } else if(!("").equals(newId)) {
+            item.put("PartId",newId);
         }
     }
 
@@ -482,14 +508,13 @@ public class ItemActivity extends ActionBarActivity {
                 return App.getHttpServer().getOption("device", system, "");
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
-                return new HashMap<Integer, String>();
+                return null;
             }
         }
 
         @Override
         protected void onPostExecute(final Map<Integer, String> result) {
-            devices = result;
-            openDeviceOptionChoiceDialog();
+            openDeviceOptionChoiceDialog(result);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
@@ -501,7 +526,12 @@ public class ItemActivity extends ActionBarActivity {
         }
     }
 
-    private void openDeviceOptionChoiceDialog() {
+    private void openDeviceOptionChoiceDialog(Map<Integer, String> devicesMap) {
+        devices = devicesMap;
+        if(null == devicesMap) {
+            Toast.makeText(ItemActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            return;
+        }
         int device = -1;
         if(("").equals((String)item.get("设备单项"))) {
             device = -1;
@@ -544,14 +574,14 @@ public class ItemActivity extends ActionBarActivity {
                 return App.getHttpServer().getOption("error", system, device);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
-                return new HashMap<Integer, String>();
+                return null;
             }
         }
 
         @Override
         protected void onPostExecute(final Map<Integer, String> result) {
             errors = result;
-            openErrorOptionChoiceDialog();
+            openErrorOptionChoiceDialog(result);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
@@ -563,7 +593,12 @@ public class ItemActivity extends ActionBarActivity {
         }
     }
 
-    private void openErrorOptionChoiceDialog() {
+    private void openErrorOptionChoiceDialog(Map<Integer, String> errorsMap) {
+        errors = errorsMap;
+        if(null == errorsMap) {
+            Toast.makeText(ItemActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            return;
+        }
         int error = -1;
         if(("").equals((String)item.get("故障单项"))) {
             error = -1;

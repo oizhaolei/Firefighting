@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
@@ -17,7 +18,6 @@ import com.ruptech.firefighting.check.CheckActivity;
 import com.ruptech.firefighting.maintain.MaintainActivity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -64,9 +64,8 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         // for the selected item ID.
         String taskId = (String) item.get("ID");
         String type = (String) item.get("任务类型");
-        List<Map<String, Object>> workers = (ArrayList<Map<String, Object>>)item.get("wokers");
 
-        new TaskBackgroundTask(taskId, type, workers).execute();
+        new TaskBackgroundTask(taskId, type, false).execute();
     }
     // END_INCLUDE (initiate_refresh)
 
@@ -90,25 +89,36 @@ public class AuditListFragment extends SwipeRefreshListFragment {
      */
     private void onRefreshComplete(List<Map<String, Object>> result) {
 
-        ArrayAdapter adapter = new TaskListArrayAdapter(getActivity());
-        adapter.addAll(result);
-        setListAdapter(adapter);
+        if(null != result) {
+            ArrayAdapter adapter = new TaskListArrayAdapter(getActivity());
+            adapter.addAll(result);
+            setListAdapter(adapter);
 
-        // Stop the refreshing indicator
-        setRefreshing(false);
+            // Stop the refreshing indicator
+            setRefreshing(false);
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            setRefreshing(false);
+        }
     }
 
-    private void openTask(Map<String, Object> task, String type) {
-        Intent detailIntent;
-        if (DataType.TYPE_MAINTAIN.equals(type)) {
-            detailIntent = new Intent(getActivity(), MaintainActivity.class);
-            detailIntent.putExtra(MaintainActivity.EXTRA_TASK, (Serializable) task);
+    private void openTask(Map<String, Object> task, String type, boolean editable) {
+        if(null == task) {
+            Toast.makeText(getActivity(), getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            return;
         } else {
-            detailIntent = new Intent(getActivity(), CheckActivity.class);
-            detailIntent.putExtra(CheckActivity.EXTRA_TASK, (Serializable) task);
+            Intent detailIntent;
+            if (DataType.TYPE_MAINTAIN.equals(type)) {
+                detailIntent = new Intent(getActivity(), MaintainActivity.class);
+                detailIntent.putExtra(MaintainActivity.EXTRA_TASK, (Serializable) task);
+            } else {
+                detailIntent = new Intent(getActivity(), CheckActivity.class);
+                detailIntent.putExtra(CheckActivity.EXTRA_TASK, (Serializable) task);
+            }
+            detailIntent.putExtra(MainActivity.EXTRA_TYPE, type);
+            detailIntent.putExtra(MainActivity.EXTRA_EDITABLE, editable);
+            startActivity(detailIntent);
         }
-        detailIntent.putExtra(MainActivity.EXTRA_TYPE, type);
-        startActivity(detailIntent);
     }
 
     private class AuditListTasksBackgroundTask extends AsyncTask<Void, Void, List<Map<String, Object>>> {
@@ -148,11 +158,13 @@ public class AuditListFragment extends SwipeRefreshListFragment {
 
         private final String taskId;
         private final String type;
+        private final boolean editable;
         private ProgressDialog progressDialog;
 
-        public TaskBackgroundTask(String taskId, String type, List<Map<String, Object>> workers) {
+        public TaskBackgroundTask(String taskId, String type, boolean editable) {
             this.taskId = taskId;
             this.type = type;
+            this.editable = editable;
         }
 
         @Override
@@ -170,7 +182,7 @@ public class AuditListFragment extends SwipeRefreshListFragment {
         protected void onPostExecute(Map<String, Object> result) {
             super.onPostExecute(result);
             // Tell the Fragment that the refresh has completed
-            openTask(result, type);
+            openTask(result, type, editable);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }

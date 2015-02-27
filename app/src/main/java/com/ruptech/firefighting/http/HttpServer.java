@@ -3,6 +3,7 @@ package com.ruptech.firefighting.http;
 
 import android.util.Log;
 
+import com.ruptech.firefighting.BuildConfig;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.model.User;
 import com.ruptech.firefighting.utils.PrefUtils;
@@ -30,6 +31,7 @@ public class HttpServer extends HttpConnection {
     private static final String API_OPTION = "Query/Option.aspx";
     private static final String API_WORKER = "Query/Worker.aspx";
     private static final String API_WORKHOUR_EDIT = "WorkHour/WorkHourEdit.aspx";
+    private static final String API_WORKHOUR_SUM = "WorkHour/WorkHourSum.aspx";
     private static final String API_WORKLOG_DETAIL = "WorkLog/WorkLogDetail.aspx";
     private static final String API_WORKLOG_EDIT = "WorkLog/WorkLogEdit.aspx";
     private static final String API_BAIDU_PUSH_REGISTER = "ThirdParty/Baidu/BaiduUserTokenSave.aspx";
@@ -104,34 +106,50 @@ public class HttpServer extends HttpConnection {
         return jsonToMap(new JSONObject(s));
     }
 
-    public Map<String, Object> genEmptyItem(String type) throws JSONException {
-        //TODO type
-        String s = "{" +
-                "            \"ID\": \"\"," +
-                "            \"部件报修来源\": \"\"," +
-                "            \"受理编号\": \"\"," +
-                "            \"中心ID\": \"\"," +
-                "            \"单位ID\": \"\"," +
-                "            \"故障内容\": \"\"," +
-                "            \"报修时间\": \"\"," +
-                "            \"系统类型ID\": \"\"," +
-                "            \"部件ID\": \"\"," +
-                "            \"派单时间\": \"\"," +
-                "            \"结束时间\": \"\"," +
-                "            \"维修状态\": \"\"," +
-                "            \"检查编号\": \"\"," +
-                "            \"建筑物编号\": \"\"," +
-                "            \"建筑物类型\": \"\"," +
-                "            \"设备单项\": \"\"," +
-                "            \"故障单项\": \"\"," +
-                "            \"实际系统类型ID\": \"\"," +
-                "            \"实际设备单项\": \"\"," +
-                "            \"实际故障单项\": \"\"," +
-                "            \"维修措施\": \"\"," +
-                "            \"报修类型\": \"\"," +
-                "            \"维修联系人\": \"\"," +
-                "            \"维修联系电话\": \"\"" +
-                "        }";
+    public Map<String, Object> genEmptyItem(String type, String parentId) throws JSONException {
+        String s = "{"
+                + "\"ID\": \"\","
+                + "\"受理编号\": \"\","
+                + "\"部件报修来源\": \"\","
+                + "\"报修时间\": \"\","
+                + "\"结束时间\": \"\","
+                + "\"维修状态\": \"\","
+                + "\"单位ID\": \"\","
+                + "\"中心ID\": \"\","
+                + "\"维修状态名称\": \"\""
+                + "}";
+        if(DataType.TYPE_MAINTAIN.equals(type)) {
+            s = "{"
+                    + "\"ID\": \"\","
+                    + "\"企业编码\": \"\","
+                    + "\"故障内容\": \"\","
+                    + "\"结束时间\": \"\","
+                    + "\"系统类型ID\": \"\","
+                    + "\"系统类型名称\": \"\","
+                    + "\"设备单项\": \"\","
+                    + "\"设备单项名称\": \"\","
+                    + "\"故障单项\": \"\","
+                    + "\"故障单项名称\": \"\","
+                    + "\"维修措施\": \"\","
+                    + "\"维修状态\": \"\","
+                    + "\"维修状态名称\": \"\""
+                + "}";
+        } else if(DataType.TYPE_CHECK.equals(type)) {
+            s = "{"
+                    + "\"PartId\": \"\","
+                    + "\"SId\":\"" + parentId + "\","
+                    + "\"企业编码\": \"\","
+                    + "\"检查状态\": \"\","
+                    + "\"检查状态名称\": \"\","
+                    + "\"实际系统类型ID\": \"\","
+                    + "\"系统类型名称\": \"\","
+                    + "\"实际设备单项\": \"\","
+                    + "\"设备单项名称\": \"\","
+                    + "\"实际故障单项\": \"\","
+                    + "\"故障单项名称\": \"\","
+                    + "\"故障内容\": \"\""
+                + "}";
+        }
         return jsonToMap(new JSONObject(s));
     }
 
@@ -249,6 +267,22 @@ public class HttpServer extends HttpConnection {
         return newId;
     }
 
+    public boolean deleteItem(String id, String type)
+            throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("type", type);
+
+        Response res = _get(API_ITEM_DELETE, params);
+        JSONObject result = res.asJSONObject();
+
+        boolean success = result.getBoolean("success");
+        if (!success) {
+            throw new RuntimeException(result.getString("message"));
+        }
+        return success;
+    }
+
     public boolean editTask(String id, String type, String[] column, String[] value)
             throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -319,9 +353,9 @@ public class HttpServer extends HttpConnection {
 
         if (result.getBoolean("success")) {
             JSONObject data = result.getJSONObject("data");
-            Map<String, Object> task = jsonToMap(data);
+            Map<String, Object> plan = jsonToMap(data);
 
-            return task;
+            return plan;
         } else {
             throw new RuntimeException(result.getString("message"));
         }
@@ -437,9 +471,34 @@ public class HttpServer extends HttpConnection {
         }
     }
 
+    public List<Map<String, Object>> getWorkHourSummary(String taskId, String type) throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", taskId);
+        params.put("type", type);
+
+        Response res = _get(API_WORKHOUR_SUM, params);
+        JSONObject result = res.asJSONObject();
+
+        if (result.getBoolean("success")) {
+            JSONArray data = result.getJSONArray("data");
+            List<Map<String, Object>> workhours = new ArrayList<Map<String, Object>>();
+
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject jo = data.getJSONObject(i);
+                workhours.add(jsonToMap(jo));
+            }
+
+            return workhours;
+        } else {
+            throw new RuntimeException(result.getString("message"));
+        }
+    }
+
     protected Response _get(String ifPage, Map<String, String> params) throws InterruptedException {
         String url = genRequestURL(ifPage, params);
-        Log.e(TAG, url);
+        if (BuildConfig.DEBUG) {
+            Log.i(TAG, url);
+        }
 //        Thread.sleep(1000);
         Response response = null;
         if (API_LOGIN.equals(ifPage)) {
@@ -458,7 +517,9 @@ public class HttpServer extends HttpConnection {
             response = get(url);
         } else if ((API_WORKHOUR_EDIT).equals(ifPage)) {
             response = get(url);
-        } else if ((API_BAIDU_PUSH_REGISTER).equals(ifPage)) {
+        } else if ((API_WORKHOUR_SUM).equals(ifPage)) {
+            response = get(url);
+        }else if ((API_BAIDU_PUSH_REGISTER).equals(ifPage)) {
             response = get(url);
         } else if ((API_OPTION).equals(ifPage)) {
             response = get(url);
@@ -473,6 +534,8 @@ public class HttpServer extends HttpConnection {
         } else if ((API_ITEM_LIST).equals(ifPage)) {
             response = get(url);
         } else if ((API_COMPANY).equals(ifPage)) {
+            response = get(url);
+        } else {
             response = get(url);
         }
         return response;

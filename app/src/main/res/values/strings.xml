@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Firefighting</string>
+    <string name="app_name">消防维保</string>
 
     <!-- Strings related to login -->
     <string name="prompt_username">用户名</string>
@@ -15,11 +15,11 @@
     <string name="error_field_required">必填项</string>
 
     <string name="title_activity_login">登录</string>
-    <string name="title_activity_actionbar">消防维保系统任务一览</string>
+    <string name="title_activity_actionbar">消防维保</string>
     <string name="action_apply">提交审核</string>
     <string name="action_settings">设置</string>
-    <string name="tab_title_todo">待处理一览</string>
-    <string name="tab_title_audit">待审核一览</string>
+    <string name="tab_title_todo">未结束</string>
+    <string name="tab_title_audit">待审核</string>
     <string name="title_item_maintain">维保任务明细</string>
     <string name="title_item_check">检查任务明细</string>
     <string name="tab_title_detail_task">维修任务</string>
@@ -36,17 +36,33 @@
     <string name="field_work_title">标题</string>
     <string name="tab_title_workhour">工作时间</string>
     <string name="field_work_memo">详细描述</string>
-    <string name="field_item_no">受理编号</string>
-    <string name="field_item_company">单位编号</string>
-    <string name="field_item_name">中心编号</string>
-    <string name="field_item_status">维修状态</string>
-    <string name="field_item_source">报修来源</string>
+
+    <string name="field_item_center">中心</string>
+    <string name="field_item_company">单位</string>
+    <string name="field_item_company_address">单位地址</string>
+    <string name="field_item_float">所属楼层</string>
+    <string name="field_item_address">安装地址</string>
+    <string name="field_item_no">企业编码</string>
+    <string name="field_item_category">部件类型</string>
+    <string name="field_item_type">部件型号</string>
     <string name="field_item_report_date">报修时间</string>
+    <string name="field_item_content">故障内容</string>
+    <string name="field_item_send_date">派单时间</string>
     <string name="field_item_end_date">结束时间</string>
     <string name="field_item_system">系统</string>
     <string name="field_item_device">设备</string>
     <string name="field_item_error">故障</string>
     <string name="field_item_resolve">维修措施</string>
+    <string name="field_item_maintain_status">维修状态</string>
+    <string name="field_item_report_type">报修类型</string>
+    <string name="field_item_contact">维修联系人</string>
+    <string name="field_item_contact_tel">维修联系人电话</string>
+    <string name="field_item_source">报修来源</string>
+    <string name="field_item_recieve_no">受理编号</string>
+    <string name="field_item_check_no">检查编号</string>
+    <string name="field_item_code">部件编码</string>
+    <string name="field_item_check_status">检查状态</string>
+
     <string name="pref_header_data_sync">Account</string>
     <string name="field_task_send_date">派单时间</string>
     <string name="field_task_sender">派单人</string>
@@ -58,16 +74,24 @@
     <string name="field_workhour_spend">计</string>
     <string name="field_workhour_start">开始时间</string>
     <string name="field_workhour_end">结束时间</string>
-    <string name="field_checkout_item_no">企业编码</string>
-    <string name="field_check_item_memo">备注</string>
-    <string name="field_check_item_status">状态</string>
-    <string name="field_check_item_detail">故障内容</string>
+
     <string name="confirm_exit">再按一次，退出程序</string>
     <string name="push">推送</string>
     <string name="progress_title">处理中...</string>
     <string name="progress_message">请耐心等待...</string>
     <string name="data_no_change">没有变化</string>
+    <string name="confirm_title">操作确认</string>
+    <string name="confirm_delete_message">要执行删除？</string>
+
     <string name="worklog_apply">正式提交</string>
     <string name="worklog_save_temp">临时保存</string>
+    <string name="worklog_add">新增工作记录</string>
+    <string name="workhour_add">新增工人工时</string>
+    <string name="item_add">新增部件</string>
+
+    <string name="connection_error">通讯失败，请检查网络设置。</string>
+    <string name="wifi_and_3g_networks_are_not_available">WIFI和3G网络都不可用。</string>
+
+    <string name="no_data">没有数据</string>
 
 </resources>

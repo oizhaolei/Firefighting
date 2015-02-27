@@ -143,10 +143,10 @@
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/fragment_check_task_status_edit" />
+                    android:layout_toLeftOf="@+id/fragment_check_task_status_next" />
 
                 <ImageView
-                    android:id="@+id/fragment_check_task_status_edit"
+                    android:id="@+id/fragment_check_task_status_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
@@ -155,15 +155,4 @@
         </LinearLayout>
     </com.melnykov.fab.ObservableScrollView>
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_action_accept"
-        fab:fab_colorNormal="@color/primary"
-        fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple" />
 </RelativeLayout>

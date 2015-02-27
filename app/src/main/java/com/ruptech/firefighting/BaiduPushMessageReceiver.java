@@ -182,7 +182,6 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-
                 App.getHttpServer().baiduPushRegist(id, token);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
@@ -192,6 +191,7 @@ public class BaiduPushMessageReceiver extends FrontiaPushMessageReceiver {
 
         @Override
         protected void onPostExecute(Void v) {
+
             PrefUtils.writePushToken(token);
         }
     }

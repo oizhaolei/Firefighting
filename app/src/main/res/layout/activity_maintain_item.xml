@@ -23,6 +23,149 @@
 
 
             <RelativeLayout
+                android:id="@+id/activity_maintain_item_center_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_center" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_center"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_center_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_center_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_company_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_company" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_company"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_company_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_company_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_company_address_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_company_address" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_company_address"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_company_address_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_company_address_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_float_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_float" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_float"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_float_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_float_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_address_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_address" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_address"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_address_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_address_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/activity_maintain_item_no_layout"
                 style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
@@ -46,12 +189,14 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
+                    android:visibility="visible"
                     android:src="@drawable/ic_action_next_item" />
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/activity_maintain_item_company_layout"
-                style="@style/editable_field_layout"
+                android:id="@+id/activity_maintain_item_category_layout"
+                style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -59,26 +204,28 @@
                     style="@style/field_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_item_company" />
+                    android:text="@string/field_item_category" />
 
                 <TextView
-                    android:id="@+id/activity_maintain_item_company"
+                    android:id="@+id/activity_maintain_item_category"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_maintain_item_company_next" />
+                    android:layout_toLeftOf="@+id/activity_maintain_item_category_next" />
 
                 <ImageView
-                    android:id="@+id/activity_maintain_item_company_next"
+                    android:id="@+id/activity_maintain_item_category_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
+                    android:visibility="invisible"
                     android:src="@drawable/ic_action_next_item" />
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/activity_maintain_item_name_layout"
-                style="@style/editable_field_layout"
+                android:id="@+id/activity_maintain_item_type_layout"
+                style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -86,80 +233,28 @@
                     style="@style/field_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_item_name" />
+                    android:text="@string/field_item_type" />
 
                 <TextView
-                    android:id="@+id/activity_maintain_item_name"
+                    android:id="@+id/activity_maintain_item_type"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_maintain_item_name_next" />
+                    android:layout_toLeftOf="@+id/activity_maintain_item_type_next" />
 
                 <ImageView
-                    android:id="@+id/activity_maintain_item_name_next"
+                    android:id="@+id/activity_maintain_item_type_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
+                    android:visibility="invisible"
                     android:src="@drawable/ic_action_next_item" />
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/activity_maintain_item_status_layout"
-                style="@style/editable_field_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    style="@style/field_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/field_item_status" />
-
-                <TextView
-                    android:id="@+id/activity_maintain_item_status"
-                    style="@style/field_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_maintain_item_status_next" />
-
-                <ImageView
-                    android:id="@+id/activity_maintain_item_status_next"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/activity_maintain_item_source_layout"
-                style="@style/editable_field_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    style="@style/field_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/field_item_source" />
-
-                <TextView
-                    android:id="@+id/activity_maintain_item_source"
-                    style="@style/field_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_maintain_item_source_next" />
-
-                <ImageView
-                    android:id="@+id/activity_maintain_item_source_next"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_maintain_item_report_date_layout"
-                style="@style/editable_field_layout"
+                style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -181,7 +276,72 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
+                    android:visibility="invisible"
                     android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_content_layout"
+                style="@style/editable_field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_content_next"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/field_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/field_item_content" />
+
+                    <TextView
+                        android:id="@+id/activity_maintain_item_content"
+                        style="@style/field_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_content_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_send_date_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_send_date" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_send_date"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_send_date_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_send_date_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -208,6 +368,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
+                    android:visibility="visible"
                     android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
@@ -325,6 +486,201 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_action_next_item" />
 
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_status_layout"
+                style="@style/editable_field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_maintain_status" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_status"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_status_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_status_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_report_type_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_report_type" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_report_type"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_report_type_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_report_type_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_contact_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_contact" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_contact"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_contact_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_contact_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_contact_tel_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_contact_tel" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_contact_tel"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_contact_tel_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_contact_tel_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_source_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_source" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_source"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_source_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_source_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+            <RelativeLayout
+            android:id="@+id/activity_maintain_item_recieve_no_layout"
+            style="@style/field_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/field_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_item_recieve_no" />
+
+            <TextView
+                android:id="@+id/activity_maintain_item_recieve_no"
+                style="@style/field_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/activity_maintain_item_recieve_no_next" />
+
+            <ImageView
+                android:id="@+id/activity_maintain_item_recieve_no_next"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:visibility="invisible"
+                android:src="@drawable/ic_action_next_item" />
+        </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_maintain_item_check_no_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_check_no" />
+
+                <TextView
+                    android:id="@+id/activity_maintain_item_check_no"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_maintain_item_check_no_next" />
+
+                <ImageView
+                    android:id="@+id/activity_maintain_item_check_no_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
         </LinearLayout>

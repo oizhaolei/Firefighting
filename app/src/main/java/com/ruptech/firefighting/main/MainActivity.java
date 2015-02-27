@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.ruptech.firefighting.App;
+import com.ruptech.firefighting.BuildConfig;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.SettingsActivity;
 import com.ruptech.firefighting.utils.PrefUtils;
+import com.ruptech.firefighting.utils.Utils;
 import com.ruptech.firefighting.view.PagerItem;
 import com.ruptech.firefighting.view.ViewPagerAdapter;
 
@@ -35,6 +37,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String EXTRA_TYPE = "EXTRA_TYPE";
     public static final String EXTRA_WORKERS = "EXTRA_WORKER";
+    public static final String EXTRA_EDITABLE = "EXTRA_EDITABLE";
     public static MainActivity instance = null;
     @InjectView(R.id.tabHost)
     MaterialTabHost tabHost;
@@ -108,7 +111,13 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         ButterKnife.inject(this);
         instance = this;
 
-        if (PrefUtils.readPushToken() == null) {
+        if(!Utils.checkNetwork(this)) {
+            Toast.makeText(this, R.string.wifi_and_3g_networks_are_not_available,
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
+       if (PrefUtils.readPushToken() == null) {
             initWithApiKey();
         }
 
@@ -143,7 +152,9 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     private void initWithApiKey() {
         // Push: 无账号初始化，用api key绑定
         String baidu_api_key = App.properties.getProperty("baidu_api_key");
-        Log.e(TAG, baidu_api_key);
+        if (BuildConfig.DEBUG) {
+            Log.i(TAG, baidu_api_key);
+        }
         PushManager.startWork(getApplicationContext(),
                 PushConstants.LOGIN_TYPE_API_KEY,
                 baidu_api_key);
