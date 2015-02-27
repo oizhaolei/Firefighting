@@ -165,6 +165,7 @@ public class LoginActivity extends ActionBarActivity {
                 user = App.getHttpServer().userLogin(mUsername, mPassword);
                 App.saveUser(user);
             } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
                 return false;
             }
 
