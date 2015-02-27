@@ -24,7 +24,7 @@
 
             <RelativeLayout
                 android:id="@+id/activity_check_item_no_layout"
-                style="@style/field_layout"
+                style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -32,7 +32,7 @@
                     style="@style/field_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_checkout_item_no" />
+                    android:text="@string/field_item_no" />
 
                 <TextView
                     android:id="@+id/activity_check_item_no"
@@ -46,8 +46,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -75,11 +74,11 @@
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/activity_check_item_name_layout"
+                android:id="@+id/activity_check_item_company_address_layout"
                 style="@style/field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -88,22 +87,137 @@
                     style="@style/field_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_check_item_memo" />
+                    android:text="@string/field_item_company_address" />
 
                 <TextView
-                    android:id="@+id/activity_check_item_name"
+                    android:id="@+id/activity_check_item_company_address"
                     style="@style/field_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_check_item_name_next" />
+                    android:layout_toLeftOf="@+id/activity_check_item_company_address_next" />
 
                 <ImageView
-                    android:id="@+id/activity_check_item_name_next"
+                    android:id="@+id/activity_check_item_company_address_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_check_item_float_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_float" />
+
+                <TextView
+                    android:id="@+id/activity_check_item_float"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_check_item_float_next" />
+
+                <ImageView
+                    android:id="@+id/activity_check_item_float_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_check_item_address_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_address" />
+
+                <TextView
+                    android:id="@+id/activity_check_item_address"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_check_item_address_next" />
+
+                <ImageView
+                    android:id="@+id/activity_check_item_address_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_action_next_item" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_check_item_code_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_code" />
+
+                <TextView
+                    android:id="@+id/activity_check_item_code"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_check_item_code_next" />
+
+                <ImageView
+                    android:id="@+id/activity_check_item_code_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_action_next_item"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_check_item_category_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_item_category" />
+
+                <TextView
+                    android:id="@+id/activity_check_item_category"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_check_item_category_next" />
+
+                <ImageView
+                    android:id="@+id/activity_check_item_category_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item"
+                    android:visibility="invisible"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -116,7 +230,7 @@
                     style="@style/field_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_check_item_status" />
+                    android:text="@string/field_item_check_status" />
 
                 <TextView
                     android:id="@+id/activity_check_item_status"
@@ -215,7 +329,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/activity_check_item_resolve_layout"
+                android:id="@+id/activity_check_item_content_layout"
                 style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -223,24 +337,24 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/activity_check_item_resolve_next"
+                    android:layout_toLeftOf="@+id/activity_check_item_content_next"
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/field_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/field_check_item_detail" />
+                        android:text="@string/field_item_content" />
 
                     <TextView
-                        android:id="@+id/activity_check_item_resolve"
+                        android:id="@+id/activity_check_item_content"
                         style="@style/field_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/activity_check_item_resolve_next"
+                    android:id="@+id/activity_check_item_content_next"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
 

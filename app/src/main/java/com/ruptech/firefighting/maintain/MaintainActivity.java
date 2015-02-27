@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.view.PagerItem;
@@ -31,6 +30,7 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
     ViewPager pager;
     Map<String, Object> task;
     String type;
+    boolean editable;
 
     protected List<PagerItem> setupTabs(final Map<String, Object> task) {
         List<PagerItem> mTabs = new ArrayList<PagerItem>();
@@ -45,7 +45,7 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
         ) {
             public Fragment createFragment() {
                 Map<String, Object> basicTask = (Map<String, Object>) task.get("task");
-                return TaskFragment.newInstance(basicTask, type);
+                return TaskFragment.newInstance(basicTask, type, editable);
             }
         });
 
@@ -56,7 +56,7 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
                 List<Map<String, Object>> worklogs = (List<Map<String, Object>>) task.get("worklogs");
                 List<Map<String, Object>> workhoursum = (List<Map<String, Object>>) task.get("workhoursum");
                 List<Map<String, Object>> workers = (List<Map<String, Object>>) task.get("workers");
-                return WorklogListFragment.newInstance(worklogs, workhoursum, type, (String)((Map<String, Object>) task.get("task")).get("ID"), workers);
+                return WorkLogListFragment.newInstance(worklogs, workhoursum, type, (String) ((Map<String, Object>) task.get("task")).get("ID"), workers, editable);
 
             }
         });
@@ -67,7 +67,7 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
             public Fragment createFragment() {
                 List<Map<String, Object>> items = (List<Map<String, Object>>) task.get("items");
                 List<Map<String, Object>> sum = (List<Map<String, Object>>) task.get("componentsum");
-                return ItemListFragment.newInstance(items, sum, type, (String)((Map<String, Object>) task.get("task")).get("ID"));
+                return ItemListFragment.newInstance(items, sum, type, (String)((Map<String, Object>) task.get("task")).get("ID"), editable);
             }
         });
         // END_INCLUDE (populate_tabs)
@@ -126,5 +126,6 @@ public class MaintainActivity extends ActionBarActivity implements MaterialTabLi
     void parseExtras() {
         task = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_TASK);
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
+        editable = getIntent().getBooleanExtra(MainActivity.EXTRA_EDITABLE, false);
     }
 }

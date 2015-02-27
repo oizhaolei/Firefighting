@@ -88,12 +88,105 @@ public class DataType {
         return maintainTaskStatus;
     }
 
+    public static Map<Integer, String> getMaintainTaskStatusMap(int currentStatusCode) {
+        if (maintainTaskStatus == null)
+            maintainTaskStatus = PrefUtils.readMaintainTaskStatusMap();
+        if (maintainTaskStatus == null)
+            maintainTaskStatus = EMPTY_MAP;
+
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        switch (currentStatusCode) {
+            case 1:
+                // 等待派单
+                map.put(new Integer(1), (String)maintainTaskStatus.get(new Integer(1)));
+                map.put(new Integer(2), (String)maintainTaskStatus.get(new Integer(2)));
+                break;
+            case 2:
+                // 正在执行
+                map.put(new Integer(2), (String)maintainTaskStatus.get(new Integer(2)));
+                map.put(new Integer(3), (String)maintainTaskStatus.get(new Integer(3)));
+                map.put(new Integer(5), (String)maintainTaskStatus.get(new Integer(5)));
+                break;
+            case 3:
+                // 挂起
+                map.put(new Integer(1), (String)maintainTaskStatus.get(new Integer(1)));
+                map.put(new Integer(2), (String)maintainTaskStatus.get(new Integer(2)));
+                map.put(new Integer(3), (String)maintainTaskStatus.get(new Integer(3)));
+                break;
+            case 4:
+                // 修好但未交工
+                map.put(new Integer(4), (String)maintainTaskStatus.get(new Integer(4)));
+                break;
+            case 5:
+                // 等待审核
+                map.put(new Integer(5), (String)maintainTaskStatus.get(new Integer(5)));
+                break;
+            case 6:
+                // 审核不合格
+                map.put(new Integer(6), (String)maintainTaskStatus.get(new Integer(6)));
+                break;
+            case 7:
+                // 审核合格
+                map.put(new Integer(7), (String)maintainTaskStatus.get(new Integer(7)));
+                break;
+            case 8:
+                // 略过维修
+                map.put(new Integer(8), (String)maintainTaskStatus.get(new Integer(8)));
+                break;
+            default:
+                break;
+        }
+        return map;
+    }
+
     public static Map<Integer, String> getCheckTaskStatusMap() {
         if (checkTaskStatus == null)
             checkTaskStatus = PrefUtils.readCheckTaskStatusMap();
         if (checkTaskStatus == null)
             checkTaskStatus = EMPTY_MAP;
         return checkTaskStatus;
+    }
+
+    public static Map<Integer, String> getCheckTaskStatusMap(int currentStatusCode) {
+        if (checkTaskStatus == null)
+            checkTaskStatus = PrefUtils.readCheckTaskStatusMap();
+        if (checkTaskStatus == null)
+            checkTaskStatus = EMPTY_MAP;
+
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        switch (currentStatusCode) {
+            case 0:
+                // 检查中
+                map.put(new Integer(0), (String)checkTaskStatus.get(new Integer(0)));
+                map.put(new Integer(1), (String)checkTaskStatus.get(new Integer(1)));
+                break;
+            case 1:
+                // 审核中
+                map.put(new Integer(1), (String)checkTaskStatus.get(new Integer(1)));
+                break;
+            case 2:
+                // 未通过审核
+                map.put(new Integer(2), (String)checkTaskStatus.get(new Integer(2)));
+                break;
+            case 3:
+                // 已完成
+                map.put(new Integer(3), (String)checkTaskStatus.get(new Integer(3)));
+                break;
+            case 4:
+                // 回退
+                map.put(new Integer(4), (String)checkTaskStatus.get(new Integer(4)));
+                map.put(new Integer(5), (String)checkTaskStatus.get(new Integer(5)));
+                break;
+            case 5:
+                // 未开始检查
+                map.put(new Integer(0), (String)checkTaskStatus.get(new Integer(0)));
+                map.put(new Integer(4), (String)checkTaskStatus.get(new Integer(4)));
+                map.put(new Integer(5), (String)checkTaskStatus.get(new Integer(5)));
+                break;
+            default:
+                break;
+        }
+        return map;
     }
 
     public static Map<Integer, String> getMaintainItemStatusMap() {

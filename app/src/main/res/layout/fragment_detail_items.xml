@@ -6,23 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".detail.DetailActivity">
 
+    <!--
     <TextView
         android:id="@+id/fragment_detail_item_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="60dp"
+        android:layout_alignParentTop="true"
         android:textColor="@color/info_text_color"
         android:textStyle="bold"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="20dp" />
+    -->
+    <LinearLayout
+        android:id="@+id/fragment_detail_item_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/fragment_detail_item_status1"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:height="35dp"
+            android:background="@color/item_status_color_doing"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/fragment_detail_item_status2"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:height="35dp"
+            android:background="@color/item_status_color_error"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/fragment_detail_item_status3"
+            style="@style/field_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:height="35dp"
+            android:background="@color/item_status_color_well"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_detail_item_center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_detail_item_top"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/fragment_detail_item_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/item_add" />
+    </LinearLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/fragment_detail_item_top"
+        android:layout_below="@+id/fragment_detail_item_center"
+        android:layout_alignParentBottom="true"
         android:drawSelectorOnTop="false" />
 
+    <!--
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -34,4 +97,6 @@
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple" />
+    -->
+
 </RelativeLayout>

@@ -22,6 +22,7 @@ import com.ruptech.firefighting.dialog.ChoiceDialog;
 import com.ruptech.firefighting.dialog.DateTimePickerDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
 import com.ruptech.firefighting.main.MainActivity;
+import com.ruptech.firefighting.utils.Utils;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -35,7 +36,6 @@ import butterknife.OnClick;
 
 public class WorkHourActivity extends ActionBarActivity {
     public static final String EXTRA_WORKHOUR = "EXTRA_WORKHOUR";
-    public static final String EXTRA_EDITABLE = "EXTRA_EDITABLE";
     public static final String EXTRA_WORKLOGID = "EXTRA_WORKLOGID";
     public static final String EXTRA_WORKERS = "EXTRA_WORKERS";
     public static final int RETURN_WORKHOUR_CODE = 100;
@@ -126,13 +126,12 @@ public class WorkHourActivity extends ActionBarActivity {
                     newValue = newValue.substring(0,newValue.length() - 2) + "00";
                     // 计算工时
                     SimpleDateFormat sdf = new SimpleDateFormat( DataType.DATETIMEFORMAT );
-                    String hours = "0";
+                    String hours = "0.0";
                     try {
                         if(!("").equals((String)workHour.get("结束时间"))) {
                             long interval_seconds = ( sdf.parse((String)workHour.get("结束时间")).getTime() - sdf.parse(newValue).getTime() ) / 1000;
-                            float interval_hours = interval_seconds / (60 * 60);
-                            if(interval_seconds >= 0) {
-                                hours = new Float(interval_hours + 1).toString();
+                            if(interval_seconds > 0) {
+                                hours = Utils.getWorkHour(interval_seconds);
                             } else {
                                 Toast.makeText(WorkHourActivity.this, "开始时间不能比结束时间晚。", Toast.LENGTH_SHORT).show();
                                 return;
@@ -190,9 +189,8 @@ public class WorkHourActivity extends ActionBarActivity {
                         try {
                             if(!("").equals((String)workHour.get("开始时间"))) {
                                 long interval_seconds = (sdf.parse(newValue).getTime() - sdf.parse((String)workHour.get("开始时间")).getTime()) / 1000;
-                                float interval_hours = interval_seconds / (60 * 60);
                                 if(interval_seconds > 0) {
-                                    hours = new Float(interval_hours).toString();
+                                    hours = Utils.getWorkHour(interval_seconds);
                                 } else {
                                     Toast.makeText(WorkHourActivity.this, "结束时间不能比开始时间早。", Toast.LENGTH_SHORT).show();
                                     return;
@@ -243,7 +241,7 @@ public class WorkHourActivity extends ActionBarActivity {
 
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
         workHour = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_WORKHOUR);
-        editable = ((Boolean) getIntent().getBooleanExtra(EXTRA_EDITABLE, false)).booleanValue();
+        editable = getIntent().getBooleanExtra(MainActivity.EXTRA_EDITABLE, false);
         worklogId = getIntent().getStringExtra(EXTRA_WORKLOGID);
         workers = (List<Map<String, Object>>) getIntent().getSerializableExtra(EXTRA_WORKERS);
         displayData();
@@ -253,7 +251,7 @@ public class WorkHourActivity extends ActionBarActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent();
-            intent.putExtra(WorklogActivity.RETURN_WORKHOUR, (Serializable)workHour);
+            intent.putExtra(WorkLogActivity.RETURN_WORKHOUR, (Serializable)workHour);
             //设置结果信息
             setResult(Activity.RESULT_OK,intent);
         }
@@ -270,9 +268,9 @@ public class WorkHourActivity extends ActionBarActivity {
             mWorkerRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
             mStartRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
             mEndRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mWorkerNextImage.setVisibility(View.INVISIBLE);
-            mStartNextImage.setVisibility(View.INVISIBLE);
-            mEndNextImage.setVisibility(View.INVISIBLE);
+            mWorkerNextImage.setVisibility(View.GONE);
+            mStartNextImage.setVisibility(View.GONE);
+            mEndNextImage.setVisibility(View.GONE);
         }
     }
 
@@ -298,15 +296,13 @@ public class WorkHourActivity extends ActionBarActivity {
                 return App.getHttpServer().editWorkHour(workhourId, type, columns, values);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
+                return null;
             }
-            return "";
         }
 
         @Override
         protected void onPostExecute(final String newId) {
-            if(!("").equals(newId)) {
-                workHour.put("ID",newId);
-            }
+            afterWorkHourEdit(newId);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
@@ -315,6 +311,15 @@ public class WorkHourActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(WorkHourActivity.this, WorkHourActivity.this.getString(R.string.progress_title), WorkHourActivity.this.getString(R.string.progress_message), true, false);
+        }
+    }
+
+    private void afterWorkHourEdit(String newId) {
+        if(null == newId) {
+            Toast.makeText(WorkHourActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            return;
+        } else if(!("").equals(newId)) {
+            workHour.put("ID",newId);
         }
     }
 }

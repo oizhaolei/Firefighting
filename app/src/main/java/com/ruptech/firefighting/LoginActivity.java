@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ruptech.firefighting.main.MainActivity;
 import com.ruptech.firefighting.model.User;
@@ -134,6 +135,20 @@ public class LoginActivity extends ActionBarActivity {
         }
     }
 
+    private void afterLogin(Boolean login) {
+        mAuthTask = null;
+
+        if(null == login) {
+            Toast.makeText(LoginActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+        } else if (login) {
+            finish();
+            gotoMainActivity();
+        } else {
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.requestFocus();
+        }
+    }
+
     private boolean isUsernameValid(String username) {
         return username.length() > 4;
     }
@@ -165,7 +180,7 @@ public class LoginActivity extends ActionBarActivity {
                 user = App.getHttpServer().userLogin(mUsername, mPassword);
                 App.saveUser(user);
             } catch (Exception e) {
-                return false;
+                return null;
             }
 
             return true;
@@ -173,15 +188,7 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-
-            if (success) {
-                finish();
-                gotoMainActivity();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
+            afterLogin(success);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }

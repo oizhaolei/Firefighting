@@ -6,11 +6,16 @@
     <color name="field_title_color">#000000</color>
     <color name="editor_normal_color">#e0e0e0</color>
     <color name="editor_pressed_color">#888888</color>
-    <color name="primary">#3f51b5</color>
-    <color name="primary_pressed">#ff50699f</color>
+    <color name="primary">#ffe66300</color>
+    <color name="primary_pressed">#ffff9200</color>
     <color name="ripple">#ff80ab</color>
     <color name="toolbar_background_color">#ffff9200</color>
     <color name="tab_primary_color">#ffe66300</color>
     <color name="tab_accent_color">#ffc400</color>
-    <color name="info_text_color">#ff0808ff</color>
+    <color name="info_text_color">#333333</color>
+
+    <color name="item_status_color_doing">#ffc400</color>
+    <color name="item_status_color_error">#9dff3f</color>
+    <color name="item_status_color_well">#62c03e</color>
+
 </resources>

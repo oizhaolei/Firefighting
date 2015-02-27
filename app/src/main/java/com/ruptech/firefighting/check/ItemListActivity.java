@@ -16,7 +16,10 @@ public class ItemListActivity extends ActionBarActivity {
 
     public static final String EXTRA_ITEMS = "EXTRA_ITEMS";
     public static final String EXTRA_SUM = "EXTRA_SUM";
-    String type;
+    public static final String EXTRA_PLANID = "EXTRA_PLANID";
+    private String type;
+    private boolean editable;
+    private String planId;
     private List<Map<String, Object>> items;
     private List<Map<String, Object>> sum;
 
@@ -36,11 +39,14 @@ public class ItemListActivity extends ActionBarActivity {
         items = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_ITEMS);
         sum = (List<Map<String, Object>>) getIntent().getSerializableExtra(ItemListActivity.EXTRA_SUM);
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
+        editable = getIntent().getBooleanExtra(MainActivity.EXTRA_EDITABLE, false);
+        planId = getIntent().getStringExtra(EXTRA_PLANID);
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.sample_content_fragment, ItemListFragment.newInstance(items, sum, type));
+            transaction.replace(R.id.sample_content_fragment, ItemListFragment.newInstance(items, sum, type, planId, editable));
             transaction.commit();
         }
     }
+
 }

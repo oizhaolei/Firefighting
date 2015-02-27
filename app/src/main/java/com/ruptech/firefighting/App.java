@@ -76,7 +76,7 @@ public class App extends FrontiaApplication {
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG)
-            Log.e(TAG, "App.onCreate");
+            Log.i(TAG, "App.onCreate");
 
         mContext = this.getApplicationContext();
         notificationManager = (NotificationManager) this

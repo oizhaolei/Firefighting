@@ -14,23 +14,19 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/item_check_item_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/item_check_item_company"
+            android:id="@+id/item_check_item_address"
             style="@style/field_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/item_check_item_system"
+            android:id="@+id/item_check_item_status"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/item_check_item_status"
+            android:id="@+id/item_check_item_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

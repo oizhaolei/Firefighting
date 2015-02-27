@@ -19,7 +19,6 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.melnykov.fab.FloatingActionButton;
 import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.DataType;
 import com.ruptech.firefighting.R;
@@ -40,20 +39,19 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class WorklogActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class WorkLogActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
     public static final String EXTRA_WORKLOG = "EXTRA_WORKLOG";
-    public static final String EXTRA_EDITABLE = "EXTRA_EDITABLE";
     public static final String RETURN_WORKHOUR = "RETURN_WORKHOUR";
     public static final int RETURN_WORKLOG_CODE = 300;
-    private static final String TAG = WorklogActivity.class.getName();
+    private static final String TAG = WorkLogActivity.class.getName();
     @InjectView(R.id.activity_worklog_name)
     TextView mNameTextView;
     @InjectView(R.id.activity_worklog_memo)
     TextView mMemoTextView;
     @InjectView(R.id.activity_worklog_workhours)
     ListView mWorkhourListView;
-    @InjectView(R.id.fab)
-    FloatingActionButton fab;
+//    @InjectView(R.id.fab)
+//    FloatingActionButton fab;
     String type;
     private Map<String, Object> worklog;
     private boolean editable;
@@ -69,15 +67,17 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
     ImageView mNameImageView;
     @InjectView(R.id.activity_worklog_memo_next)
     ImageView mMemoImageView;
-    @InjectView(R.id.activity_worklog_save_temp)
+    @InjectView(R.id.activity_worklog_save_temp_btn)
     Button mTemporarySaveBtn;
-    @InjectView(R.id.activity_worklog_save)
+    @InjectView(R.id.activity_worklog_save_btn)
     Button mSaveBtn;
+    @InjectView(R.id.activity_worklog_add_btn)
+    Button mAddBtn;
 
-    @OnClick(R.id.fab)
+    @OnClick(R.id.activity_worklog_add_btn)
     public void doAdd() {
         if (("").equals((String)worklog.get("标题"))) {
-            Toast.makeText(WorklogActivity.this, "请先填写标题", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WorkLogActivity.this, "请先填写标题", Toast.LENGTH_SHORT).show();
             return;
         }
         try {
@@ -181,7 +181,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         }
     }
 
-    @OnClick(R.id.activity_worklog_save_temp)
+    @OnClick(R.id.activity_worklog_save_temp_btn)
     public void doTemporarySave() {
         String worklogId = (String)worklog.get("ID");
         if(null == worklogId || ("").equals(worklogId)) {
@@ -217,7 +217,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         worklog.put("是否提交", "0");
     }
 
-    @OnClick(R.id.activity_worklog_save)
+    @OnClick(R.id.activity_worklog_save_btn)
     public void doSave() {
         String worklogId = (String)worklog.get("ID");
         if(null == worklogId || ("").equals(worklogId)) {
@@ -267,7 +267,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
 
         worklog = (Map<String, Object>) getIntent().getSerializableExtra(EXTRA_WORKLOG);
         type = getIntent().getStringExtra(MainActivity.EXTRA_TYPE);
-        editable = ((Boolean) getIntent().getBooleanExtra(EXTRA_EDITABLE, false)).booleanValue();
+        editable = getIntent().getBooleanExtra(MainActivity.EXTRA_EDITABLE, false);
         workers = (List<Map<String, Object>>) getIntent().getSerializableExtra(MainActivity.EXTRA_WORKERS);
         workhours = (List<Map<String, Object>>) worklog.get("workhours");
         displayData();
@@ -279,15 +279,16 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
 
         if(("1").equals((String)worklog.get("是否提交"))) {
             editable = false;
-            mTemporarySaveBtn.setVisibility(View.INVISIBLE);
-            mSaveBtn.setVisibility(View.INVISIBLE);
         }
         if(!editable) {
             mNameRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
             mMemoRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
-            mNameImageView.setVisibility(View.GONE);
-            mMemoImageView.setVisibility(View.GONE);
-            fab.setVisibility(View.GONE);
+            mNameImageView.setVisibility(View.INVISIBLE);
+            mMemoImageView.setVisibility(View.INVISIBLE);
+//            fab.setVisibility(View.GONE);
+            mAddBtn.setVisibility(View.GONE);
+            mTemporarySaveBtn.setVisibility(View.GONE);
+            mSaveBtn.setVisibility(View.GONE);
         }
 
         if (workhours == null) {
@@ -303,7 +304,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
         mWorkhourListView.setAdapter(adapter);
         mWorkhourListView.setOnItemClickListener(this);
 
-        fab.attachToListView(mWorkhourListView);
+//        fab.attachToListView(mWorkhourListView);
     }
 
     @Override
@@ -345,7 +346,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
     private void openWorkHourDetail(Map<String, Object> workhour, String worklogId, List<Map<String, Object>> workers) {
         Intent workhourIntent = new Intent(this, WorkHourActivity.class);
         workhourIntent.putExtra(WorkHourActivity.EXTRA_WORKHOUR, (Serializable) workhour);
-        workhourIntent.putExtra(WorkHourActivity.EXTRA_EDITABLE, new Boolean(editable));
+        workhourIntent.putExtra(MainActivity.EXTRA_EDITABLE, new Boolean(editable));
         workhourIntent.putExtra(WorkHourActivity.EXTRA_WORKLOGID, worklogId);
         workhourIntent.putExtra(WorkHourActivity.EXTRA_WORKERS, (Serializable) workers);
         workhourIntent.putExtra(MainActivity.EXTRA_TYPE, type);
@@ -356,7 +357,7 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Intent intent = new Intent();
-            intent.putExtra(WorklogListFragment.RETURN_WORKLOG, (Serializable)worklog);
+            intent.putExtra(WorkLogListFragment.RETURN_WORKLOG, (Serializable)worklog);
             //设置结果信息
             setResult(Activity.RESULT_OK,intent);
         }
@@ -393,15 +394,13 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
                 return App.getHttpServer().editWorklog(worklogId, type, columns, values, workhours);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
+                return null;
             }
-            return "";
         }
 
         @Override
         protected void onPostExecute(final String newId) {
-            if(!("").equals(newId)) {
-                worklog.put("ID",newId);
-            }
+            afterWorkLogEdit(newId);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
@@ -409,7 +408,16 @@ public class WorklogActivity extends ActionBarActivity implements AdapterView.On
 
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(WorklogActivity.this, WorklogActivity.this.getString(R.string.progress_title), WorklogActivity.this.getString(R.string.progress_message), true, false);
+            progressDialog = ProgressDialog.show(WorkLogActivity.this, WorkLogActivity.this.getString(R.string.progress_title), WorkLogActivity.this.getString(R.string.progress_message), true, false);
+        }
+    }
+
+    private void afterWorkLogEdit(String newId) {
+        if(null == newId) {
+            Toast.makeText(WorkLogActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            return;
+        } else if(!("").equals(newId)) {
+            worklog.put("ID",newId);
         }
     }
 }

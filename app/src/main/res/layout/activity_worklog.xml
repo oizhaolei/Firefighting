@@ -10,7 +10,7 @@
         android:layout_above="@+id/activity_worklog_bottom"
         android:orientation="vertical"
         android:weightSum="2"
-        tools:context="com.ruptech.firefighting.maintain.WorklogActivity">
+        tools:context="com.ruptech.firefighting.maintain.WorkLogActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -90,6 +90,21 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/activity_worklog_center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/activity_worklog_add_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/workhour_add" />
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -102,6 +117,7 @@
                 android:layout_marginTop="20dp"
                 android:drawSelectorOnTop="false" />
 
+            <!--
             <com.melnykov.fab.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
@@ -113,6 +129,7 @@
                 fab:fab_colorNormal="@color/primary"
                 fab:fab_colorPressed="@color/primary_pressed"
                 fab:fab_colorRipple="@color/ripple" />
+            -->
         </RelativeLayout>
 
     </LinearLayout>
@@ -126,14 +143,14 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/activity_worklog_save_temp"
+            android:id="@+id/activity_worklog_save_temp_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/worklog_save_temp" />
 
         <Button
-            android:id="@+id/activity_worklog_save"
+            android:id="@+id/activity_worklog_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

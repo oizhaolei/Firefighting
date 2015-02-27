@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ObservableScrollView;
@@ -30,11 +33,6 @@ import butterknife.OnClick;
 public class TaskFragment extends Fragment {
     private static final String TAG = TaskFragment.class.getName();
 
-    @InjectView(R.id.fab)
-    FloatingActionButton fab;
-    @InjectView(R.id.fragment_check_task_scrollview)
-    ObservableScrollView scrollView;
-
     @InjectView(R.id.fragment_check_task_name)
     TextView nameTextView;
     @InjectView(R.id.fragment_check_task_company)
@@ -47,29 +45,31 @@ public class TaskFragment extends Fragment {
     TextView statusTextView;
     private Map<String, Object> task;
     private String type;
+    private boolean editable;
+    @InjectView(R.id.fragment_check_task_status_layout)
+    RelativeLayout mStatusRelativeLayout;
+    @InjectView(R.id.fragment_check_task_status_next)
+    ImageView mStatusImageView;
 
-    public static TaskFragment newInstance(Map<String, Object> task, String type) {
+    public static TaskFragment newInstance(Map<String, Object> task, String type, boolean editable) {
         TaskFragment fragment = new TaskFragment();
         Bundle args = new Bundle();
         args.putSerializable(MaintainActivity.EXTRA_TASK, (java.io.Serializable) task);
         args.putString(MainActivity.EXTRA_TYPE, type);
+        args.putBoolean(MainActivity.EXTRA_EDITABLE, editable);
         fragment.setArguments(args);
         return fragment;
     }
 
-    @OnClick(R.id.fab)
-    public void doApply() {
-        //维保任务提交审核
-        String newValue = "5";
-        new TaskEditTask((String)task.get("ID"), type, "任务状态", newValue).execute();
-        task.put("单位联系人", newValue);
-        displayData();
-    }
-
     @OnClick(R.id.fragment_check_task_status_layout)
     public void changeTaskStatus() {
-        Map choices = DataType.getCheckTaskStatusMap();
-        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf((String)task.get("任务状态")), new OnChangeListener() {
+        int status = -1;
+        if(!("").equals((String)task.get("任务状态"))) {
+            status = Integer.valueOf((String)task.get("任务状态"));
+        }
+        Map choices = DataType.getCheckTaskStatusMap(status);
+        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, status,
+                new OnChangeListener() {
             @Override
             public void onChange(String oldValue, String newValue) {
                 new TaskEditTask((String)task.get("ID"), type, "状态", newValue).execute();
@@ -88,6 +88,7 @@ public class TaskFragment extends Fragment {
 
         task = (Map<String, Object>) getArguments().get(MaintainActivity.EXTRA_TASK);
         type = getArguments().getString(MainActivity.EXTRA_TYPE);
+        editable = getArguments().getBoolean(MainActivity.EXTRA_EDITABLE);
     }
 
     @Override
@@ -97,17 +98,31 @@ public class TaskFragment extends Fragment {
         ButterKnife.inject(this, rootView);
 
         displayData();
-        fab.attachToScrollView(scrollView);
 
         return rootView;
     }
 
     private void displayData() {
+        String status = (String)task.get("任务状态");
+        if(("1").equals(status)) {
+            editable = false;
+        }
+        if(!editable) {
+            mStatusRelativeLayout.setBackgroundColor(DataType.readOnlyBackgroundColor);
+            mStatusImageView.setVisibility(View.INVISIBLE);
+        }
+
         nameTextView.setText((String)task.get("任务名称"));
         companyTextView.setText((String)task.get("单位名称"));
         senderTextView.setText((String)task.get("派单人姓名"));
         sendDateTextView.setText((String)task.get("派单时间"));
-        statusTextView.setText(DataType.getCheckTaskStatus(Integer.valueOf((String)task.get("任务状态"))));
+
+        if(null != status && !("").equals(status) ) {
+            String statusName = DataType.getCheckTaskStatus(Integer.valueOf(status));
+            statusTextView.setText(statusName);
+        } else {
+            statusTextView.setText("");
+        }
     }
 
     private class TaskEditTask extends AsyncTask<Void, Void, Boolean> {
@@ -131,8 +146,8 @@ public class TaskFragment extends Fragment {
                 return App.getHttpServer().editTask(taskId, type, columns, values);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
+                return null;
             }
-            return null;
         }
 
         @Override
@@ -142,11 +157,19 @@ public class TaskFragment extends Fragment {
 
         @Override
         protected void onPostExecute(final Boolean success) {
+            afterTaskEdit(success);
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
         }
 
+    }
+
+    private void afterTaskEdit(Boolean edit) {
+        if(null == edit) {
+            Toast.makeText(getActivity(), getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            return;
+        }
     }
 
 }
