@@ -95,5 +95,6 @@
 
     <string name="no_data">没有数据</string>
     <string name="validate_not_pass">未通过验证</string>
+    <string name="pref_version">版本</string>
 
 </resources>

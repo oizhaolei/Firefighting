@@ -130,6 +130,17 @@
         </service>
         <!-- push结束 -->
 
+        <receiver android:name=".StartupBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".VersionCheckReceiver"
+            android:enabled="true" />
+
     </application>
 
 </manifest>

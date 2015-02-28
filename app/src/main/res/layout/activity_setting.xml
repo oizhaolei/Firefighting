@@ -51,6 +51,38 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/activity_about_version_view"
+                style="@style/editable_field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/activity_about_title_textview"
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pref_version" />
+
+                <TextView
+                    android:id="@+id/activity_about_email_textview"
+                    style="@style/field_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/activity_about_submenu_imageview"
+                    android:layout_toRightOf="@+id/activity_about_title_textview" />
+
+                <ImageView
+                    android:id="@+id/activity_about_submenu_imageview"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:id="@+id/activity_setting_logout_layout"
                 style="@style/editable_field_layout"
                 android:layout_width="fill_parent"
@@ -76,6 +108,7 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
+
 
         </LinearLayout>
     </ScrollView>

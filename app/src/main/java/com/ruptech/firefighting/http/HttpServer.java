@@ -36,10 +36,8 @@ public class HttpServer extends HttpConnection {
     private static final String API_WORKLOG_EDIT = "WorkLog/WorkLogEdit.aspx";
     private static final String API_BAIDU_PUSH_REGISTER = "ThirdParty/Baidu/BaiduUserTokenSave.aspx";
     private static final String API_VALIDAT_ENTERPRISECODE = "Common/ValidateEnterpriseCode.aspx";
-
+    private static final String API_VERSION = "version.txt";
     private final String TAG = HttpServer.class.getSimpleName();
-
-    // Low-level interface
 
     private static String strJoin(String[] aArr, String sSep) {
         StringBuilder sbStr = new StringBuilder();
@@ -49,6 +47,18 @@ public class HttpServer extends HttpConnection {
             sbStr.append(aArr[i]);
         }
         return sbStr.toString();
+    }
+
+    // Low-level interface
+
+    public int ver() {
+        try {
+            Response res = _get(API_VERSION, null);
+            String str = res.getBody();
+            return Integer.parseInt(str);
+        } catch (InterruptedException e) {
+            return 0;
+        }
     }
 
     public Map<String, Object> genEmptyWorklog(String taskId, String type) throws JSONException {
