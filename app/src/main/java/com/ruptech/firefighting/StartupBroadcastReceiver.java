@@ -19,20 +19,18 @@ public class StartupBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         Log.i(TAG, "action = " + action);
+
+        cancelVersionCheck(context);
         if (TextUtils.equals(action, ConnectivityManager.CONNECTIVITY_ACTION)) {
             int connectivity = NetUtil.getNetworkState(context);
 
-
-            if (connectivity == NetUtil.NETWORN_NONE) {
-                cancelVersionCheck(context);
-            } else {
+            if (connectivity != NetUtil.NETWORN_NONE) {
                 //version check
                 startVersionCheck(context);
             }
         } else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
             Log.d(TAG, "System shutdown, stopping service.");
 
-            cancelVersionCheck(context);
         } else {
             startVersionCheck(context);
         }
