@@ -180,7 +180,8 @@ public class LoginActivity extends ActionBarActivity {
                 user = App.getHttpServer().userLogin(mUsername, mPassword);
                 App.saveUser(user);
             } catch (Exception e) {
-                return null;
+                Log.e(TAG, e.getMessage(), e);
+                return false;
             }
 
             return true;
