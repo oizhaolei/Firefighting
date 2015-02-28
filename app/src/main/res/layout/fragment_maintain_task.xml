@@ -206,6 +206,34 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_action_next_item" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fragment_maintain_task_reason_layout"
+                style="@style/field_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/field_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_task_reason" />
+
+                <TextView
+                    android:id="@+id/fragment_maintain_task_reason"
+                    style="@style/field_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/fragment_maintain_task_reason_next" />
+
+                <ImageView
+                    android:id="@+id/fragment_maintain_task_reason_next"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_action_next_item"
+                    android:visibility="invisible"/>
+            </RelativeLayout>
         </LinearLayout>
     </com.melnykov.fab.ObservableScrollView>
 

@@ -165,8 +165,9 @@ public class ItemActivity extends ActionBarActivity {
                         @Override
                         public void onChange(String oldValue, String newValue) {
                             String itemId = (String)item.get("ID");
-                            // TODO
+
                             // 企业编码校验
+                            new ValidateEnterpriseCodeTask(newValue).execute();
                             item.put("企业编码", newValue);
                             displayData();
                         }
@@ -488,7 +489,7 @@ public class ItemActivity extends ActionBarActivity {
         if(null == newId) {
             Toast.makeText(ItemActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
         } else if(!("").equals(newId)) {
-            item.put("PartId",newId);
+            item.put("ID",newId);
         }
     }
 
@@ -618,6 +619,50 @@ public class ItemActivity extends ActionBarActivity {
                 });
 
         dialog.show(getFragmentManager(), getString(R.string.field_item_error));
+    }
+
+    private class ValidateEnterpriseCodeTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String code;
+
+        private ProgressDialog progressDialog;
+
+        public ValidateEnterpriseCodeTask(String code) {
+            this.code = code;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                return App.getHttpServer().validateEnterpriseCode(code);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean result) {
+            afterValidateEnterpriseCode(result);
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(ItemActivity.this, ItemActivity.this.getString(R.string.progress_title), ItemActivity.this.getString(R.string.progress_message), true, false);
+        }
+    }
+
+    private void afterValidateEnterpriseCode(Boolean result) {
+        if(null == result) {
+            Toast.makeText(ItemActivity.this, getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+        } else if(!result) {
+            Toast.makeText(ItemActivity.this, getString(R.string.validate_not_pass), Toast.LENGTH_SHORT).show();
+        } else {
+            // TODO ...
+        }
     }
 
 }

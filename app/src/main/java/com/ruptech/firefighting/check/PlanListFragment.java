@@ -53,7 +53,7 @@ public class PlanListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail_plans, null);
+        View view = inflater.inflate(R.layout.fragment_check_plans, null);
         ButterKnife.inject(this, view);
         return view;
 

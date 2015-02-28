@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.ruptech.firefighting.main.MainActivity;
 import org.json.JSONException;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +97,7 @@ public class ItemListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail_items, null);
+        View view = inflater.inflate(R.layout.fragment_items, null);
         ButterKnife.inject(this, view);
         return view;
 
@@ -175,9 +177,9 @@ public class ItemListFragment extends ListFragment {
                 // 修好但未交工
                 statusTextView3.setText((String)status.get("option")
                         + "(" + (String)status.get("count") + ")");
-                if(!("0").equals((String)status.get("count"))) {
-                    isOk = isOk && false;
-                }
+//                if(!("0").equals((String)status.get("count"))) {
+//                    isOk = isOk && false;
+//                }
             }
         }
 
@@ -201,14 +203,14 @@ public class ItemListFragment extends ListFragment {
             Map<String, Object> item = (Map<String, Object>) data.getSerializableExtra(RETURN_ITEM);
             if (currentItem == items.size()) {
                 // 新增部件
-                if( !("").equals((String)item.get("企业编码"))
-                        || !("").equals((String)item.get("故障内容"))
+                if( !("").equals((String)item.get("故障内容"))
                         || !("").equals((String)item.get("结束时间"))
                         || !("").equals((String)item.get("系统类型ID"))
                         || !("").equals((String)item.get("设备单项"))
                         || !("").equals((String)item.get("故障单项"))
                         || !("").equals((String)item.get("维修措施"))
                         || !("").equals((String)item.get("维修状态"))
+                        //|| !("").equals((String)item.get("企业编码"))
                         ) {
                     items.add(0, item);
                     needRefresh = true;
@@ -225,10 +227,96 @@ public class ItemListFragment extends ListFragment {
                 setListAdapter(adapter);
 //                ((ItemListArrayAdapter) getListAdapter()).notifyDataSetChanged();
 
+                refreshSummary();
+
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void refreshSummary() {
+        boolean isOk = true;
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, Gravity.LEFT);
+        lp.weight = 1.0f;
+        statusTextView1.setLayoutParams(lp);
+        statusTextView2.setLayoutParams(lp);
+        statusTextView3.setLayoutParams(lp);
+        statusTextView1.setVisibility(View.VISIBLE);
+        statusTextView2.setVisibility(View.VISIBLE);
+        statusTextView3.setVisibility(View.VISIBLE);
+
+        int count_status2 = 0;
+        int count_status3 = 0;
+        int count_status4 = 0;
+        for(Map<String, Object> item : items) {
+            String status = (String)item.get("维修状态");
+            if(("2").equals(status)) {
+                count_status2 ++;
+            } else if(("3").equals(status)) {
+                count_status3 ++;
+            } else if(("4").equals(status)) {
+                count_status4 ++;
+            }
+        }
+        for(int i = 0; i < sum.size(); i ++) {
+            Map<String, Object> status = sum.get(i);
+            String code = (String)status.get("code");
+            String option = (String)status.get("option");
+            if(("2").equals(code)) {
+                // 正在执行
+
+                Map<String, Object> newStatus = new HashMap<String, Object>();
+                newStatus.put("option", option);
+                newStatus.put("code", code);
+                newStatus.put("count", count_status2);
+                sum.remove(i);
+                sum.add(i, newStatus);
+
+                statusTextView1.setText(option + "(" + count_status2 + ")");
+
+                if(0 != count_status2) {
+                    isOk = isOk && false;
+                }
+            } else if(("3").equals(code)) {
+                // 挂起
+                Map<String, Object> newStatus = new HashMap<String, Object>();
+                newStatus.put("option", option);
+                newStatus.put("code", code);
+                newStatus.put("count", count_status3);
+                sum.remove(i);
+                sum.add(i, newStatus);
+
+                statusTextView2.setText(option + "(" + count_status3 + ")");
+
+                if(0 != count_status3) {
+                    isOk = isOk && false;
+                }
+            } else if(("4").equals(code)) {
+                // 修好但未交工
+                Map<String, Object> newStatus = new HashMap<String, Object>();
+                newStatus.put("option", option);
+                newStatus.put("code", code);
+                newStatus.put("count", count_status4);
+                sum.remove(i);
+                sum.add(i, newStatus);
+
+                statusTextView3.setText(option + "(" + count_status4 + ")");
+//                if(0 != count_status4) {
+//                    isOk = isOk && false;
+//                }
+            }
+        }
+
+        if(isOk) {
+            // 全部修好
+            lp.weight = 3.0f;
+            statusTextView3.setLayoutParams(lp);
+            statusTextView3.setText("全部修好");
+            statusTextView1.setVisibility(View.GONE);
+            statusTextView2.setVisibility(View.GONE);
+        }
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -303,6 +391,8 @@ public class ItemListFragment extends ListFragment {
         adapter.addAll(items);
         setListAdapter(adapter);
 //                ((ItemListArrayAdapter) getListAdapter()).notifyDataSetChanged();
+
+        refreshSummary();
     }
 
     private class DeleteBackgroundTask extends AsyncTask<Void, Void, Boolean> {

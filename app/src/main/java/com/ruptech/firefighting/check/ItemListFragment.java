@@ -1,6 +1,5 @@
 package com.ruptech.firefighting.check;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -26,11 +25,11 @@ import com.ruptech.firefighting.App;
 import com.ruptech.firefighting.R;
 import com.ruptech.firefighting.dialog.ComfirmDialog;
 import com.ruptech.firefighting.main.MainActivity;
-import com.ruptech.firefighting.utils.DialogTool;
 
 import org.json.JSONException;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -98,7 +97,7 @@ public class ItemListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail_items, null);
+        View view = inflater.inflate(R.layout.fragment_items, null);
         ButterKnife.inject(this, view);
 
         return view;
@@ -222,6 +221,8 @@ public class ItemListFragment extends ListFragment {
                 adapter.addAll(items);
                 setListAdapter(adapter);
 //                ((ItemListArrayAdapter) getListAdapter()).notifyDataSetChanged();
+
+                refreshSummary();
             }
         }
 
@@ -235,6 +236,85 @@ public class ItemListFragment extends ListFragment {
         //new DetailBackgroundTask(itemId, DataType.TYPE_CHECK).execute();
         new DetailBackgroundTask(itemId, type).execute();
 
+    }
+
+    private void refreshSummary() {
+        boolean isOk = false;
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, Gravity.LEFT);
+        lp.weight = 1.0f;
+        statusTextView1.setLayoutParams(lp);
+        statusTextView2.setLayoutParams(lp);
+        statusTextView3.setLayoutParams(lp);
+        statusTextView1.setVisibility(View.VISIBLE);
+        statusTextView2.setVisibility(View.VISIBLE);
+        statusTextView3.setVisibility(View.VISIBLE);
+
+        int count_status2 = 0;
+        int count_status1 = 0;
+        int count_status0 = 0;
+        for(Map<String, Object> item : items) {
+            String status = (String)item.get("检查状态");
+            if(("2").equals(status)) {
+                count_status2 ++;
+            } else if(("1").equals(status)) {
+                count_status1 ++;
+            } else if(("0").equals(status)) {
+                count_status0 ++;
+            }
+        }
+
+        for(int i = 0; i < sum.size(); i ++) {
+            Map<String, Object> status = sum.get(i);
+            String code = (String)status.get("code");
+            String option = (String)status.get("option");
+            if(("2").equals((String)status.get("code"))) {
+                // 待检
+
+                Map<String, Object> newStatus = new HashMap<String, Object>();
+                newStatus.put("option", option);
+                newStatus.put("code", code);
+                newStatus.put("count", count_status2);
+                sum.remove(i);
+                sum.add(i, newStatus);
+
+                statusTextView1.setText(option + "(" + count_status2 + ")");
+                if(0 == count_status2) {
+                    isOk = true;
+                }
+            } else if(("1").equals((String)status.get("code"))) {
+                // 故障
+
+                Map<String, Object> newStatus = new HashMap<String, Object>();
+                newStatus.put("option", option);
+                newStatus.put("code", code);
+                newStatus.put("count", count_status1);
+                sum.remove(i);
+                sum.add(i, newStatus);
+
+                statusTextView2.setText(option + "(" + count_status1 + ")");
+
+            } else if(("0").equals((String)status.get("code"))) {
+                // 正常
+                Map<String, Object> newStatus = new HashMap<String, Object>();
+                newStatus.put("option", option);
+                newStatus.put("code", code);
+                newStatus.put("count", count_status0);
+                sum.remove(i);
+                sum.add(i, newStatus);
+
+                statusTextView3.setText(option + "(" + count_status0 + ")");
+            }
+        }
+
+        if(isOk) {
+            // 全部修好
+            lp.weight = 3.0f;
+            statusTextView3.setLayoutParams(lp);
+            statusTextView3.setText("全部完成");
+            statusTextView1.setVisibility(View.GONE);
+            statusTextView2.setVisibility(View.GONE);
+        }
     }
 
     private void openDetail(Map<String, Object> item) {
@@ -300,6 +380,8 @@ public class ItemListFragment extends ListFragment {
         adapter.addAll(items);
         setListAdapter(adapter);
 //                ((ItemListArrayAdapter) getListAdapter()).notifyDataSetChanged();
+
+        refreshSummary();
     }
 
     private class DeleteBackgroundTask extends AsyncTask<Void, Void, Boolean> {

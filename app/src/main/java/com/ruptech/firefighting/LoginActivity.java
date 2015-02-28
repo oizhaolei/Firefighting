@@ -30,9 +30,9 @@ public class LoginActivity extends ActionBarActivity {
     private static final String TAG = LoginActivity.class.getName();
 
     // UI references.
-    @InjectView(R.id.username)
+    @InjectView(R.id.login_username)
     EditText mUsernameView;
-    @InjectView(R.id.password)
+    @InjectView(R.id.login_password)
     EditText mPasswordView;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -71,7 +71,7 @@ public class LoginActivity extends ActionBarActivity {
 
     }
 
-    @OnClick(R.id.username_sign_in_button)
+    @OnClick(R.id.login_sign_in_button)
     public void doSign() {
         attemptLogin();
     }

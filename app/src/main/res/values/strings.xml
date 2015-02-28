@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">消防维保</string>
+    <string name="app_name">消防维保系统</string>
 
     <!-- Strings related to login -->
     <string name="prompt_username">用户名</string>
@@ -31,6 +31,7 @@
     <string name="logout">退出</string>
     <string name="logout_summary">退出账户</string>
     <string name="field_task_status">任务状态</string>
+    <string name="field_task_reason">审核意见</string>
     <string name="field_task_manager_name">联系人</string>
     <string name="field_task_manager_tel">联系电话</string>
     <string name="field_work_title">标题</string>
@@ -93,5 +94,6 @@
     <string name="wifi_and_3g_networks_are_not_available">WIFI和3G网络都不可用。</string>
 
     <string name="no_data">没有数据</string>
+    <string name="validate_not_pass">未通过验证</string>
 
 </resources>

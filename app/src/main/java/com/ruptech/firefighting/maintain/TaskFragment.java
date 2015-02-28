@@ -1,6 +1,8 @@
 package com.ruptech.firefighting.maintain;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import com.ruptech.firefighting.dialog.ChoiceDialog;
 import com.ruptech.firefighting.dialog.EditTextDialog;
 import com.ruptech.firefighting.dialog.OnChangeListener;
 import com.ruptech.firefighting.main.MainActivity;
+import com.ruptech.firefighting.utils.Utils;
 
 import java.util.Map;
 
@@ -48,6 +51,10 @@ public class TaskFragment extends Fragment {
     TextView sendDateTextView;
     @InjectView(R.id.fragment_maintain_task_status)
     TextView statusTextView;
+    @InjectView(R.id.fragment_maintain_task_reason)
+    TextView reasonTextView;
+    @InjectView(R.id.fragment_maintain_task_reason_layout)
+    RelativeLayout reasonRelativeLayout;
     private Map<String, Object> task;
     private String type;
     private boolean editable;
@@ -76,51 +83,67 @@ public class TaskFragment extends Fragment {
 
     @OnClick(R.id.fragment_maintain_task_manager_name_layout)
     public void changeManagerName() {
-        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), (String)task.get("单位联系人"), new OnChangeListener() {
-            @Override
-            public void onChange(String oldValue, String newValue) {
-                new TaskEditTask((String)task.get("ID"), type, "单位联系人", newValue).execute();
-                task.put("单位联系人", newValue);
-                displayData();
-            }
-        });
+        if(editable) {
+            EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_name), (String) task.get("单位联系人"), new OnChangeListener() {
+                @Override
+                public void onChange(String oldValue, String newValue) {
+                    new TaskEditTask((String) task.get("ID"), type, "单位联系人", newValue).execute();
+                    task.put("单位联系人", newValue);
+                    displayData();
+                }
+            });
 
-        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_name));
+            dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_name));
+        }
     }
 
     @OnClick(R.id.fragment_maintain_task_manager_tel_layout)
     public void changeManagerTel() {
-        EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), (String)task.get("单位联系人电话"), new OnChangeListener() {
-            @Override
-            public void onChange(String oldValue, String newValue) {
-                new TaskEditTask((String)task.get("ID"), type, "单位联系人电话", newValue).execute();
-                task.put("单位联系人电话", newValue);
-                displayData();
-            }
-        });
-        dialog.setInputType(InputType.TYPE_CLASS_PHONE);
+        if(editable) {
+            EditTextDialog dialog = EditTextDialog.newInstance(getString(R.string.field_task_manager_tel), (String) task.get("单位联系人电话"), new OnChangeListener() {
+                @Override
+                public void onChange(String oldValue, String newValue) {
+                    if(Utils.isMobileNumber(newValue) || Utils.isPhoneNumber(newValue)) {
+                        new TaskEditTask((String) task.get("ID"), type, "单位联系人电话", newValue).execute();
+                        task.put("单位联系人电话", newValue);
+                        displayData();
+                    } else {
+                        Toast.makeText(getActivity(), getString(R.string.validate_not_pass), Toast.LENGTH_SHORT).show();
+                    }
 
-        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_tel));
+                }
+            });
+            dialog.setInputType(InputType.TYPE_CLASS_PHONE);
+
+            dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_manager_tel));
+        }
+    }
+
+    public void callManagerTel() {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + managerTelTextView.getText()));
+        startActivity(intent);
     }
 
     @OnClick(R.id.fragment_maintain_task_status_layout)
     public void changeTaskStatus() {
-        int status = -1;
-        if(!("").equals((String)task.get("任务状态"))) {
-            status = Integer.valueOf((String)task.get("任务状态"));
-        }
-        Map choices = DataType.getMaintainTaskStatusMap(status);
-        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(status),
-                new OnChangeListener() {
-            @Override
-            public void onChange(String oldValue, String newValue) {
-                new TaskEditTask((String)task.get("ID"), type, "任务状态", newValue).execute();
-                task.put("任务状态", newValue);
-                displayData();
+        if(editable) {
+            int status = -1;
+            if (!("").equals((String) task.get("任务状态"))) {
+                status = Integer.valueOf((String) task.get("任务状态"));
             }
-        });
+            Map choices = DataType.getMaintainTaskStatusMap(status);
+            ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, Integer.valueOf(status),
+                    new OnChangeListener() {
+                        @Override
+                        public void onChange(String oldValue, String newValue) {
+                            new TaskEditTask((String) task.get("ID"), type, "任务状态", newValue).execute();
+                            task.put("任务状态", newValue);
+                            displayData();
+                        }
+                    });
 
-        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_status));
+            dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_status));
+        }
     }
 
     @Override
@@ -147,6 +170,7 @@ public class TaskFragment extends Fragment {
     private void displayData() {
         String status = (String)task.get("任务状态");
         if(("5").equals(status)) {
+            // 等待审核
             editable = false;
         }
         if(!editable) {
@@ -172,6 +196,18 @@ public class TaskFragment extends Fragment {
             statusTextView.setText("");
         }
 
+        reasonTextView.setText((String)task.get("审核意见"));
+
+        displayReason(status);
+    }
+
+    private void displayReason(String status) {
+        if(("6").equals(status)) {
+            // 审核不合格
+            reasonRelativeLayout.setVisibility(View.VISIBLE);
+        } else {
+            reasonRelativeLayout.setVisibility(View.GONE);
+        }
     }
 
     private class TaskEditTask extends AsyncTask<Void, Void, Boolean> {

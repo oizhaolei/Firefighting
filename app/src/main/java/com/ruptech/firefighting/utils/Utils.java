@@ -9,6 +9,8 @@ import com.ruptech.firefighting.R;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ls_gao on 2015/2/10.
@@ -73,4 +75,28 @@ public class Utils {
         return workhour;
     }
 
+    public static boolean isMobileNumber(String str) {
+        //移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
+        //联通：130、131、132、152、155、156、185、186
+        //电信：133、153、180、189、（1349卫通）
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    public static boolean isPhoneNumber(String str) {
+        Pattern p1 = null, p2 = null;
+        Matcher m = null;
+        boolean b = false;
+        p1 = Pattern.compile("^[0][1-9]{2,3}[-]?[0-9]{5,10}$");  // 验证带区号的
+        p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
+        if(str.length() > 9) {
+            m = p1.matcher(str);
+            b = m.matches();
+        } else {
+            m = p2.matcher(str);
+            b = m.matches();
+        }
+        return b;
+    }
 }

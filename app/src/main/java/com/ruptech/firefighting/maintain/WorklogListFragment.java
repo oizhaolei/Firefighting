@@ -104,7 +104,7 @@ public class WorkLogListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail_worklogs, null);
+        View view = inflater.inflate(R.layout.fragment_worklogs, null);
         ButterKnife.inject(this, view);
         return view;
     }

@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".detail.DetailActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/fragment_detail_plan_top"
+        style="@style/field_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

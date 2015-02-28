@@ -15,12 +15,14 @@
 
             <TextView
                 android:id="@+id/item_workhour_worker"
+                style="@style/field_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/item_workhour_spend"
+                style="@style/field_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -33,12 +35,14 @@
 
             <TextView
                 android:id="@+id/item_workhour_start"
+                style="@style/field_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/item_workhour_end"
+                style="@style/field_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />

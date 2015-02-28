@@ -10,23 +10,26 @@
 
         <TextView
             android:id="@+id/item_maintain_item_no"
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/item_maintain_item_address"
-            style="@style/field_title"
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/item_maintain_item_status"
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
 
         <TextView
             android:id="@+id/item_maintain_item_content"
+            style="@style/field_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

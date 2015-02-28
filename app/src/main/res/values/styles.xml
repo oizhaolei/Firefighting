@@ -21,4 +21,20 @@
     <style name="field_value">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
+
+    <style name="button_text">
+        <item name="android:color">@color/field_title_color</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="sub_title">
+        <item name="android:color">@color/field_title_color</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="app_name">
+        <item name="android:color">@color/field_title_color</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
 </resources>

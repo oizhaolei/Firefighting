@@ -3,8 +3,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".detail.DetailActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/fragment_detail_worklog_top"
@@ -16,6 +15,7 @@
 
         <Button
             android:id="@+id/fragment_detail_worklog_add_btn"
+            style="@style/button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,14 +46,13 @@
 
     <TextView
         android:id="@+id/fragment_detail_worklog_bottom"
+        style="@style/sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:editable="false"
         android:minHeight="40dp"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/info_text_color"
-        android:textStyle="bold"
-        android:textSize="20dp" />
+        android:textColor="@color/info_text_color" />
 
 </RelativeLayout>

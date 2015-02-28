@@ -35,6 +35,7 @@ public class HttpServer extends HttpConnection {
     private static final String API_WORKLOG_DETAIL = "WorkLog/WorkLogDetail.aspx";
     private static final String API_WORKLOG_EDIT = "WorkLog/WorkLogEdit.aspx";
     private static final String API_BAIDU_PUSH_REGISTER = "ThirdParty/Baidu/BaiduUserTokenSave.aspx";
+    private static final String API_VALIDAT_ENTERPRISECODE = "Common/ValidateEnterpriseCode.aspx";
 
     private final String TAG = HttpServer.class.getSimpleName();
 
@@ -494,6 +495,21 @@ public class HttpServer extends HttpConnection {
         }
     }
 
+    public boolean validateEnterpriseCode(String code)
+            throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("code", code);
+
+        Response res = _get(API_VALIDAT_ENTERPRISECODE, params);
+        JSONObject result = res.asJSONObject();
+
+        boolean success = result.getBoolean("success");
+        if (!success) {
+            throw new RuntimeException(result.getString("message"));
+        }
+        return success;
+    }
+
     protected Response _get(String ifPage, Map<String, String> params) throws InterruptedException {
         String url = genRequestURL(ifPage, params);
         if (BuildConfig.DEBUG) {
@@ -534,6 +550,8 @@ public class HttpServer extends HttpConnection {
         } else if ((API_ITEM_LIST).equals(ifPage)) {
             response = get(url);
         } else if ((API_COMPANY).equals(ifPage)) {
+            response = get(url);
+        } else if((API_VALIDAT_ENTERPRISECODE).equals(ifPage)) {
             response = get(url);
         } else {
             response = get(url);

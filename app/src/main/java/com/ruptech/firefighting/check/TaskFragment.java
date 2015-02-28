@@ -43,6 +43,10 @@ public class TaskFragment extends Fragment {
     TextView sendDateTextView;
     @InjectView(R.id.fragment_check_task_status)
     TextView statusTextView;
+    @InjectView(R.id.fragment_check_task_reason)
+    TextView reasonTextView;
+    @InjectView(R.id.fragment_check_task_reason_layout)
+    RelativeLayout reasonRelativeLayout;
     private Map<String, Object> task;
     private String type;
     private boolean editable;
@@ -63,22 +67,24 @@ public class TaskFragment extends Fragment {
 
     @OnClick(R.id.fragment_check_task_status_layout)
     public void changeTaskStatus() {
-        int status = -1;
-        if(!("").equals((String)task.get("任务状态"))) {
-            status = Integer.valueOf((String)task.get("任务状态"));
-        }
-        Map choices = DataType.getCheckTaskStatusMap(status);
-        ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, status,
-                new OnChangeListener() {
-            @Override
-            public void onChange(String oldValue, String newValue) {
-                new TaskEditTask((String)task.get("ID"), type, "状态", newValue).execute();
-                task.put("任务状态", newValue);
-                displayData();
+        if(editable) {
+            int status = -1;
+            if (!("").equals((String) task.get("任务状态"))) {
+                status = Integer.valueOf((String) task.get("任务状态"));
             }
-        });
+            Map choices = DataType.getCheckTaskStatusMap(status);
+            ChoiceDialog dialog = ChoiceDialog.newInstance(getString(R.string.field_task_status), choices, status,
+                    new OnChangeListener() {
+                        @Override
+                        public void onChange(String oldValue, String newValue) {
+                            new TaskEditTask((String) task.get("ID"), type, "状态", newValue).execute();
+                            task.put("任务状态", newValue);
+                            displayData();
+                        }
+                    });
 
-        dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_status));
+            dialog.show(getActivity().getFragmentManager(), getString(R.string.field_task_status));
+        }
     }
 
     @Override
@@ -122,6 +128,17 @@ public class TaskFragment extends Fragment {
             statusTextView.setText(statusName);
         } else {
             statusTextView.setText("");
+        }
+
+        reasonTextView.setText((String)task.get("审核意见"));
+    }
+
+    private void displayReason(String status) {
+        if(("2").equals(status)) {
+            // 未通过审核
+            reasonRelativeLayout.setVisibility(View.VISIBLE);
+        } else {
+            reasonRelativeLayout.setVisibility(View.GONE);
         }
     }
 
